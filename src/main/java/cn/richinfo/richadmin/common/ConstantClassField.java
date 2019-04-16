@@ -55,7 +55,12 @@ public class ConstantClassField {
     public static final String PROJECTCHECKDATE="0 0 1 5 * ?";
     public static final String MANAGERCHECKDATE="0 0 1 5 * ?";
 
-
+    /**
+     * #定时计算考核表
+     */
+    public static final String CHECKDATE="0 0 12 * * ?";
+    public static final String WINBIDDINGDATE="0 0 0/4 * * ?";
+    public static final String VALUETASK="0 0 1 5 * ?";
 
     /**
      * 项目进度里程碑为：初验
@@ -77,6 +82,5 @@ public class ConstantClassField {
      * 项目回款里程碑为：尾款
      */
     public static final String WEIKUAN="尾款";
-
 
 }
