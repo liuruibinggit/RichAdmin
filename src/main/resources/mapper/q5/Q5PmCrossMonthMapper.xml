@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.Q5.Q5PmCrossMonthMapper">
+    <resultMap type="Q5PmCrossMonth" id="q5PmCrossMonthMap">
+        <id property="id" column="id" />
+        <result property="projectNum" column="project_num" />
+        <result property="pmNum" column="pm_num" />
+        <result property="projectManHour" column="project_man_hour" />
+        <result property="crossMonth" column="cross_month" />
+        <result property="totalManHour" column="total_man_hour" />
+        <result property="pmName" column="pm_name" />
+        <result property="workTime" column="work_time" />
+        <result property="createTime" column="create_time" />
+    </resultMap>
+
+    <insert id="insert" parameterType="Q5PmCrossMonth">
+        insert into
+        q5_pm_cross_month
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="projectNum != null">
+                project_num,
+            </if>
+            <if test="pmNum != null">
+                pm_num,
+            </if>
+            <if test="projectManHour != null">
+                project_man_hour,
+            </if>
+            <if test="crossMonth != null">
+                cross_month,
+            </if>
+            <if test="totalManHour != null">
+                total_man_hour,
+            </if>
+            <if test="pmName != null">
+                pm_name,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="workTime != null">
+                work_time
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="projectNum != null">
+                #{projectNum},
+            </if>
+            <if test="pmNum != null">
+                #{pmNum},
+            </if>
+            <if test="projectManHour != null">
+                #{projectManHour},
+            </if>
+            <if test="crossMonth != null">
+                #{crossMonth},
+            </if>
+            <if test="totalManHour != null">
+                #{totalManHour},
+            </if>
+            <if test="pmName != null">
+                #{pmName},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="workTime != null">
+                #{workTime}
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectCrossMonth" parameterType="Q5PmCrossMonth"
+            resultMap="q5PmCrossMonthMap">
+        select *
+        from q5_pm_cross_month
+        where project_num =
+        #{projectNum} and pm_num = #{pmNum} and work_time = #{workTime}
+    </select>
+
+    <select id="selectCrossMonthByCondition" parameterType="Q5PmCrossMonth"
+            resultMap="q5PmCrossMonthMap">
+        select *
+        from q5_pm_cross_month
+        where project_num =
+        #{projectNum}  and work_time = #{workTime}
+    </select>
+
+    <delete id="delete" parameterType="Q5PmCrossMonth">
+        delete from q5_pm_cross_month
+        where project_num = #{projectNum} and pm_num = #{pmNum} and work_time
+        = #{workTime}
+    </delete>
+</mapper>

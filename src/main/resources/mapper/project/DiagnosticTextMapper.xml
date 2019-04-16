@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.ProjectMapper.DiagnosticTextMapper" >
+    <resultMap id="BaseResultMap" type="cn.richinfo.richadmin.Entity.project.DiagnosticText" >
+        <id column="diagnostic_text_id" property="diagnosticTextId" />
+        <result column="project_num" property="projectNum" />
+        <result column="project_name" property="projectName" />
+        <result column="describee" property="describe" />
+        <result column="conclusion" property="conclusion" />
+        <result column="suggest" property="suggest" />
+        <result column="warn_type" property="warnType" />
+        <result column="month" property="month" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        diagnostic_text_id, project_num, project_name, describee, conclusion, suggest, warn_type,month
+    </sql>
+    <select id="selectByProjectNum" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from diagnostic_text
+        where project_num = #{projectNum} and month=
+        (select MAX(month) from diagnostic_text WHERE project_num=#{projectNum} )
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from diagnostic_text
+        where diagnostic_text_id = #{diagnosticTextId}
+    </delete>
+    <insert id="insert" parameterType="DiagnosticText" >
+        insert into diagnostic_text (diagnostic_text_id, project_num, project_name,
+        describee, conclusion, suggest,
+        warn_type,month)
+        values (#{diagnosticTextId}, #{projectNum}, #{projectName},
+        #{describe}, #{conclusion}, #{suggest},
+        #{warnType},NOW())
+    </insert>
+    <insert id="insertSelective" parameterType="DiagnosticText" >
+        insert into diagnostic_text
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="diagnosticTextId != null" >
+                diagnostic_text_id,
+            </if>
+            <if test="projectNum != null" >
+                project_num,
+            </if>
+            <if test="projectName != null" >
+                project_name,
+            </if>
+            <if test="describe != null" >
+                describee,
+            </if>
+            <if test="conclusion != null" >
+                conclusion,
+            </if>
+            <if test="suggest != null" >
+                suggest,
+            </if>
+            <if test="warnType != null" >
+                warn_type,
+            </if>
+            month,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="diagnosticTextId != null" >
+                #{diagnosticTextId},
+            </if>
+            <if test="projectNum != null" >
+                #{projectNum},
+            </if>
+            <if test="projectName != null" >
+                #{projectName},
+            </if>
+            <if test="describe != null" >
+                #{describe},
+            </if>
+            <if test="conclusion != null" >
+                #{conclusion},
+            </if>
+            <if test="suggest != null" >
+                #{suggest},
+            </if>
+            <if test="warnType != null" >
+                #{warnType},
+            </if>
+            <!-- CONCAT(DATE_FORMAT(NOW(),'%Y-08-31')), -->
+            NOW(),
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="DiagnosticText" >
+        update diagnostic_text
+        <set >
+            <if test="projectNum != null" >
+                project_num = #{projectNum},
+            </if>
+            <if test="projectName != null" >
+                project_name = #{projectName},
+            </if>
+            <if test="describe != null" >
+                describee = #{describe},
+            </if>
+            <if test="conclusion != null" >
+                conclusion = #{conclusion},
+            </if>
+            <if test="suggest != null" >
+                suggest = #{suggest},
+            </if>
+            <if test="warnType != null" >
+                warn_type = #{warnType},
+            </if>
+        </set>
+        where diagnostic_text_id = #{diagnosticTextId}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="DiagnosticText" >
+        update diagnostic_text
+        set project_num = #{projectNum},
+        project_name = #{projectName},
+        describee = #{describe},
+        conclusion = #{conclusion},
+        suggest = #{suggest},
+        warn_type = #{warnType}
+        where diagnostic_text_id = #{diagnosticTextId}
+    </update>
+    <delete id="deleteAll">
+        delete  from diagnostic_text
+    </delete>
+
+    <!--按年月删除项目诊断信息  -->
+    <delete id="deleteDiagnostictextByYearAndMonth" parameterType="Date" >
+        delete from diagnostic_text where month >=  #{startYearAndMonth}
+    </delete>
+
+
+</mapper>

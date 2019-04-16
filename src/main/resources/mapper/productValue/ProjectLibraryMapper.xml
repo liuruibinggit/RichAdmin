@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.ProjectValue.ProjectLibraryMapper">
+
+    <resultMap id="BaseResultMap" type="cn.richinfo.richadmin.Entity.projectValue.ProjectLibrary" >
+        <id column="p_id" property="pId" />
+        <result column="project_num" property="projectNum" />
+        <result column="project_name" property="projectName" />
+        <result column="dept" property="dept"  />
+        <result column="contract_cost" property="contractCost" />
+        <result column="out_cost" property="outCost" />
+        <result column="output_value" property="outputValue" />
+        <result column="project_type" property="projectType" />
+        <result column="start_time" property="startTime"  />
+        <result column="stop_time" property="stopTime"  />
+        <result column="create_time" property="createTime"  />
+        <result column="cycle" property="cycle" />
+        <result column="month_cycle" property="monthCycle" />
+        <result column="is_next" property="isNext"  />
+        <result column="is_frame" property="isFrame" />
+        <result column="turnover" property="turnover" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        p_id, project_num, project_name, dept, contract_cost, out_cost, output_value, project_type,
+        start_time, stop_time, create_time, cycle, month_cycle,is_next,is_frame,turnover
+    </sql>
+
+    <insert id="insertProjectLibrary" parameterType="cn.richinfo.richadmin.Entity.projectValue.ProjectLibrary" >
+        insert into project_library
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="pId != null" >
+                p_id,
+            </if>
+            <if test="projectNum != null" >
+                project_num,
+            </if>
+            <if test="projectName != null" >
+                project_name,
+            </if>
+            <if test="dept != null" >
+                dept,
+            </if>
+            <if test="contractCost != null" >
+                contract_cost,
+            </if>
+            <if test="outCost != null" >
+                out_cost,
+            </if>
+            <if test="outputValue != null" >
+                output_value,
+            </if>
+            <if test="projectType != null" >
+                project_type,
+            </if>
+            <if test="startTime != null" >
+                start_time,
+            </if>
+            <if test="stopTime != null" >
+                stop_time,
+            </if>
+            <if test="cycle != null" >
+                cycle,
+            </if>
+            <if test="monthCycle != null" >
+                month_cycle,
+            </if>
+            <if test="isNext != null" >
+                is_next,
+            </if>
+            <if test="isFrame != null" >
+                is_frame,
+            </if>
+            <if test="turnover != null" >
+                turnover,
+            </if>
+            create_time
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="pId != null" >
+                #{pId},
+            </if>
+            <if test="projectNum != null" >
+                #{projectNum},
+            </if>
+            <if test="projectName != null" >
+                #{projectName},
+            </if>
+            <if test="dept != null" >
+                #{dept},
+            </if>
+            <if test="contractCost != null" >
+                #{contractCost},
+            </if>
+            <if test="outCost != null" >
+                #{outCost},
+            </if>
+            <if test="outputValue != null" >
+                #{outputValue},
+            </if>
+            <if test="projectType != null" >
+                #{projectType},
+            </if>
+            <if test="startTime != null" >
+                #{startTime},
+            </if>
+            <if test="stopTime != null" >
+                #{stopTime},
+            </if>
+            <if test="cycle != null" >
+                #{cycle},
+            </if>
+            <if test="monthCycle != null" >
+                #{monthCycle},
+            </if>
+            <if test="isNext != null" >
+                #{isNext},
+            </if>
+            <if test="isFrame != null" >
+                #{isFrame},
+            </if>
+            <if test="turnover != null" >
+                #{turnover},
+            </if>
+            now()
+        </trim>
+    </insert>
+
+    <!--根据项目编号进行更新操作-->
+    <update id="updateByProjectNum" parameterType="ProjectLibrary" >
+        update project_library
+        <set >
+            <if test="projectName != null" >
+                project_name = #{projectName},
+            </if>
+            <if test="dept != null" >
+                dept = #{dept},
+            </if>
+            <if test="contractCost != null" >
+                contract_cost = #{contractCost},
+            </if>
+            <if test="outCost != null" >
+                out_cost = #{outCost},
+            </if>
+            <if test="outputValue != null" >
+                output_value = #{outputValue},
+            </if>
+            <if test="projectType != null" >
+                project_type = #{projectType},
+            </if>
+            <if test="startTime != null" >
+                start_time = #{startTime},
+            </if>
+            <if test="stopTime != null" >
+                stop_time = #{stopTime},
+            </if>
+            <if test="cycle != null" >
+                cycle = #{cycle},
+            </if>
+            <if test="monthCycle != null" >
+                month_cycle = #{monthCycle},
+            </if>
+            <if test="isNext != null" >
+                is_next = #{isNext},
+            </if>
+            <if test="isFrame != null" >
+                is_frame = #{isFrame},
+            </if>
+            <if test="turnover != null" >
+                turnover = #{turnover},
+            </if>
+            create_time = now()
+        </set>
+        where project_num = #{projectNum}
+    </update>
+
+    <!--获取预立项 实施类项目的信息库-->
+    <select id="getApprovalLibraryInfo" resultMap="BaseResultMap">
+     SELECT aif.project_num AS projectNum, aif.project_name AS projectName,aif.is_dept AS dept,aif.contract_amount AS contractCost,
+    (aif.purchasing_cost+aif.outsourcing_cost) AS outCost,
+    (CASE
+         WHEN is_project=0 THEN (aif.contract_amount-aif.purchasing_cost-aif.outsourcing_cost)
+         WHEN is_project=1 THEN ((aif.contract_amount-aif.purchasing_cost-aif.outsourcing_cost)*aif.success_rate)
+         ELSE '' END
+    )AS outputValue,
+      aif.project_type AS projectType,
+    (CASE is_project
+        WHEN 0 THEN (CASE aif.project_type
+                                WHEN '外协类'
+                  THEN (CASE cif.contract_start_time WHEN '' THEN aif.start_time ELSE cif.contract_start_time END)
+                                WHEN '系统集成类'
+                  THEN aif.start_time
+                  END
+                                )
+        WHEN 1 THEN aif.start_time
+        END
+    ) AS startTime,
+    (CASE is_project
+     WHEN 0 THEN  (CASE aif.project_type
+                                    WHEN '外协类'
+                                    THEN (CASE cif.contract_end_time WHEN '' THEN aif.stop_time ELSE cif.contract_end_time END)
+                                    WHEN '系统集成类'
+                                    THEN aif.stop_time
+                                    END
+                                    )
+      WHEN 1 THEN  (CASE aif.project_type
+                                    WHEN '外协类'
+                                    THEN  aif.stop_time
+                                    WHEN '系统集成类'
+                                    THEN aif.iniTestDate
+                                    END
+                     )
+      END
+    )AS stopTime,
+    ((SELECT TIMESTAMPDIFF(MONTH,startTime,stopTime))+1) AS cycle,
+    (SELECT outputValue/cycle) AS month_cycle
+    FROM approval_information  aif
+    LEFT JOIN contract_information cif
+    ON aif.project_num =cif.project_num
+
+  </select>
+
+    <!--根据项目编号获取项目信息库信息-->
+    <select id="selectProjectLibraryByProjectNum" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from project_library where project_num = #{projectNum}
+    </select>
+
+    <!--获取企业业务单元中2人月以下项目信息库信息-->
+    <select id="getEnterpriseDeptSmallerTwoMonthLibraryInfo" resultMap="BaseResultMap">
+        SELECT
+        cif.project_num AS projectNum,cif.project_name AS projectName,
+        cif.dept AS dept,'' AS projectType,
+        cif.contract_amount AS contractCost,bif.other_cost AS outCost,
+        (SELECT (contractCost-outCost)) AS outputValue,
+        cif.contract_start_time AS startTime,
+        (select last_day(cif.contract_start_time) ) AS stopTime,
+        ((SELECT TIMESTAMPDIFF(MONTH,startTime,stopTime))+1) AS cycle,
+        (SELECT outputValue/cycle) AS month_cycle
+            FROM contract_information cif
+            INNER JOIN bidding_information bif
+            ON bif.project_num=cif.project_num
+            WHERE  cif.dept='企业业务单元'
+            AND cif.is_signing=1
+            AND cif.project_num !=''
+            AND bif.budgeted_total_hours &lt;2
+    </select>
+
+    <!--投标管理中取得“已中标”的且为“过路单”的项目-->
+    <select id="getBidProjectLibraryInfo" resultMap="BaseResultMap">
+        SELECT  cif.project_num AS projectNum,cif.project_name AS projectName, cif.dept AS dept,'' AS projectType,
+        (
+            CASE cif.contract_amount
+            WHEN 0.00 THEN bif.final_offer
+          ELSE cif.contract_amount END
+        ) AS contractCost,
+        (bif.outsourcing_cost+bif.purchase_cost) AS outCost,
+        (bif.final_offer/(1+0.16)-budgeted_cost) AS outputValue
+        FROM bidding_information bif
+        INNER JOIN contract_information cif
+        ON bif.project_num=cif.project_num
+        WHERE bif.is_bid='是'
+        AND bif.is_outsourcing='过路单'
+    </select>
+
+</mapper>

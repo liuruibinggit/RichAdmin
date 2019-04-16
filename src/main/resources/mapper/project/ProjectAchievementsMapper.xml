@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.ProjectMapper.ProjectAchievementsMapper" >
+    <resultMap id="BaseResultMap" type="ProjectAchievements" >
+        <id column="project_num" property="projectNum"  />
+        <result column="project_name" property="projectName" />
+        <result column="project_type" property="projectType"  />
+        <result column="project_state" property="projectState"  />
+        <result column="project_manager" property="projectManager"  />
+        <result column="dept" property="dept"  />
+        <result column="speed1" property="speed1"  />
+        <result column="speed2" property="speed2"  />
+        <result column="manhour1" property="manhour1"  />
+        <result column="manhour2" property="manhour2"  />
+        <result column="payment1" property="payment1"  />
+        <result column="payment2" property="payment2"  />
+        <result column="cost1" property="cost1" />
+        <result column="cost2" property="cost2" />
+        <result column="gross_profit1" property="grossProfit1" />
+        <result column="gross_profit2" property="grossProfit2"  />
+        <result column="settlementr1" property="settlementr1" />
+        <result column="settlementr2" property="settlementr2"  />
+        <result column="room" property="room" />
+        <result column="is_dept" property="isDept" />
+        <result column="score" property="score" />
+        <result column="rolling_maori_score" property="rollingMaoriScore" />
+        <result column="acceptance_progress_score" property="acceptanceProgressScore" />
+        <result column="return_progress_score" property="returnProgressScore" />
+        <result column="settlement_rate_score" property="settlementRateScore" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        project_num, project_name, project_type, project_state, project_manager, dept, speed1,
+        speed2, manhour1, manhour2, payment1, payment2, cost1, cost2, gross_profit1, gross_profit2,
+        settlementr1, settlementr2
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from project_achievements
+        where project_num = #{projectNum}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from project_achievements
+        where project_num = #{projectNum}
+    </delete>
+
+    <delete id="delete">
+        delete from project_achievements
+    </delete>
+
+    <insert id="insert" parameterType="ProjectAchievements" >
+        insert into project_achievements (project_num, project_name, project_type,
+        project_state, project_manager, dept,
+        speed1, speed2, manhour1,
+        manhour2, payment1, payment2,
+        cost1, cost2, gross_profit1,
+        gross_profit2, settlementr1, settlementr2,is_dept,room,score
+        )
+        values (#{projectNum}, #{projectName}, #{projectType},
+        #{projectState}, #{projectManager}, #{dept},
+        #{speed1}, #{speed2}, #{manhour1},
+        #{manhour2}, #{payment1}, #{payment2},
+        #{cost1}, #{cost2}, #{grossProfit1},
+        #{grossProfit2}, #{settlementr1}, #{settlementr2},#{isDept},#{room},#{score}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="ProjectAchievements" >
+        insert into project_achievements
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="projectNum != null" >
+                project_num,
+            </if>
+            <if test="projectName != null" >
+                project_name,
+            </if>
+            <if test="projectType != null" >
+                project_type,
+            </if>
+            <if test="projectState != null" >
+                project_state,
+            </if>
+            <if test="projectManager != null" >
+                project_manager,
+            </if>
+            <if test="dept != null" >
+                dept,
+            </if>
+            <if test="speed1 != null" >
+                speed1,
+            </if>
+            <if test="speed2 != null" >
+                speed2,
+            </if>
+            <if test="manhour1 != null" >
+                manhour1,
+            </if>
+            <if test="manhour2 != null" >
+                manhour2,
+            </if>
+            <if test="payment1 != null" >
+                payment1,
+            </if>
+            <if test="payment2 != null" >
+                payment2,
+            </if>
+            <if test="cost1 != null" >
+                cost1,
+            </if>
+            <if test="cost2 != null" >
+                cost2,
+            </if>
+            <if test="grossProfit1 != null" >
+                gross_profit1,
+            </if>
+            <if test="grossProfit2 != null" >
+                gross_profit2,
+            </if>
+            <if test="settlementr1 != null" >
+                settlementr1,
+            </if>
+            <if test="settlementr2 != null" >
+                settlementr2,
+            </if>
+            <if test="isDept != null" >
+                is_dept,
+            </if>
+            <if test="room != null" >
+                room,
+            </if>
+            <if test="score != null" >
+                score,
+            </if>
+            <if test="rollingMaoriScore != null" >
+                rolling_maori_score,
+            </if>
+            <if test="acceptanceProgressScore != null" >
+                acceptance_progress_score,
+            </if>
+            <if test="returnProgressScore != null" >
+                return_progress_score,
+            </if>
+            <if test="settlementRateScore != null" >
+                settlement_rate_score,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="projectNum != null" >
+                #{projectNum},
+            </if>
+            <if test="projectName != null" >
+                #{projectName},
+            </if>
+            <if test="projectType != null" >
+                #{projectType},
+            </if>
+            <if test="projectState != null" >
+                #{projectState},
+            </if>
+            <if test="projectManager != null" >
+                #{projectManager},
+            </if>
+            <if test="dept != null" >
+                #{dept},
+            </if>
+            <if test="speed1 != null" >
+                #{speed1},
+            </if>
+            <if test="speed2 != null" >
+                #{speed2},
+            </if>
+            <if test="manhour1 != null" >
+                #{manhour1},
+            </if>
+            <if test="manhour2 != null" >
+                #{manhour2},
+            </if>
+            <if test="payment1 != null" >
+                #{payment1},
+            </if>
+            <if test="payment2 != null" >
+                #{payment2},
+            </if>
+            <if test="cost1 != null" >
+                #{cost1},
+            </if>
+            <if test="cost2 != null" >
+                #{cost2},
+            </if>
+            <if test="grossProfit1 != null" >
+                #{grossProfit1},
+            </if>
+            <if test="grossProfit2 != null" >
+                #{grossProfit2},
+            </if>
+            <if test="settlementr1 != null" >
+                #{settlementr1},
+            </if>
+            <if test="settlementr2 != null" >
+                #{settlementr2},
+            </if>
+            <if test="isDept != null" >
+                #{isDept},
+            </if>
+            <if test="room != null" >
+                #{room},
+            </if>
+            <if test="score != null" >
+                #{score},
+            </if>
+            <if test="rollingMaoriScore != null" >
+                #{rollingMaoriScore},
+            </if>
+            <if test="acceptanceProgressScore != null" >
+                #{acceptanceProgressScore},
+            </if>
+            <if test="returnProgressScore != null" >
+                #{returnProgressScore},
+            </if>
+            <if test="settlementRateScore != null" >
+                #{settlementRateScore},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="ProjectAchievements" >
+        update project_achievements
+        <set >
+            <if test="projectName != null" >
+                project_name = #{projectName},
+            </if>
+            <if test="projectType != null" >
+                project_type = #{projectType},
+            </if>
+            <if test="projectState != null" >
+                project_state = #{projectState},
+            </if>
+            <if test="projectManager != null" >
+                project_manager = #{projectManager},
+            </if>
+            <if test="dept != null" >
+                dept = #{dept},
+            </if>
+            <if test="speed1 != null" >
+                speed1 = #{speed1},
+            </if>
+            <if test="speed2 != null" >
+                speed2 = #{speed2},
+            </if>
+            <if test="manhour1 != null" >
+                manhour1 = #{manhour1},
+            </if>
+            <if test="manhour2 != null" >
+                manhour2 = #{manhour2},
+            </if>
+            <if test="payment1 != null" >
+                payment1 = #{payment1},
+            </if>
+            <if test="payment2 != null" >
+                payment2 = #{payment2},
+            </if>
+            <if test="cost1 != null" >
+                cost1 = #{cost1},
+            </if>
+            <if test="cost2 != null" >
+                cost2 = #{cost2},
+            </if>
+            <if test="grossProfit1 != null" >
+                gross_profit1 = #{grossProfit1},
+            </if>
+            <if test="grossProfit2 != null" >
+                gross_profit2 = #{grossProfit2},
+            </if>
+            <if test="settlementr1 != null" >
+                settlementr1 = #{settlementr1},
+            </if>
+            <if test="settlementr2 != null" >
+                settlementr2 = #{settlementr2},
+            </if>
+            <if test="isDept != null" >
+                is_dept=#{isDept},
+            </if>
+            <if test="room != null" >
+                room=#{room},
+            </if>
+        </set>
+        where project_num = #{projectNum}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="ProjectAchievements" >
+        update project_achievements
+        set project_name = #{projectName},
+        project_type = #{projectType},
+        project_state = #{projectState},
+        project_manager = #{projectManager},
+        dept = #{dept},
+        speed1 = #{speed1},
+        speed2 = #{speed2},
+        manhour1 = #{manhour1},
+        manhour2 = #{manhour2},
+        payment1 = #{payment1},
+        payment2 = #{payment2},
+        cost1 = #{cost1},
+        cost2 = #{cost2},
+        gross_profit1 = #{grossProfit1},
+        gross_profit2 = #{grossProfit2},
+        settlementr1 = #{settlementr1},
+        settlementr2 = #{settlementr2},
+        is_dept=#{isDept},
+        room=#{room}
+        where project_num = #{projectNum}
+    </update>
+
+    <select id="selectProject" resultMap="BaseResultMap" parameterType="ProjectAchievements">
+        select * from project_achievements where 1=1
+        <if test="projectNum != null and projectNum != ''">
+            and project_num = #{projectNum}
+        </if>
+        <if test="projectName != null and projectName != ''">
+            and locate(#{projectName},project_name)>0
+        </if>
+        <if test="projectState != null and projectState != ''">
+            and project_state = #{projectState}
+        </if>
+        <if test="projectType != null and projectType != ''">
+            and project_type=#{projectType}
+        </if>
+        <if test="projectManager != null and projectManager != ''">
+            and project_manager = #{projectManager}
+        </if>
+        <if test="dept != null and dept != ''">
+            and dept = #{dept}
+        </if>
+        <if test="speed >0">
+            and speed1 >= #{speed}
+        </if>
+        <if test="speed &lt; 0">
+            <![CDATA[	and speed1 <= #{speed}]]>
+        </if>
+        <if test="minManhours != null">
+            and manhour2 >= #{minManhours}
+        </if>
+        <if test="maxManhours != null">
+            <![CDATA[and manhour2 <= #{maxManhours}]]>
+        </if>
+        <if test="minCost != null">
+            and cost2 >= #{minCost}
+        </if>
+        <if test="maxCost != null">
+            <![CDATA[and cost2 <= #{maxCost}]]>
+        </if>
+        <if test="minPayment != null">
+            and payment1 >= #{minPayment}
+        </if>
+        <if test="maxPayment != null">
+            <![CDATA[and payment1 <= #{maxPayment}]]>
+        </if>
+        <if test="minGrossprofit != null">
+            and gross_profit1 >=#{minGrossprofit}
+        </if>
+        <if test="maxGrossprofit != null">
+            <![CDATA[and gross_profit1 <= #{maxGrossprofit}]]>
+        </if>
+        <if test="minSettlementr != null">
+            and settlementr2 >=#{minSettlementr}
+        </if>
+        <if test="maxSettlementr != null">
+            <![CDATA[and settlementr2 <= #{maxSettlementr}]]>
+        </if>
+        <if test="room != null and room != ''">
+            and room=#{room}
+        </if>
+        <if test="isDept != null and isDept != ''">
+            and is_dept=#{isDept}
+        </if>
+        order by score asc
+    </select>
+
+    <select id="selectCountProject" resultType="int" parameterType="ProjectAchievements">
+        select count(*) from project_achievements where 1=1
+        <if test="projectNum != null and projectNum != ''">
+            and project_num = #{projectNum}
+        </if>
+        <if test="projectName != null and projectName != ''">
+            and locate(#{projectName},project_name)>0
+        </if>
+        <if test="projectState != null and projectState != ''">
+            and project_state = #{projectState}
+        </if>
+        <if test="projectType != null and projectType != ''">
+            and project_type=#{projectType}
+        </if>
+        <if test="projectManager != null and projectManager != ''">
+            and project_manager = #{projectManager}
+        </if>
+        <if test="dept != null and dept != ''">
+            and dept = #{dept}
+        </if>
+        <if test="speed > 0">
+            and speed1 >= #{speed}
+        </if>
+        <if test="speed &lt; 0">
+            <![CDATA[	and speed1 <= #{speed}]]>
+        </if>
+        <if test="minManhours != null">
+            and manhour2 >= #{minManhours}
+        </if>
+        <if test="maxManhours != null">
+            <![CDATA[and manhour2 <= #{maxManhours}]]>
+        </if>
+        <if test="minCost != null">
+            and cost2 >= #{minCost}
+        </if>
+        <if test="maxCost != null">
+            <![CDATA[and cost2 <= #{maxCost}]]>
+        </if>
+        <if test="minPayment != null">
+            and payment1 >= #{minPayment}
+        </if>
+        <if test="maxPayment != null">
+            <![CDATA[and payment1 <= #{maxPayment}]]>
+        </if>
+        <if test="minGrossprofit != null">
+            and gross_profit1 >=#{minGrossprofit}
+        </if>
+        <if test="maxGrossprofit != null">
+            <![CDATA[and gross_profit1 <= #{maxGrossprofit}]]>
+        </if>
+        <if test="minSettlementr != null">
+            and settlementr2 >=#{minSettlementr}
+        </if>
+        <if test="maxSettlementr != null">
+            <![CDATA[and settlementr2 <= #{maxSettlementr}]]>
+        </if>
+        <if test="room != null and room != ''">
+            and room=#{room}
+        </if>
+        <if test="isDept != null and isDept != ''">
+            and is_dept=#{isDept}
+        </if>
+    </select>
+
+</mapper>

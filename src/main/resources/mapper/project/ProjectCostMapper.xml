@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.ProjectMapper.ProjectCostMapper" >
+    <resultMap id="BaseResultMap" type="ProjectCost" >
+        <id column="c_id" property="cId"  />
+        <result column="sort" property="sort"  />
+        <result column="plan_cost" property="planCost"  />
+        <result column="plan_year" property="planYear"  />
+        <result column="labor_cost" property="laborCost"  />
+        <result column="expense_reimbursement" property="expenseReimbursement" />
+        <result column="cost1" property="cost1"  />
+        <result column="cost2" property="cost2" />
+        <result column="create_time" property="createTime" />
+        <result column="dept" property="dept"  />
+        <result column="project_num" property="projectNum"  />
+        <result column="plan_month" property="planMonth"  />
+        <result column="history_cost" property="historyCost"  />
+        <result column="count_cost" property="countCost" />
+        <result column="unit_apportionment_cost" property="unitApportionmentCost" />
+        <result column="company_apportionment_cost" property="companyApportionmentCost" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        c_id, sort, plan_cost, plan_year, labor_cost, expense_reimbursement, cost1, cost2,
+        create_time, dept, project_num, plan_month,history_cost,count_cost,unit_apportionment_cost,company_apportionment_cost
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from project_cost
+        where project_num = #{projectNum} ORDER BY plan_year asc
+    </select>
+
+
+    <select id="selectForGrossprofit" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        *
+        from project_cost
+        where project_num = #{projectNum}
+    </select>
+
+    <select id="selectByNumYear" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from project_cost where project_num = #{projectNum} and plan_year = #{planYear}
+    </select>
+
+    <select id="selectByNumYear2" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from project_cost where project_num = #{projectNum}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from project_cost
+        where project_num = #{projectNum}
+    </delete>
+
+    <insert id="insertSelective" parameterType="ProjectCost" >
+        insert into project_cost
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="cId != null" >
+                c_id,
+            </if>
+            <if test="sort != null" >
+                sort,
+            </if>
+            <if test="planCost != null" >
+                plan_cost,
+            </if>
+            <if test="planYear != null" >
+                plan_year,
+            </if>
+            <if test="laborCost != null" >
+                labor_cost,
+            </if>
+            <if test="expenseReimbursement != null" >
+                expense_reimbursement,
+            </if>
+            <if test="cost1 != null" >
+                cost1,
+            </if>
+            <if test="cost2 != null" >
+                cost2,
+            </if>
+            <if test="dept != null" >
+                dept,
+            </if>
+            <if test="projectNum != null" >
+                project_num,
+            </if>
+            <if test="planMonth != null" >
+                plan_month,
+            </if>
+            <if test="historyCost != null" >
+                history_cost,
+            </if>
+            <if test="unitApportionmentCost != null" >
+                unit_apportionment_cost,
+            </if>
+            <if test="companyApportionmentCost != null" >
+                company_apportionment_cost,
+            </if>
+            <if test="countCost != null" >
+                count_cost,
+            </if>
+            create_time
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="cId != null" >
+                #{cId},
+            </if>
+            <if test="sort != null" >
+                #{sort},
+            </if>
+            <if test="planCost != null" >
+                #{planCost},
+            </if>
+            <if test="planYear != null" >
+                #{planYear},
+            </if>
+            <if test="laborCost != null" >
+                #{laborCost},
+            </if>
+            <if test="expenseReimbursement != null" >
+                #{expenseReimbursement},
+            </if>
+            <if test="cost1 != null" >
+                #{cost1},
+            </if>
+            <if test="cost2 != null" >
+                #{cost2},
+            </if>
+            <if test="dept != null" >
+                #{dept},
+            </if>
+            <if test="projectNum != null" >
+                #{projectNum},
+            </if>
+            <if test="planMonth != null" >
+                #{planMonth},
+            </if>
+            <if test="historyCost != null" >
+                #{historyCost},
+            </if>
+            <if test="unitApportionmentCost != null" >
+                #{unitApportionmentCost},
+            </if>
+            <if test="companyApportionmentCost != null" >
+                #{companyApportionmentCost},
+            </if>
+            <if test="countCost != null" >
+                #{countCost},
+            </if>
+            now()
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="ProjectCost" >
+        update project_cost set
+        plan_cost = #{planCost},
+        labor_cost = #{laborCost},
+        expense_reimbursement = #{expenseReimbursement},
+        cost1 = #{cost1},
+        cost2 = #{cost2},
+        dept = #{dept},
+        plan_month = #{planMonth},
+        history_cost = #{historyCost},
+        unit_apportionment_cost=#{unitApportionmentCost},
+        company_apportionment_cost=#{companyApportionmentCost},
+        count_cost = #{countCost},
+        create_time = now()
+        where project_num = #{projectNum}
+        and  plan_year = #{planYear}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="ProjectCost">
+        update project_cost
+        <set >
+            <if test="planCost != null" >
+                plan_cost = #{planCost},
+            </if>
+            <if test="laborCost != null" >
+                labor_cost = #{laborCost},
+            </if>
+            <if test="expenseReimbursement != null" >
+                expense_reimbursement = #{expenseReimbursement},
+            </if>
+            <if test="cost1 != null" >
+                cost1 = #{cost1},
+            </if>
+            <if test="cost2 != null" >
+                cost2 = #{cost2},
+            </if>
+            <if test="dept != null" >
+                dept = #{dept},
+            </if>
+            <if test="planMonth != null" >
+                plan_month = #{planMonth},
+            </if>
+            <if test="historyCost != null" >
+                history_cost = #{historyCost},
+            </if>
+            <if test="countCost != null" >
+                count_cost = #{countCost},
+            </if>
+            <if test="unitApportionmentCost !=null">
+                unit_apportionment_cost = #{unitApportionmentCost},
+            </if>
+            <if test="companyApportionmentCost != null">
+                company_apportionment_cost = #{companyApportionmentCost},
+            </if>
+            <if test = "sort > 0">
+                sort = #{sort},
+            </if>
+            create_time = now()
+        </set>
+        where project_num = #{projectNum} and plan_year = #{planYear}
+    </update>
+
+
+    <update id="updateIncreateHours" parameterType="ProjectCost">
+        update project_cost
+        <set >
+            <if test="planMonth != null" >
+                plan_month = #{planMonth},
+            </if>
+            create_time = now()
+        </set>
+        where project_num = #{projectNum}
+        and plan_year = #{planYear}
+    </update>
+
+    <select id="getPlanMonthHours" parameterType="String" resultType="double">
+        select sum(plan_month) from project_cost where project_num = #{projectNum}
+    </select>
+
+    <delete id="deleteProjectCostByPlanYearAndProjectNum" parameterType="ProjectCost">
+        delete  from project_cost
+        where project_num=#{projectNum} and plan_year=#{planYear}
+    </delete>
+    <select id="getMaxSort" parameterType="String" resultType="java.lang.Integer">
+        select max(sort) from project_cost where project_num=#{projectNum}
+    </select>
+
+
+    <update id="updateByCost" parameterType="ProjectCost">
+        update project_cost
+        <set >
+            <if test="laborCost != null" >
+                labor_cost = #{laborCost},
+            </if>
+            <if test="expenseReimbursement != null" >
+                expense_reimbursement = #{expenseReimbursement},
+            </if>
+            <if test="cost1 != null" >
+                cost1 = #{cost1},
+            </if>
+            <if test="cost2 != null" >
+                cost2 = #{cost2},
+            </if>
+            <if test="dept != null" >
+                dept = #{dept},
+            </if>
+            <if test="countCost != null" >
+                count_cost = #{countCost},
+            </if>
+            <if test="unitApportionmentCost !=null">
+                unit_apportionment_cost = #{unitApportionmentCost},
+            </if>
+            <if test="companyApportionmentCost != null">
+                company_apportionment_cost = #{companyApportionmentCost},
+            </if>
+            create_time = now()
+        </set>
+        where project_num = #{projectNum}  and plan_year = #{planYear}
+    </update>
+
+    <select id="getCountCost" parameterType="String" resultType="double">
+        select sum(cost1)+sum(cost2)+sum(labor_cost)+sum(expense_reimbursement)+sum(unit_apportionment_cost)
+        from project_cost
+        where project_num= #{projectNum}
+    </select>
+
+    <select id="getOctBeforeDateList" resultMap="BaseResultMap">
+        select * from project_cost where LENGTH(plan_year) &lt;6
+    </select>
+
+    <update id="updateById" parameterType="ProjectCost">
+        update project_cost set plan_year=#{planYear}
+        where c_id=#{cId}
+    </update>
+</mapper>

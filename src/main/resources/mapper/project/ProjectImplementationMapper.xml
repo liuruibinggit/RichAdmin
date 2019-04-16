@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.ProjectMapper.ProjectImplementationMapper" >
+    <resultMap id="BaseResultMap" type="ProjectImplementation" >
+        <id column="p_id" property="pId" />
+        <result column="project_num" property="projectNum"/>
+        <result column="project_state" property="projectState" />
+        <result column="is_next" property="isNext"  />
+        <result column="next_project_name" property="nextProjectName" />
+        <result column="implementation_stat" property="implementationStat"  />
+        <result column="project_progress" property="projectProgress"  />
+        <result column="pre_contract_money" property="preContractMoney"  />
+        <result column="remark" property="remark"  />
+        <result column="signing_progress" property="signingProgress" />
+        <result column="wy_work" property="wyWork" />
+        <result column="wy_assessment" property="wyAssessment" />
+        <result column="wy_money" property="wyMoney" />
+        <result column="wy_settlement_amount" property="wySettlementAmount" />
+        <result column="create_time" property="createTime" />
+        <result column="servicestop_time" property="servicestopTime"  />
+        <result column="isDept" property="is_dept" />
+        <result column="room" property="room" />
+        <result column="bonus_balance" property="bonusBalance"/>
+        <result column="dept" property="dept" />
+        <result column="modify_time" property="modifyTime" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        p_id, project_num, project_state, is_next, next_project_name, implementation_stat,
+        project_progress, pre_contract_money, remark, signing_progress, wy_work, wy_assessment,
+        wy_money, wy_settlement_amount,create_time,servicestop_time,is_dept,room,bonus_balance
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from project_implementation
+        where project_num = #{projectNum}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from project_implementation
+        where project_num = #{projectNum}
+    </delete>
+
+    <insert id="insertSelective" parameterType="ProjectImplementation" >
+        insert into project_implementation
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="pId != null" >
+                p_id,
+            </if>
+            <if test="projectNum != null" >
+                project_num,
+            </if>
+            <if test="projectState != null" >
+                project_state,
+            </if>
+            <if test="isNext != null" >
+                is_next,
+            </if>
+            <if test="nextProjectName != null" >
+                next_project_name,
+            </if>
+            <if test="implementationStat != null" >
+                implementation_stat,
+            </if>
+            <if test="projectProgress != null" >
+                project_progress,
+            </if>
+            <if test="preContractMoney != null" >
+                pre_contract_money,
+            </if>
+            <if test="remark != null" >
+                remark,
+            </if>
+            <if test="signingProgress != null" >
+                signing_progress,
+            </if>
+            <if test="wyWork != null" >
+                wy_work,
+            </if>
+            <if test="wyAssessment != null" >
+                wy_assessment,
+            </if>
+            <if test="wyMoney != null" >
+                wy_money,
+            </if>
+            <if test="wySettlementAmount != null" >
+                wy_settlement_amount,
+            </if>
+            <if test="servicestopTime != null">
+                servicestop_time,
+            </if>
+            <if test="isDept != null">
+                is_dept,
+            </if>
+            <if test="room != null">
+                room,
+            </if>
+            <if test="bonusBalance != null ">
+                bonus_balance,
+            </if>
+            create_time
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="pId != null" >
+                #{pId},
+            </if>
+            <if test="projectNum != null" >
+                #{projectNum},
+            </if>
+            <if test="projectState != null" >
+                #{projectState},
+            </if>
+            <if test="isNext != null" >
+                #{isNext},
+            </if>
+            <if test="nextProjectName != null" >
+                #{nextProjectName},
+            </if>
+            <if test="implementationStat != null" >
+                #{implementationStat},
+            </if>
+            <if test="projectProgress != null" >
+                #{projectProgress},
+            </if>
+            <if test="preContractMoney != null" >
+                #{preContractMoney},
+            </if>
+            <if test="remark != null" >
+                #{remark},
+            </if>
+            <if test="signingProgress != null" >
+                #{signingProgress},
+            </if>
+            <if test="wyWork != null" >
+                #{wyWork},
+            </if>
+            <if test="wyAssessment != null" >
+                #{wyAssessment},
+            </if>
+            <if test="wyMoney != null" >
+                #{wyMoney},
+            </if>
+            <if test="wySettlementAmount != null" >
+                #{wySettlementAmount},
+            </if>
+            <if test="servicestopTime != null">
+                #{servicestopTime},
+            </if>
+            <if test="isDept != null">
+                #{isDept},
+            </if>
+            <if test="room != null">
+                #{room},
+            </if>
+            <if test="bonusBalance != null ">
+                #{bonusBalance}	,
+            </if>
+            now()
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="ProjectImplementation" >
+        update project_implementation
+        <set >
+            <if test="projectState != null" >
+                project_state = #{projectState},
+            </if>
+            <if test="isNext != null" >
+                is_next = #{isNext},
+            </if>
+            <if test="nextProjectName != null" >
+                next_project_name = #{nextProjectName},
+            </if>
+            <if test="implementationStat != null" >
+                implementation_stat = #{implementationStat},
+            </if>
+            <if test="projectProgress != null" >
+                project_progress = #{projectProgress},
+            </if>
+            <if test="preContractMoney != null" >
+                pre_contract_money = #{preContractMoney},
+            </if>
+            <if test="remark != null" >
+                remark = #{remark},
+            </if>
+            <if test="signingProgress != null" >
+                signing_progress = #{signingProgress},
+            </if>
+            <if test="wyWork != null" >
+                wy_work = #{wyWork},
+            </if>
+            <if test="wyAssessment != null" >
+                wy_assessment = #{wyAssessment},
+            </if>
+            <if test="wyMoney != null" >
+                wy_money = #{wyMoney},
+            </if>
+            <if test="wySettlementAmount != null" >
+                wy_settlement_amount = #{wySettlementAmount},
+            </if>
+            <if test="servicestopTime != null">
+                servicestop_time = #{servicestopTime},
+            </if>
+            <if test="isDept != null">
+                is_dept = #{isDept},
+            </if>
+            <if test="room != null">
+                room = #{room},
+            </if>
+            <if test="bonusBalance != null ">
+                bonus_balance = #{bonusBalance},
+            </if>
+            modify_time = now()
+        </set>
+        where project_num = #{projectNum}
+    </update>
+
+    <select id="countNewApp" resultType="int" parameterType="String">
+        select count(*) from project_implementation where create_time >= #{startTime}
+        <![CDATA[ and create_time <= #{endTime} ]]>
+        <if test="dept != null and dept != ''">
+            and dept = #{dept}
+        </if>
+    </select>
+
+</mapper>

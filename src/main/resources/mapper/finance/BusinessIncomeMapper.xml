@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.Finance.BusinessIncomeMapper" >
+    <resultMap id="BaseResultMap" type="cn.richinfo.richadmin.Mapper.Finance.BusinessIncomeMapper" >
+        <id column="business_income_id" property="businessIncomeId"  />
+        <result column="signing_subject" property="signingSubject"  />
+        <result column="customer_name" property="customerName"  />
+        <result column="customer_type" property="customerType"  />
+        <result column="business_type" property="businessType"  />
+        <result column="project_name" property="projectName" />
+        <result column="project_type" property="projectType"  />
+        <result column="product_type" property="productType"  />
+        <result column="expect_project_cycle" property="expectProjectCycle"  />
+        <result column="signing_business_unit" property="signingBusinessUnit"  />
+        <result column="financial_income" property="financialIncome"  />
+        <result column="team" property="team"  />
+        <result column="business_income_total" property="businessIncomeTotal" />
+        <result column="remark" property="remark" />
+        <result column="obligate" property="obligate" />
+        <result column="obligate2" property="obligate2"  />
+        <result column="date" property="date"/>
+    </resultMap>
+
+    <insert id="insertSelective" keyProperty="businessIncomeId" useGeneratedKeys="true"
+            parameterType="cn.richinfo.richadmin.Entity.finance.BusinessIncome" >
+        insert into business_income
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="customerName != null and  customerName !=''" >
+                customer_name,
+            </if>
+            <if test="customerType != null and customerType !=''" >
+                customer_type,
+            </if>
+            <if test="businessType != null and businessType !=''" >
+                business_type,
+            </if>
+            <if test="projectName != null and projectName !=''" >
+                project_name,
+            </if>
+            <if test="projectType != null and projectType !=''" >
+                project_type,
+            </if>
+            <if test="productType != null and productType !=''" >
+                product_type,
+            </if>
+            <if test="expectProjectCycle != null and expectProjectCycle !=''" >
+                expect_project_cycle,
+            </if>
+            <if test="signingBusinessUnit != null and signingBusinessUnit !=''" >
+                signing_business_unit,
+            </if>
+            <if test="financialIncome != null and financialIncome !=''" >
+                financial_income,
+            </if>
+            <if test="team != null and team !=''" >
+                team,
+            </if>
+            <if test="businessIncomeTotal != null and businessIncomeTotal !=''" >
+                business_income_total,
+            </if>
+            <if test="remark != null and remark !=''" >
+                remark,
+            </if>
+            <if test="signingSubject != null and signingSubject !=''" >
+                signing_subject,
+            </if>
+            <if test="date != null and date !=''">
+                date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="customerName != null and customerName !=''">
+                #{customerName},
+            </if>
+            <if test="customerType != null and customerType !=''" >
+                #{customerType},
+            </if>
+            <if test="businessType != null and businessType !=''" >
+                #{businessType},
+            </if>
+            <if test="projectName != null and projectName !=''" >
+                #{projectName},
+            </if>
+            <if test="projectType != null and projectType !=''" >
+                #{projectType},
+            </if>
+            <if test="productType != null and productType !=''" >
+                #{productType},
+            </if>
+            <if test="expectProjectCycle != null and expectProjectCycle !=''" >
+                #{expectProjectCycle},
+            </if>
+            <if test="signingBusinessUnit != null and signingBusinessUnit !=''" >
+                #{signingBusinessUnit},
+            </if>
+            <if test="financialIncome != null and financialIncome !=''" >
+                #{financialIncome},
+            </if>
+            <if test="team != null and team !=''" >
+                #{team},
+            </if>
+            <if test="businessIncomeTotal != null and businessIncomeTotal !=''" >
+                #{businessIncomeTotal},
+            </if>
+            <if test="remark != null and remark !=''" >
+                #{remark},
+            </if>
+            <if test="signingSubject != null and signingSubject !=''" >
+                #{signingSubject},
+            </if>
+            <if test="date != null and date !=''">
+                #{date},
+            </if>
+        </trim>
+    </insert>
+    <select id="selectBusinessIncome" parameterType="cn.richinfo.richadmin.common.model.finance.BusinessIncomeModel" resultMap="BaseResultMap">
+        select distinct(a.business_income_id) as business_income_id,
+        a.project_name as project_name,
+        a.signing_subject as signing_subject,
+        a.customer_name as customer_name,
+        a.customer_type as customer_type,
+        a.business_type as business_type,
+        a.project_type as project_type,
+        a.product_type as product_type,
+        a.expect_project_cycle as expect_project_cycle,
+        a.signing_business_unit as signing_business_unit,
+        a.financial_income as financial_income,
+        a.team as team,
+        a.business_income_total as business_income_total,
+        a.remark as remark,
+        a.obligate as obligate,
+        a.date as date,
+        a.obligate2 as obligate2
+        from business_income a,business_income_value b
+        where a.business_income_id = b.business_income_id
+        <if test="projectName != null and projectName !='' ">
+            and a.project_name =#{projectName}
+        </if>
+        <if test="signingSubject != null and signingSubject != ''">
+            and a.signing_subject =#{signingSubject}
+        </if>
+        <if test="customerName != null and customerName !=''">
+            and a.customer_name =#{customerName}
+        </if>
+        <if test="customerType != null and customerType !=''">
+            and a.customer_type =#{customerType}
+        </if>
+        <if test="businessType != null and businessType !=''">
+            and a.business_type =#{businessType}
+        </if>
+        <if test="projectType != null and projectType !=''">
+            and a.project_type =#{projectType}
+        </if>
+        <if test="productType != null and productType !=''">
+            and a.product_type =#{productType}
+        </if>
+        <if test="financialIncome != null and financialIncome !=''">
+            and a.financial_income =#{financialIncome}
+        </if>
+        <if test="team != null and team !=''">
+            and a.team =#{team}
+        </if>
+        <if test="isExports != null and isExports !=''">
+            and b.month_value !=0
+        </if>
+        <if test="signingBusinessUnit != null and signingBusinessUnit !=''">
+            and  a.signing_business_unit=#{signingBusinessUnit}
+        </if>
+        <if test="date != null and date !=''">
+            and  b.date =#{date}
+        </if>
+        <if test="startMonth != null and startMonth !=''">
+            and b.month &gt;= #{startMonth}
+        </if>
+        <if test="endMonth != null and endMonth !=''">
+            and b.month &lt;= #{endMonth}
+        </if>
+        <if test="month != null and month !=''">
+            and b.month = #{month}
+        </if>
+    </select>
+
+    <delete id="deleteBusinessIncome" parameterType="cn.richinfo.richadmin.common.model.finance.BusinessIncomeModel">
+        delete from business_income where 1=2
+        <if test=" date != null and date !=''">
+            or date = #{date}
+        </if>
+    </delete>
+
+    <select id="getYearList" resultType="java.lang.String" parameterType="java.lang.String">
+        select DISTINCT left(date,4) as month from business_income
+        where length(date)=6
+    </select>
+
+    <select id="getMonthList" resultType="java.lang.String" parameterType="java.lang.String">
+        select DISTINCT right(date,2) as month from business_income
+        where left(date,4)=#{year} order by month asc
+    </select>
+
+    <select id="maxDate" resultType="java.lang.String" >
+        select max(date) from business_income where length(date)=6
+    </select>
+
+    <select id="getProjectNameList" parameterType="cn.richinfo.richadmin.Entity.finance.BusinessIncomeValue"
+            resultType="java.lang.String">
+        select DISTINCT(a.project_name)
+        from business_income a,business_income_value b
+        where a.business_income_id = b.business_income_id
+        <if test="month != null and month !=''">
+            and b.month = #{month}
+        </if>
+        <if test="signingBusinessUnit != null and signingBusinessUnit !=''">
+            and a.signing_business_unit = #{signingBusinessUnit}
+        </if>
+        <if test="startMonth != null and startMonth!=''">
+            and b.month &gt;=#{startMonth}
+        </if>
+        <if test="endMonth != null and endMonth !=''">
+            and b.month &lt;=#{endMonth}
+        </if>
+        <if test="date != null and date !=''">
+            and b.date = #{date}
+        </if>
+    </select>
+
+    <select id="getBusinessLineList" resultType="java.lang.String" >
+        select DISTINCT(signing_business_unit) from business_income
+    </select>
+
+    <select id="getCurMonth" parameterType="cn.richinfo.richadmin.common.dto.BusinessIncomeMarginDto"
+            resultType="cn.richinfo.richadmin.common.dto.BusinessIncomeMarginDto">
+        select a.customer_name as customerName,a.business_type as businessType,
+        a.project_name as projectName,a.project_type as projectType,
+        a.signing_business_unit as signingBusinessUnit,a.team as team ,
+        b.month_value as monthValue
+        from business_income a,business_income_value b
+        where a.business_income_id=b.business_income_id
+        <if test="projectName != null and projectName !=''">
+            and a.project_name=#{projectName}
+        </if>
+        <if test="month != null and month !=''">
+            and b.month =#{month}
+        </if>
+        <if test="year != null and year !=''">
+            and b.year=#{year}
+        </if>
+        <if test="date != null and date !=''">
+            and b.date=#{date}
+        </if>
+    </select>
+
+    <select id="sum"  parameterType="cn.richinfo.richadmin.common.dto.BusinessIncomeMarginDto"
+            resultType="cn.richinfo.richadmin.common.dto.BusinessIncomeMarginDto">
+        select a.customer_name as customerName,a.business_type as businessType,
+        a.project_name as projectName,a.project_type as projectType,
+        a.signing_business_unit as signingBusinessUnit,a.team as team ,
+        sum(b.month_value) as monthValue
+        from business_income a, business_income_value b
+        where a.business_income_id = b.business_income_id
+        <if test="date != null and date !=''">
+            and b.date=#{date}
+        </if>
+        <if test="year != null and year !=''">
+            and b.year=#{year}
+        </if>
+        <if test="signingBusinessUnit != null and signingBusinessUnit!=''">
+            and a.signing_business_unit=#{signingBusinessUnit}
+        </if>
+        <if test="startMonth != null and startMonth!=''">
+            and b.month &gt;=#{startMonth}
+        </if>
+        <if test="endMonth != null and endMonth !=''">
+            and b.month &lt;=#{endMonth}
+        </if>
+        <if test="projectName != null and projectName !=''">
+            and a.project_name = #{projectName}
+        </if>
+        <if test="month != null and month != ''">
+            and b.month = #{month}
+        </if>
+    </select>
+
+    <select id="getMonthByProject" parameterType="cn.richinfo.richadmin.common.dto.BusinessIncomeMarginDto" resultType="java.lang.String">
+        select b.month from business_income a ,business_income_value b
+        where a.business_income_id=b.business_income_id and b.month_value!=0.00
+        <if test="year != null and year !=''">
+            and b.year =#{year}
+        </if>
+        <if test="date != null and date != ''">
+            and b.date=#{date}
+        </if>
+        <if test="projectName != null and projectName !=''">
+            and a.project_name=#{projectName}
+        </if>
+    </select>
+
+    <select id="getSum" parameterType="cn.richinfo.richadmin.common.model.finance.BusinessIncomeModel"
+            resultType="java.lang.Double">
+        select IFNULL(sum(month_value),0) from business_income a ,business_income_value b
+        where a.business_income_id= b.business_income_id
+        <if test="projectName != null and projectName !='' ">
+            and a.project_name =#{projectName}
+        </if>
+        <if test="signingSubject != null and signingSubject !='' ">
+            and a.signing_subject =#{signingSubject}
+        </if>
+        <if test="customerName != null and customerName !=''">
+            and a.customer_name =#{customerName}
+        </if>
+        <if test="customerType != null and customerType !=''">
+            and a.customer_type =#{customerType}
+        </if>
+        <if test="businessType != null and businessType !=''">
+            and a.business_type =#{businessType}
+        </if>
+        <if test="projectType != null and projectType !=''">
+            and a.project_type =#{projectType}
+        </if>
+        <if test="productType != null and productType !=''">
+            and a.product_type =#{productType}
+        </if>
+        <if test="financialIncome != null and financialIncome !=''">
+            and a.financial_income =#{financialIncome}
+        </if>
+        <if test="team != null and team !=''">
+            and a.team =#{team}
+        </if>
+        <if test="date != null and date !='' ">
+            and b.date =#{date}
+        </if>
+        <if test="month != null and month !='' ">
+            and b.month = #{month}
+        </if>
+        <if test="signingBusinessUnit != null and signingBusinessUnit != ''">
+            and a.signing_business_unit=#{signingBusinessUnit}
+        </if>
+        <if test="year != null and year !=''">
+            and b.year = #{year}
+        </if>
+        <if test="startMonth != null and startMonth != ''">
+            and b.month &gt;= #{startMonth}
+        </if>
+        <if test="endMonth != null and endMonth !=''">
+            and b.month &lt;= #{endMonth}
+        </if>
+    </select>
+
+    <select id="selectByProjectName" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select * from business_income
+        where 1=2
+        <if test="businessIncomeId != null and businessIncomeId !=''">
+            or business_income_id = #{businessIncomeId}
+        </if>
+    </select>
+
+    <update id="update" parameterType="cn.richinfo.richadmin.Entity.finance.BusinessIncome">
+        update business_income
+        <set>
+            <if test="customerName != null " >
+                customer_name=#{customerName},
+            </if>
+            <if test="customerType != null" >
+                customer_type=#{customerType},
+            </if>
+            <if test="businessType != null " >
+                business_type =#{businessType},
+            </if>
+            <if test="projectType != null " >
+                project_type = #{projectType},
+            </if>
+            <if test="productType != null " >
+                product_type =#{productType},
+            </if>
+            <if test="expectProjectCycle != null " >
+                expect_project_cycle =#{expectProjectCycle},
+            </if>
+            <if test="signingBusinessUnit != null " >
+                signing_business_unit=#{signingBusinessUnit},
+            </if>
+            <if test="financialIncome != null " >
+                financial_income=#{financialIncome},
+            </if>
+            <if test="team != null and team !=''" >
+                team =#{team},
+            </if>
+            <if test="businessIncomeTotal != null " >
+                business_income_total =#{businessIncomeTotal},
+            </if>
+            <if test="remark != null " >
+                remark =#{remark},
+            </if>
+            <if test="signingSubject != null " >
+                signing_subject =#{signingSubject},
+            </if>
+        </set>
+        where 1= 2
+        <if test="projectName != null and projectName !=''" >
+            or   project_name = #{projectName}
+        </if>
+        <if test="date != null and date !=''">
+            and date=#{date}
+        </if>
+    </update>
+
+</mapper>

@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.ProjectMapper.ProjectStatusSecoreMapper">
+
+    <resultMap id="BaseResultMap" type="cn.richinfo.richadmin.Entity.project.ProjectStatusSecore" >
+        <id column="id" property="id" />
+        <result column="project_num" property="projectNum"  />
+        <result column="project_name" property="projectName" />
+        <result column="project_type" property="projectType" />
+        <result column="project_status" property="projectStatus" />
+        <result column="project_manager" property="projectManager" />
+        <result column="dept" property="dept" />
+        <result column="cost_count" property="costCount" />
+        <result column="hours_count" property="hoursCount" />
+        <result column="pay_count" property="payCount" />
+        <result column="settlementr" property="settlementr" />
+        <result column="grossprofit" property="grossprofit" />
+        <result column="cost_type" property="costType"/>
+        <result column="hours_type" property="hoursType"/>
+        <result column="speed_type" property="speedType" />
+        <result column="pay_type" property="payType" />
+        <result column="settlementr_type" property="settlementrType" />
+        <result column="grossprofit_type" property="grossprofitType" />
+        <result column="cost_secore" property="costSecory" />
+        <result column="hours_secore" property="hoursSecory" />
+        <result column="pay_secore" property="paySecory" />
+        <result column="settlementr_secore" property="settlementrSecory" />
+        <result column="grossprofit_secore" property="grossprofitSecory" />
+        <result column="count_secore" property="countSecory" />
+        <result column="month" property="month" />
+        <result column="create_time" property="createTime" />
+        <result column="modifiy_time" property="modifiyTime" />
+        <result column="is_dept" property="isDept" />
+        <result column="room" property="room" />
+        <result column="secore_level" property="secoreLevel" />
+        <result column="hours_level" property="hoursLevel" />
+        <result column="speed_level" property="speedLevel" />
+        <result column="pay_level" property="payLevel" />
+        <result column="settlementr_level" property="settlementrLevel" />
+        <result column="grossprofit_level" property="grossprofitLevel" />
+        <result column="cost_level" property="costLevel" />
+        <result column="manhour_value" property="manhourValue" />
+        <result column="cost_value" property="costValue" />
+        <result column="speed_value" property="speedValue" />
+        <result column="payment_value" property="paymentValue" />
+        <result column="grossprofit_value" property="grossprofitValue" />
+        <result column="settlementr_value" property="settlementrValue" />
+        <result column="project_products" property="projectProducts" />
+        <result column="contract_amount" property="contractAmount" />
+        <result column="target_profit_margin" property="targetProfitMargin" />
+        <result column="speed_initial_test" property="speedInitialTest" />
+        <result column="payment_initial_test" property="paymentInitialTest" />
+    </resultMap>
+
+    <!--按月份删除project_status_secore 的诊断数据  -->
+    <delete id="deleteProjectStatusSecoreByYearAndMonth" parameterType="String">
+        delete from project_status_secore where month = #{yearAndMonth}
+    </delete>
+
+    <!--插入ProjectStatusSecore-->
+    <insert id="insertSelective" parameterType="ProjectStatusSecore">
+        insert into project_status_secore
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="grossfitRateFlag != null">
+                grossfitRateFlag,
+            </if>
+            <if test="accountingRate != null">
+                accountingRate,
+            </if>
+            <if test="top5 != null">
+                top5,
+            </if>
+            <if test="projectNum != null">
+                project_num,
+            </if>
+            <if test="projectName != null">
+                project_name,
+            </if>
+            <if test="projectType != null">
+                project_type,
+            </if>
+            <if test="projectStatus != null">
+                project_status,
+            </if>
+            <if test="projectManager != null">
+                project_manager,
+            </if>
+            <if test="dept != null">
+                dept,
+            </if>
+            <if test="costCount > 0">
+                cost_count,
+            </if>
+            <if test="hoursCount > 0 ">
+                hours_count,
+            </if>
+            <if test="payCount > 0">
+                pay_count,
+            </if>
+            <if test="settlementr > 0 ">
+                settlementr,
+            </if>
+            <if test="grossprofit > 0 ">
+                grossprofit,
+            </if>
+            <if test="costType != null">
+                cost_type,
+            </if>
+            <if test="hoursType != null">
+                hours_type,
+            </if>
+            <if test="speedType != null">
+                speed_type,
+            </if>
+            <if test="payType != null">
+                pay_type,
+            </if>
+            <if test="settlementrType != null">
+                settlementr_type,
+            </if>
+            <if test="grossprofitType != null">
+                grossprofit_type,
+            </if>
+            <if test="costSecory > 0 ">
+                cost_secore,
+            </if>
+            <if test="hoursSecory > 0 ">
+                hours_secore,
+            </if>
+            <if test="speedSecory > 0">
+                speed_secore,
+            </if>
+            <if test="paySecory > 0">
+                pay_secore,
+            </if>
+            <if test="settlementrSecory > 0">
+                settlementr_secore,
+            </if>
+            <if test="grossprofitSecory > 0">
+                grossprofit_secore,
+            </if>
+            <if test="countSecory > 0">
+                count_secore,
+            </if>
+            <if test="month != null">
+                month,
+            </if>
+            <if test="isDept != null">
+                is_dept,
+            </if>
+            <if test="room != null">
+                room,
+            </if>
+            <if test="secoreLevel != null">
+                secore_level,
+            </if>
+            <if test="costLevel != null">
+                cost_level,
+            </if>
+            <if test="speedLevel != null">
+                speed_level,
+            </if>
+            <if test="hoursLevel != null">
+                hours_level,
+            </if>
+            <if test="payLevel != null">
+                pay_level,
+            </if>
+            <if test="settlementrLevel != null">
+                settlementr_level,
+            </if>
+            <if test="grossprofitLevel != null">
+                grossprofit_level,
+            </if>
+            <if test="manHours != null">
+                man_hours,
+            </if>
+            <if test="manhourValue != null">
+                manhour_value,
+            </if>
+            <if test="speedValue != null">
+                speed_value,
+            </if>
+            <if test="costValue != null">
+                cost_value,
+            </if>
+            <if test="paymentValue != null">
+                payment_value,
+            </if>
+            <if test="grossprofitValue != null">
+                grossprofit_value,
+            </if>
+            <if test="settlementrValue != null">
+                settlementr_value,
+            </if>
+            <if test="projectProducts != null">
+                project_products,
+            </if>
+            <if test="contractAmount != null">
+                contract_amount,
+            </if>
+            <if test="targetProfitMargin != null">
+                target_profit_margin,
+            </if>
+            <if test="speedInitialTest != null">
+                speed_initial_test,
+            </if>
+            <if test="paymentInitialTest != null">
+                payment_initial_test,
+            </if>
+            create_time,
+            modifiy_time
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="grossfitRateFlag != null">
+                #{grossfitRateFlag},
+            </if>
+            <if test="accountingRate != null">
+                #{accountingRate},
+            </if>
+            <if test="top5 != null">
+                #{top5},
+            </if>
+            <if test="projectNum != null">
+                #{projectNum},
+            </if>
+            <if test="projectName != null">
+                #{projectName},
+            </if>
+            <if test="projectType != null">
+                #{projectType},
+            </if>
+            <if test="projectStatus != null">
+                #{projectStatus},
+            </if>
+            <if test="projectManager != null">
+                #{projectManager},
+            </if>
+            <if test="dept != null">
+                #{dept},
+            </if>
+            <if test="costCount > 0">
+                #{costCount},
+            </if>
+            <if test="hoursCount > 0 ">
+                #{hoursCount},
+            </if>
+            <if test="payCount > 0">
+                #{payCount},
+            </if>
+            <if test="settlementr > 0 ">
+                #{settlementr},
+            </if>
+            <if test="grossprofit > 0 ">
+                #{grossprofit},
+            </if>
+            <if test="costType != null">
+                #{costType},
+            </if>
+            <if test="hoursType != null">
+                #{hoursType},
+            </if>
+            <if test="speedType != null">
+                #{speedType},
+            </if>
+            <if test="payType != null">
+                #{payType},
+            </if>
+            <if test="settlementrType != null">
+                #{settlementrType},
+            </if>
+            <if test="grossprofitType != null">
+                #{grossprofitType},
+            </if>
+            <if test="costSecory > 0 ">
+                #{costSecory},
+            </if>
+            <if test="hoursSecory > 0 ">
+                #{hoursSecory},
+            </if>
+            <if test="speedSecory > 0">
+                #{speedSecory},
+            </if>
+            <if test="paySecory > 0">
+                #{paySecory},
+            </if>
+            <if test="settlementrSecory > 0">
+                #{settlementrSecory},
+            </if>
+            <if test="grossprofitSecory > 0">
+                #{grossprofitSecory},
+            </if>
+            <if test="countSecory > 0">
+                #{countSecory},
+            </if>
+            <if test="month != null">
+                #{month},
+            </if>
+            <if test="isDept != null">
+                #{isDept},
+            </if>
+            <if test="room != null">
+                #{room},
+            </if>
+            <if test="secoreLevel != null">
+                #{secoreLevel},
+            </if>
+            <if test="costLevel != null">
+                #{costLevel},
+            </if>
+            <if test="speedLevel != null">
+                #{speedLevel},
+            </if>
+            <if test="hoursLevel != null">
+                #{hoursLevel},
+            </if>
+            <if test="payLevel != null">
+                #{payLevel},
+            </if>
+            <if test="settlementrLevel != null">
+                #{settlementrLevel},
+            </if>
+            <if test="grossprofitLevel != null">
+                #{grossprofitLevel},
+            </if>
+            <if test="manHours != null">
+                #{manHours},
+            </if>
+            <if test="manhourValue != null">
+                #{manhourValue},
+            </if>
+            <if test="speedValue != null">
+                #{speedValue},
+            </if>
+            <if test="costValue != null">
+                #{costValue},
+            </if>
+            <if test="paymentValue != null">
+                #{paymentValue},
+            </if>
+            <if test="grossprofitValue != null">
+                #{grossprofitValue},
+            </if>
+            <if test="settlementrValue != null">
+                #{settlementrValue},
+            </if>
+            <if test="projectProducts != null">
+                #{projectProducts},
+            </if>
+            <if test="contractAmount != null">
+                #{contractAmount},
+            </if>
+            <if test="targetProfitMargin != null">
+                #{targetProfitMargin},
+            </if>
+            <if test="speedInitialTest != null">
+                #{speedInitialTest},
+            </if>
+            <if test="paymentInitialTest != null">
+                #{paymentInitialTest},
+            </if>
+            now(),
+            now()
+        </trim>
+    </insert>
+
+    <select id="getAvgSecore" resultMap="BaseResultMap" parameterType="cn.richinfo.richadmin.Entity.project.ProjectStatusSecore">
+        select AVG(count_secore) as count_secore,AVG(speed_secore) as speed_secore,AVG(settlementr_secore) as settlementr_secore,
+        AVG(grossprofit_secore) as grossprofit_secore,AVG(pay_secore) as pay_secore
+        from project_status_secore where 1=1
+        <if test="dept != null and dept != ''">
+            and dept = #{dept}
+        </if>
+        <if test="month != null and month != ''">
+            and month = #{month}
+        </if>
+    </select>
+
+</mapper>

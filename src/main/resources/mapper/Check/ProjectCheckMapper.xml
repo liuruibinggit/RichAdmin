@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.Check.ProjectCheckMapper" >
+    <resultMap id="BaseResultMap" type="cn.richinfo.richadmin.Entity.check.ProjectCheck" >
+        <id column="project_check_id" property="projectCheckId" jdbcType="INTEGER" />
+        <result column="business_line" property="businessLine" jdbcType="VARCHAR" />
+        <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+        <result column="project_num" property="projectNum" jdbcType="VARCHAR" />
+        <result column="project_manager" property="projectManager" jdbcType="VARCHAR" />
+        <result column="project_type" property="projectType" jdbcType="VARCHAR" />
+        <result column="project_status" property="projectStatus" jdbcType="INTEGER" />
+        <result column="initial_cost_hours" property="initialCostHours" jdbcType="DOUBLE" />
+        <result column="contact_amount" property="contactAmount" jdbcType="DOUBLE" />
+        <result column="single_score" property="singleScore" jdbcType="DOUBLE" />
+        <result column="over_target_score" property="overTargetScore" jdbcType="DOUBLE" />
+        <result column="plan_score" property="planScore" jdbcType="DOUBLE" />
+        <result column="customer_score" property="customerScore" jdbcType="DOUBLE" />
+        <result column="time_ratio" property="timeRatio" jdbcType="DOUBLE" />
+        <result column="project_hours" property="projectHours" jdbcType="DOUBLE" />
+        <result column="all_project_hours" property="allProjectHours" jdbcType="DOUBLE" />
+        <result column="difficulty_ratio" property="difficultyRatio" jdbcType="DOUBLE" />
+        <result column="project_type_score" property="projectTypeScore" jdbcType="DOUBLE" />
+        <result column="total_human_month" property="totalHumanMonth" jdbcType="DOUBLE" />
+        <result column="contact_amount_score" property="contactAmountScore" jdbcType="DOUBLE" />
+        <result column="cross_month" property="crossMonth" jdbcType="DOUBLE" />
+        <result column="product_score" property="productScore" jdbcType="DOUBLE" />
+        <result column="project_check_score" property="projectCheckScore" jdbcType="DOUBLE" />
+        <result column="year" property="year" jdbcType="VARCHAR" />
+        <result column="cost_score" property="costScore" jdbcType="DOUBLE" />
+        <result column="cooperate_score" property="cooperateScore" jdbcType="DOUBLE" />
+        <result column="unit_check_score" property="unitCheckScore" jdbcType="DOUBLE" />
+        <result column="manage_score" property="manageScore" jdbcType="DOUBLE" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        project_check_id, business_line, project_name, project_num, project_manager, project_type,
+        project_status, initial_cost_hours, contact_amount, single_score, over_target_score,
+        plan_score, customer_score, time_ratio, project_hours, all_project_hours, difficulty_ratio,
+        project_type_score, total_human_month, contact_amount_score, cross_month, product_score,
+        project_check_score, year, cost_score, cooperate_score, unit_check_score, manage_score
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from project_check
+        where project_check_id = #{projectCheckId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectProductScore" parameterType="java.lang.String" resultType="Double">
+        SELECT product_score FROM `project_check` where project_num=#{projectNum}
+    </select>
+
+    <select id="selectByProjectNum" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM `project_check` where project_num=#{projectNum}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from project_check
+        where project_check_id = #{projectCheckId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="cn.richinfo.richadmin.Entity.check.ProjectCheck" >
+        insert into project_check (project_check_id, business_line, project_name,
+        project_num, project_manager, project_type,
+        project_status, initial_cost_hours, contact_amount,
+        single_score, over_target_score, plan_score,
+        customer_score, time_ratio, project_hours,
+        all_project_hours, difficulty_ratio, project_type_score,
+        total_human_month, contact_amount_score, cross_month,
+        product_score, project_check_score, year,
+        cost_score, cooperate_score, unit_check_score,
+        manage_score)
+        values (#{projectCheckId,jdbcType=INTEGER}, #{businessLine,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR},
+        #{projectNum,jdbcType=VARCHAR}, #{projectManager,jdbcType=VARCHAR}, #{projectType,jdbcType=VARCHAR},
+        #{projectStatus,jdbcType=INTEGER}, #{initialCostHours,jdbcType=DOUBLE}, #{contactAmount,jdbcType=DOUBLE},
+        #{singleScore,jdbcType=DOUBLE}, #{overTargetScore,jdbcType=DOUBLE}, #{planScore,jdbcType=DOUBLE},
+        #{customerScore,jdbcType=DOUBLE}, #{timeRatio,jdbcType=DOUBLE}, #{projectHours,jdbcType=DOUBLE},
+        #{allProjectHours,jdbcType=DOUBLE}, #{difficultyRatio,jdbcType=DOUBLE}, #{projectTypeScore,jdbcType=DOUBLE},
+        #{totalHumanMonth,jdbcType=DOUBLE}, #{contactAmountScore,jdbcType=DOUBLE}, #{crossMonth,jdbcType=DOUBLE},
+        #{productScore,jdbcType=DOUBLE}, #{projectCheckScore,jdbcType=DOUBLE}, #{year,jdbcType=VARCHAR},
+        #{costScore,jdbcType=DOUBLE}, #{cooperateScore,jdbcType=DOUBLE}, #{unitCheckScore,jdbcType=DOUBLE},
+        #{manageScore,jdbcType=DOUBLE})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.richinfo.richadmin.Entity.check.ProjectCheck" >
+        insert into project_check
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="projectCheckId != null" >
+                project_check_id,
+            </if>
+            <if test="businessLine != null" >
+                business_line,
+            </if>
+            <if test="projectName != null" >
+                project_name,
+            </if>
+            <if test="projectNum != null" >
+                project_num,
+            </if>
+            <if test="projectManager != null" >
+                project_manager,
+            </if>
+            <if test="projectType != null" >
+                project_type,
+            </if>
+            <if test="projectStatus != null" >
+                project_status,
+            </if>
+            <if test="initialCostHours != null" >
+                initial_cost_hours,
+            </if>
+            <if test="contactAmount != null" >
+                contact_amount,
+            </if>
+            <if test="singleScore != null" >
+                single_score,
+            </if>
+            <if test="overTargetScore != null" >
+                over_target_score,
+            </if>
+            <if test="planScore != null" >
+                plan_score,
+            </if>
+            <if test="customerScore != null" >
+                customer_score,
+            </if>
+            <if test="timeRatio != null" >
+                time_ratio,
+            </if>
+            <if test="projectHours != null" >
+                project_hours,
+            </if>
+            <if test="allProjectHours != null" >
+                all_project_hours,
+            </if>
+            <if test="difficultyRatio != null" >
+                difficulty_ratio,
+            </if>
+            <if test="projectTypeScore != null" >
+                project_type_score,
+            </if>
+            <if test="totalHumanMonth != null" >
+                total_human_month,
+            </if>
+            <if test="contactAmountScore != null" >
+                contact_amount_score,
+            </if>
+            <if test="crossMonth != null" >
+                cross_month,
+            </if>
+            <if test="productScore != null" >
+                product_score,
+            </if>
+            <if test="projectCheckScore != null" >
+                project_check_score,
+            </if>
+            <if test="year != null" >
+                year,
+            </if>
+            <if test="costScore != null" >
+                cost_score,
+            </if>
+            <if test="cooperateScore != null" >
+                cooperate_score,
+            </if>
+            <if test="unitCheckScore != null" >
+                unit_check_score,
+            </if>
+            <if test="manageScore != null" >
+                manage_score,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="projectCheckId != null" >
+                #{projectCheckId,jdbcType=INTEGER},
+            </if>
+            <if test="businessLine != null" >
+                #{businessLine,jdbcType=VARCHAR},
+            </if>
+            <if test="projectName != null" >
+                #{projectName,jdbcType=VARCHAR},
+            </if>
+            <if test="projectNum != null" >
+                #{projectNum,jdbcType=VARCHAR},
+            </if>
+            <if test="projectManager != null" >
+                #{projectManager,jdbcType=VARCHAR},
+            </if>
+            <if test="projectType != null" >
+                #{projectType,jdbcType=VARCHAR},
+            </if>
+            <if test="projectStatus != null" >
+                #{projectStatus,jdbcType=INTEGER},
+            </if>
+            <if test="initialCostHours != null" >
+                #{initialCostHours,jdbcType=DOUBLE},
+            </if>
+            <if test="contactAmount != null" >
+                #{contactAmount,jdbcType=DOUBLE},
+            </if>
+            <if test="singleScore != null" >
+                #{singleScore,jdbcType=DOUBLE},
+            </if>
+            <if test="overTargetScore != null" >
+                #{overTargetScore,jdbcType=DOUBLE},
+            </if>
+            <if test="planScore != null" >
+                #{planScore,jdbcType=DOUBLE},
+            </if>
+            <if test="customerScore != null" >
+                #{customerScore,jdbcType=DOUBLE},
+            </if>
+            <if test="timeRatio != null" >
+                #{timeRatio,jdbcType=DOUBLE},
+            </if>
+            <if test="projectHours != null" >
+                #{projectHours,jdbcType=DOUBLE},
+            </if>
+            <if test="allProjectHours != null" >
+                #{allProjectHours,jdbcType=DOUBLE},
+            </if>
+            <if test="difficultyRatio != null" >
+                #{difficultyRatio,jdbcType=DOUBLE},
+            </if>
+            <if test="projectTypeScore != null" >
+                #{projectTypeScore,jdbcType=DOUBLE},
+            </if>
+            <if test="totalHumanMonth != null" >
+                #{totalHumanMonth,jdbcType=DOUBLE},
+            </if>
+            <if test="contactAmountScore != null" >
+                #{contactAmountScore,jdbcType=DOUBLE},
+            </if>
+            <if test="crossMonth != null" >
+                #{crossMonth,jdbcType=DOUBLE},
+            </if>
+            <if test="productScore != null" >
+                #{productScore,jdbcType=DOUBLE},
+            </if>
+            <if test="projectCheckScore != null" >
+                #{projectCheckScore,jdbcType=DOUBLE},
+            </if>
+            <if test="year != null" >
+                #{year,jdbcType=VARCHAR},
+            </if>
+            <if test="costScore != null" >
+                #{costScore,jdbcType=DOUBLE},
+            </if>
+            <if test="cooperateScore != null" >
+                #{cooperateScore,jdbcType=DOUBLE},
+            </if>
+            <if test="unitCheckScore != null" >
+                #{unitCheckScore,jdbcType=DOUBLE},
+            </if>
+            <if test="manageScore != null" >
+                #{manageScore,jdbcType=DOUBLE},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="cn.richinfo.richadmin.common.model.check.ProjectCheckModel" >
+        update project_check
+        <set>
+            <if test="businessLine != null" >
+                business_line = #{businessLine,jdbcType=VARCHAR},
+            </if>
+            <if test="projectName != null" >
+                project_name = #{projectName,jdbcType=VARCHAR},
+            </if>
+            <if test="projectNum != null" >
+                project_num = #{projectNum,jdbcType=VARCHAR},
+            </if>
+            <if test="projectManager != null" >
+                project_manager = #{projectManager,jdbcType=VARCHAR},
+            </if>
+            <if test="projectType != null" >
+                project_type = #{projectType,jdbcType=VARCHAR},
+            </if>
+            <if test="projectStatus != null" >
+                project_status = #{projectStatus,jdbcType=INTEGER},
+            </if>
+            <if test="initialCostHours != null" >
+                initial_cost_hours = #{initialCostHours,jdbcType=DOUBLE},
+            </if>
+            <if test="contactAmount != null" >
+                contact_amount = #{contactAmount,jdbcType=DOUBLE},
+            </if>
+            <if test="singleScore != null" >
+                single_score = #{singleScore,jdbcType=DOUBLE},
+            </if>
+            <if test="overTargetScore != null" >
+                over_target_score = #{overTargetScore,jdbcType=DOUBLE},
+            </if>
+            <if test="planScore != null" >
+                plan_score = #{planScore,jdbcType=DOUBLE},
+            </if>
+            <if test="customerScore != null" >
+                customer_score = #{customerScore,jdbcType=DOUBLE},
+            </if>
+            <if test="timeRatio != null" >
+                time_ratio = #{timeRatio,jdbcType=DOUBLE},
+            </if>
+            <if test="projectHours != null" >
+                project_hours = #{projectHours,jdbcType=DOUBLE},
+            </if>
+            <if test="allProjectHours != null" >
+                all_project_hours = #{allProjectHours,jdbcType=DOUBLE},
+            </if>
+            <if test="difficultyRatio != null" >
+                difficulty_ratio = #{difficultyRatio,jdbcType=DOUBLE},
+            </if>
+            <if test="projectTypeScore != null" >
+                project_type_score = #{projectTypeScore,jdbcType=DOUBLE},
+            </if>
+            <if test="totalHumanMonth != null" >
+                total_human_month = #{totalHumanMonth,jdbcType=DOUBLE},
+            </if>
+            <if test="contactAmountScore != null" >
+                contact_amount_score = #{contactAmountScore,jdbcType=DOUBLE},
+            </if>
+            <if test="crossMonth != null" >
+                cross_month = #{crossMonth,jdbcType=DOUBLE},
+            </if>
+            <if test="productScore != null" >
+                product_score = #{productScore,jdbcType=DOUBLE},
+            </if>
+            <if test="projectCheckScore != null" >
+                project_check_score = #{projectCheckScore,jdbcType=DOUBLE},
+            </if>
+            <if test="year != null" >
+                year = #{year,jdbcType=VARCHAR},
+            </if>
+            <if test="costScore != null" >
+                cost_score = #{costScore,jdbcType=DOUBLE},
+            </if>
+            <if test="cooperateScore != null" >
+                cooperate_score = #{cooperateScore,jdbcType=DOUBLE},
+            </if>
+            <if test="unitCheckScore != null" >
+                unit_check_score = #{unitCheckScore,jdbcType=DOUBLE},
+            </if>
+            <if test="manageScore != null" >
+                manage_score = #{manageScore,jdbcType=DOUBLE},
+            </if>
+        </set>
+        where project_num = #{projectNum}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.richinfo.richadmin.Entity.check.ProjectCheck" >
+        update project_check
+        set business_line = #{businessLine,jdbcType=VARCHAR},
+        project_name = #{projectName,jdbcType=VARCHAR},
+        project_num = #{projectNum,jdbcType=VARCHAR},
+        project_manager = #{projectManager,jdbcType=VARCHAR},
+        project_type = #{projectType,jdbcType=VARCHAR},
+        project_status = #{projectStatus,jdbcType=INTEGER},
+        initial_cost_hours = #{initialCostHours,jdbcType=DOUBLE},
+        contact_amount = #{contactAmount,jdbcType=DOUBLE},
+        single_score = #{singleScore,jdbcType=DOUBLE},
+        over_target_score = #{overTargetScore,jdbcType=DOUBLE},
+        plan_score = #{planScore,jdbcType=DOUBLE},
+        customer_score = #{customerScore,jdbcType=DOUBLE},
+        time_ratio = #{timeRatio,jdbcType=DOUBLE},
+        project_hours = #{projectHours,jdbcType=DOUBLE},
+        all_project_hours = #{allProjectHours,jdbcType=DOUBLE},
+        difficulty_ratio = #{difficultyRatio,jdbcType=DOUBLE},
+        project_type_score = #{projectTypeScore,jdbcType=DOUBLE},
+        total_human_month = #{totalHumanMonth,jdbcType=DOUBLE},
+        contact_amount_score = #{contactAmountScore,jdbcType=DOUBLE},
+        cross_month = #{crossMonth,jdbcType=DOUBLE},
+        product_score = #{productScore,jdbcType=DOUBLE},
+        project_check_score = #{projectCheckScore,jdbcType=DOUBLE},
+        year = #{year,jdbcType=VARCHAR},
+        cost_score = #{costScore,jdbcType=DOUBLE},
+        cooperate_score = #{cooperateScore,jdbcType=DOUBLE},
+        unit_check_score = #{unitCheckScore,jdbcType=DOUBLE},
+        manage_score = #{manageScore,jdbcType=DOUBLE}
+        where project_check_id = #{projectCheckId,jdbcType=INTEGER}
+    </update>
+
+    <select id="getProjectCheckList" parameterType="cn.richinfo.richadmin.common.model.check.ProjectCheckModel" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM `project_check`
+        where 1=1
+        <if test="year != null and year !=''">
+            and  year=#{year}
+        </if>
+        <if test="businessLine != null and businessLine !=''" >
+            and business_line=#{businessLine}
+        </if>
+        <if test="projectStatus != null" >
+            and project_status=#{projectStatus}
+        </if>
+    </select>
+
+    <select id="selectByProjectManagerAndYear" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM `project_check` where project_manager=#{projectManager} and year=#{year}
+    </select>
+</mapper>

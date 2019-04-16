@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.ProjectMapper.DiagnosticReportMapper" >
+    <resultMap id="BaseResultMap" type="cn.richinfo.richadmin.Entity.project.DiagnosticReport" >
+        <id column="diagnostic_report_id" property="diagnosticReportId"/>
+        <result column="project_num" property="projectNum"/>
+        <result column="project_name" property="projectName"/>
+        <result column="cost" property="cost"/>
+        <result column="speed" property="speed"/>
+        <result column="manhour" property="manhour"/>
+        <result column="payment" property="payment"/>
+        <result column="grossprofit" property="grossprofit"/>
+        <result column="settlementr" property="settlementr"/>
+        <result column="costlevel" property="costlevel"/>
+        <result column="speedlevel" property="speedlevel"/>
+        <result column="manhourlevel" property="manhourlevel"/>
+        <result column="paymentlevel" property="paymentlevel"/>
+        <result column="grossprofitlevel" property="grossprofitlevel"/>
+        <result column="settlementrlevel" property="settlementrlevel"/>
+        <result column="rolling_maori_score" property="rollingMaoriScore"/>
+        <result column="acceptance_progress_score" property="acceptanceProgressScore" />
+        <result column="return_progress_score" property="returnProgressScore"/>
+        <result column="settlement_rate_score" property="settlementRateScore"/>
+        <result column="score" property="score"/>
+        <result column="project_status" property="projectStatus"/>
+        <result column="month" property="month"/>
+        <result column="cost_compared_with_last_month" property="costComparedWithLastMonth"/>
+        <result column="speed_compared_with_last_month" property="speedComparedWithLastMonth"/>
+        <result column="manhour_compared_with_last_month" property="manhourComparedWithLastMonth"/>
+        <result column="payment_compared_with_last_month" property="paymentComparedWithLastMonth"/>
+        <result column="grossprofit_compared_with_last_month" property="grossprofitComparedWithLastMonth"/>
+        <result column="settlementr_compared_with_last_month" property="settlementrComparedWithLastMonth"/>
+    </resultMap>
+    <sql id="Base_Column_List" >
+        diagnostic_report_id, project_num, project_name, cost, speed, manhour, payment, grossprofit,
+        settlementr, costlevel, speedlevel, manhourlevel, paymentlevel, grossprofitlevel,
+        settlementrlevel, rolling_maori_score, acceptance_progress_score, return_progress_score,
+        settlement_rate_score, score, project_status,month,cost_compared_with_last_month,speed_compared_with_last_month,
+        manhour_compared_with_last_month,payment_compared_with_last_month,grossprofit_compared_with_last_month,
+        settlementr_compared_with_last_month
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from diagnostic_report
+        where diagnostic_report_id = #{diagnosticReportId}
+    </select>
+    <!-- 查询最新的项目诊断信息 -->
+    <select id="selectByProjectNum" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from diagnostic_report
+        where project_num = #{projectNum} and month=
+        (select MAX(month) from diagnostic_report WHERE project_num=#{projectNum} )
+    </select>
+    <!-- 查询所有月份的项目诊断信息-->
+    <select id="selectAllByProjectNum" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from diagnostic_report
+        where project_num = #{projectNum}
+    </select>
+    <delete id="deleteByProjectNum" parameterType="java.lang.String" >
+        delete from diagnostic_report
+        where project_num = #{projectNum}
+    </delete>
+    <insert id="insert" parameterType="cn.richinfo.richadmin.Entity.project.DiagnosticReport" >
+        insert into diagnostic_report (diagnostic_report_id, project_num, project_name,
+        cost, speed, manhour,
+        payment, grossprofit, settlementr,
+        costlevel, speedlevel, manhourlevel,
+        paymentlevel, grossprofitlevel, settlementrlevel,
+        rolling_maori_score, acceptance_progress_score, return_progress_score, settlement_rate_score,
+        score, project_status,month,cost_compared_with_last_month,speed_compared_with_last_month,
+        manhour_compared_with_last_month,payment_compared_with_last_month,grossprofit_compared_with_last_month,
+        settlementr_compared_with_last_month)
+        values (#{diagnosticReportId}, #{projectNum}, #{projectName},
+        #{cost}, #{speed}, #{manhour},
+        #{payment}, #{grossprofit}, #{settlementr},
+        #{costlevel}, #{speedlevel}, #{manhourlevel},
+        #{paymentlevel}, #{grossprofitlevel}, #{settlementrlevel},
+        #{rollingMaoriScore}, #{acceptanceProgressScore}, #{returnProgressScore}, #{settlementRateScore},
+        #{score}, #{projectStatus},NOW(),#{costComparedWithLastMonth},#{speedComparedWithLastMonth},
+        #{manhourComparedWithLastMonth},#{paymentComparedWithLastMonth},#{grossprofitComparedWithLastMonth},
+        #{settlementrComparedWithLastMonth})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.richinfo.richadmin.Entity.project.DiagnosticReport" >
+        insert into diagnostic_report
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="diagnosticReportId != null" >
+                diagnostic_report_id,
+            </if>
+            <if test="projectNum != null" >
+                project_num,
+            </if>
+            <if test="projectName != null" >
+                project_name,
+            </if>
+            <if test="cost != null" >
+                cost,
+            </if>
+            <if test="speed != null" >
+                speed,
+            </if>
+            <if test="manhour != null" >
+                manhour,
+            </if>
+            <if test="payment != null" >
+                payment,
+            </if>
+            <if test="grossprofit != null" >
+                grossprofit,
+            </if>
+            <if test="settlementr != null" >
+                settlementr,
+            </if>
+            <if test="costlevel != null" >
+                costlevel,
+            </if>
+            <if test="speedlevel != null" >
+                speedlevel,
+            </if>
+            <if test="manhourlevel != null" >
+                manhourlevel,
+            </if>
+            <if test="paymentlevel != null" >
+                paymentlevel,
+            </if>
+            <if test="grossprofitlevel != null" >
+                grossprofitlevel,
+            </if>
+            <if test="settlementrlevel != null" >
+                settlementrlevel,
+            </if>
+            <if test="rollingMaoriScore != null" >
+                rolling_maori_score,
+            </if>
+            <if test="acceptanceProgressScore != null" >
+                acceptance_progress_score,
+            </if>
+            <if test="returnProgressScore != null" >
+                return_progress_score,
+            </if>
+            <if test="settlementRateScore != null" >
+                settlement_rate_score,
+            </if>
+            <if test="score != null" >
+                score,
+            </if>
+            <if test="projectStatus != null" >
+                project_status,
+            </if>
+            month,
+            <if test="costComparedWithLastMonth != null" >
+                cost_compared_with_last_month,
+            </if>
+            <if test="speedComparedWithLastMonth != null" >
+                speed_compared_with_last_month,
+            </if>
+            <if test="manhourComparedWithLastMonth != null" >
+                manhour_compared_with_last_month,
+            </if>
+            <if test="paymentComparedWithLastMonth != null" >
+                payment_compared_with_last_month,
+            </if>
+            <if test="grossprofitComparedWithLastMonth != null" >
+                grossprofit_compared_with_last_month,
+            </if>
+            <if test="settlementrComparedWithLastMonth != null" >
+                settlementr_compared_with_last_month,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="diagnosticReportId != null" >
+                #{diagnosticReportId},
+            </if>
+            <if test="projectNum != null" >
+                #{projectNum},
+            </if>
+            <if test="projectName != null" >
+                #{projectName},
+            </if>
+            <if test="cost != null" >
+                #{cost},
+            </if>
+            <if test="speed != null" >
+                #{speed},
+            </if>
+            <if test="manhour != null" >
+                #{manhour},
+            </if>
+            <if test="payment != null" >
+                #{payment},
+            </if>
+            <if test="grossprofit != null" >
+                #{grossprofit},
+            </if>
+            <if test="settlementr != null" >
+                #{settlementr},
+            </if>
+            <if test="costlevel != null" >
+                #{costlevel},
+            </if>
+            <if test="speedlevel != null" >
+                #{speedlevel},
+            </if>
+            <if test="manhourlevel != null" >
+                #{manhourlevel},
+            </if>
+            <if test="paymentlevel != null" >
+                #{paymentlevel},
+            </if>
+            <if test="grossprofitlevel != null" >
+                #{grossprofitlevel},
+            </if>
+            <if test="settlementrlevel != null" >
+                #{settlementrlevel},
+            </if>
+            <if test="rollingMaoriScore != null" >
+                #{rollingMaoriScore},
+            </if>
+            <if test="acceptanceProgressScore != null" >
+                #{acceptanceProgressScore},
+            </if>
+            <if test="returnProgressScore != null" >
+                #{returnProgressScore},
+            </if>
+            <if test="settlementRateScore != null" >
+                #{settlementRateScore},
+            </if>
+            <if test="score != null" >
+                #{score},
+            </if>
+            <if test="projectStatus != null" >
+                #{projectStatus},
+            </if>
+            <!--  CONCAT(DATE_FORMAT(NOW(),'%Y-08-31')), -->
+            NOW(),
+            <if test="costComparedWithLastMonth != null" >
+                #{costComparedWithLastMonth},
+            </if>
+            <if test="speedComparedWithLastMonth != null" >
+                #{speedComparedWithLastMonth},
+            </if>
+            <if test="manhourComparedWithLastMonth != null" >
+                #{manhourComparedWithLastMonth},
+            </if>
+            <if test="paymentComparedWithLastMonth != null" >
+                #{paymentComparedWithLastMonth},
+            </if>
+            <if test="grossprofitComparedWithLastMonth != null" >
+                #{grossprofitComparedWithLastMonth},
+            </if>
+            <if test="settlementrComparedWithLastMonth != null" >
+                #{settlementrComparedWithLastMonth},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.richinfo.richadmin.Entity.project.DiagnosticReport" >
+        update diagnostic_report
+        <set >
+            <if test="projectNum != null" >
+                project_num = #{projectNum},
+            </if>
+            <if test="projectName != null" >
+                project_name = #{projectName},
+            </if>
+            <if test="cost != null" >
+                cost = #{cost},
+            </if>
+            <if test="speed != null" >
+                speed = #{speed},
+            </if>
+            <if test="manhour != null" >
+                manhour = #{manhour},
+            </if>
+            <if test="payment != null" >
+                payment = #{payment},
+            </if>
+            <if test="grossprofit != null" >
+                grossprofit = #{grossprofit},
+            </if>
+            <if test="settlementr != null" >
+                settlementr = #{settlementr},
+            </if>
+            <if test="costlevel != null" >
+                costlevel = #{costlevel},
+            </if>
+            <if test="speedlevel != null" >
+                speedlevel = #{speedlevel},
+            </if>
+            <if test="manhourlevel != null" >
+                manhourlevel = #{manhourlevel},
+            </if>
+            <if test="paymentlevel != null" >
+                paymentlevel = #{paymentlevel},
+            </if>
+            <if test="grossprofitlevel != null" >
+                grossprofitlevel = #{grossprofitlevel},
+            </if>
+            <if test="settlementrlevel != null" >
+                settlementrlevel = #{settlementrlevel},
+            </if>
+            <if test="rollingMaoriScore != null" >
+                rolling_maori_score = #{rollingMaoriScore},
+            </if>
+            <if test="acceptanceProgressScore != null" >
+                acceptance_progress_score = #{acceptanceProgressScore},
+            </if>
+            <if test="returnProgressScore != null" >
+                return_progress_score = #{returnProgressScore},
+            </if>
+            <if test="settlementRateScore != null" >
+                settlement_rate_score = #{settlementRateScore},
+            </if>
+            <if test="score != null" >
+                score = #{score},
+            </if>
+            <if test="projectStatus != null" >
+                project_status = #{projectStatus},
+            </if>
+        </set>
+        where diagnostic_report_id = #{diagnosticReportId}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.richinfo.richadmin.Entity.project.DiagnosticReport" >
+        update diagnostic_report
+        set project_num = #{projectNum},
+        project_name = #{projectName},
+        cost = #{cost},
+        speed = #{speed},
+        manhour = #{manhour},
+        payment = #{payment},
+        grossprofit = #{grossprofit},
+        settlementr = #{settlementr},
+        costlevel = #{costlevel},
+        speedlevel = #{speedlevel},
+        manhourlevel = #{manhourlevel},
+        paymentlevel = #{paymentlevel},
+        grossprofitlevel = #{grossprofitlevel},
+        settlementrlevel = #{settlementrlevel},
+        rolling_maori_score = #{rollingMaoriScore},
+        acceptance_progress_score = #{acceptanceProgressScore},
+        return_progress_score = #{returnProgressScore},
+        settlement_rate_score = #{settlementRateScore},
+        score = #{score},
+        project_status = #{projectStatus}
+        where diagnostic_report_id = #{diagnosticReportId}
+    </update>
+
+    <!-- 按年月删除项目诊断信息 -->
+    <delete id="deleteDiagnosticreportByYearAndMonth" parameterType="Date">
+        delete from diagnostic_report where month >=  #{startYearAndMonth}
+    </delete>
+
+</mapper>

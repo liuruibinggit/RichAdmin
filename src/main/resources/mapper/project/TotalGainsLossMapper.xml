@@ -1,0 +1,799 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.ProjectMapper.TotalGainsLossMapper">
+
+    <resultMap type="TotalGainsLoss" id="totalGainsLossMap">
+        <result column="project_num" property="projectNum"/>
+        <result column="project_name" property="projectName"/>
+        <result column="business_line" property="businessLine"/>
+        <result column="product_type" property="productType"/>
+        <result column="accounting_income" property="accountIncome"/>
+        <result column="cost" property="cost"/>
+        <result column="main_business_cost" property="mainBusinessCost"/>
+        <result column="tax_addition" property="taxAddition"/>
+        <result column="operating_expense" property="operatingExpense"/>
+        <result column="salary_addition" property="salaryAddition"/>
+        <result column="performance_bonus" property="performanceBonus"/>
+        <result column="social_insurance" property="socialInsurance"/>
+        <result column="outSourcing_development_fee" property="outSourcingDevelopmentFee"/>
+        <result column="depreciation_cost" property="depreciationCost"/>
+        <result column="rental_expense" property="rentalExpense"/>
+        <result column="welfare_expense" property="welfareExpense"/>
+        <result column="office_expense" property="officeExpense"/>
+        <result column="travel_Expense" property="travelExpense"/>
+        <result column="serve_expense" property="serveExpense"/>
+        <result column="city_transportation_expense" property="cityTransportationExpense"/>
+        <result column="car_expense" property="carExpense"/>
+        <result column="low_value_consumables_amortization" property="lowValueConsumableAmortization"/>
+        <result column="mail_charges" property="mailCharges"/>
+        <result column="meeting_affair_expense" property="meetingAffairExpense"/>
+        <result column="consulting_expense" property="consultingExpense"/>
+        <result column="advertising_expense" property="advertisingExpense"/>
+        <result column="recruiting_expense" property="recruitingExpense"/>
+        <result column="intangible_amortization" property="intangibleAmortization"/>
+        <result column="other_tax_expense" property="otherTaxExpense"/>
+        <result column="test_expense" property="testExpense"/>
+        <result column="financial_expense" property="financialExpense"/>
+        <result column="operating_profit_project" property="operatingProftProject"/>
+        <result column="unit_internal_settlement_income" property="unitInternalSettlementIncome"/>
+        <result column="unit_internal_settlement_plus_charge" property="unitInternalSettlementPlusCharge"/>
+        <result column="pre_tax_profits" property="preTaxProfits"/>
+        <result column="in_people_month" property="inPeopleMonth"/>
+        <result column="per_capita_cost" property="perCapitaCost"/>
+        <result column="profit_rate" property="profitRate"/>
+        <result column="other_expense" property="otherExpense"/>
+        <result column="training_expense" property="trainingExpense"/>
+        <result column="advertising_expense" property="advertisingExpense"/>
+        <result column="project_apportionment_cost_deadline" property="projectApportionmentCostDeadline"/>
+        <result column="project_apportionment_cost_1" property="projectApportionmentCost1"/>
+        <result column="project_apportionment_cost_2" property="projectApportionmentCost2"/>
+        <result column="project_apportionment_cost_3" property="projectApportionmentCost3"/>
+        <result column="project_apportionment_cost_4" property="projectApportionmentCost4"/>
+        <result column="project_apportionment_cost_5" property="projectApportionmentCost5"/>
+        <result column="project_apportionment_cost_6" property="projectApportionmentCost6"/>
+        <result column="project_apportionment_cost_7" property="projectApportionmentCost7"/>
+        <result column="project_apportionment_cost_8" property="projectApportionmentCost8"/>
+        <result column="project_apportionment_cost_9" property="projectApportionmentCost9"/>
+        <result column="project_apportionment_cost_10" property="projectApportionmentCost10"/>
+        <result column="project_apportionment_cost_11" property="projectApportionmentCost11"/>
+        <result column="project_apportionment_cost_12" property="projectApportionmentCost12"/>
+        <result column="project_apportionment_cost_13" property="projectApportionmentCost13"/>
+        <result column="project_apportionment_cost_14" property="projectApportionmentCost14"/>
+        <result column="project_apportionment_cost_15" property="projectApportionmentCost15"/>
+        <result column="project_apportionment_cost_16" property="projectApportionmentCost16"/>
+        <result column="project_apportionment_cost_17" property="projectApportionmentCost17"/>
+        <result column="project_apportionment_cost_time_slot" property="projectApportionmentCostTimeSlot"/>
+        <result column="add_up_apportionment_money" property="addUpApportionmentMoney"/>
+        <result column="project_actual_bouns_15" property ="projectActualBouns15"/>
+        <result column="project_actual_bouns_16" property="projectActualBouns16"/>
+        <result column="project_actual_bouns_17" property="projectActualBouns17"/>
+        <result column="project_provision_bouns_15" property="projectProvisionBouns15"/>
+        <result column="project_provision_bouns_16" property="projectProvisionBouns16"/>
+        <result column="project_provision_bouns_17" property="projectProvisionBouns17"/>
+
+        <result column="project_provision_bouns_18" property="projectProvisionBouns18"/>
+
+        <result column="project_actual_bouns_18" property="projectActualBouns18"/>
+
+    </resultMap>
+
+
+    <insert id="insertByTotal" parameterType="TotalGainsLoss">
+        insert into project_gains_loss_total
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            business_line,
+            project_name ,
+            <if test="projectNum != null">
+                project_num ,
+            </if>
+            <if test="productType != null">
+                product_type,
+            </if>
+            <if test="date != null">
+                date ,
+            </if>
+            <if test="accountIncome != null">
+                accounting_income ,
+            </if>
+            <if test="cost != null">
+                cost ,
+            </if>
+            <if test="mainBusinessCost != null">
+                main_business_cost ,
+            </if>
+            <if test="taxAddition != null">
+                tax_addition ,
+            </if>
+            <if test="operatingExpense != null">
+                operating_expense ,
+            </if>
+            <if test="salaryAddition != null">
+                salary_addition,
+            </if>
+            <if test="performanceBonus != null">
+                performance_bonus,
+            </if>
+            <if test="socialInsurance != null">
+                social_insurance,
+            </if>
+            <if test="outSourcingDevelopmentFee != null">
+                outSourcing_development_fee ,
+            </if>
+            <if test="depreciationCost != null">
+                depreciation_cost,
+            </if>
+            <if test="rentalExpense != null">
+                rental_expense,
+            </if>
+            <if test="welfareExpense != null">
+                welfare_expense ,
+            </if>
+            <if test="officeExpense != null">
+                office_expense,
+            </if>
+            <if test="travelExpense != null">
+                travel_Expense ,
+            </if>
+            <if test="serveExpense != null">
+                serve_expense ,
+            </if>
+            <if test="cityTransportationExpense != null">
+                city_transportation_expense ,
+            </if>
+            <if test="carExpense != null">
+                car_expense ,
+            </if>
+            <if test="lowValueConsumableAmortization != null">
+                low_value_consumables_amortization,
+            </if>
+            <if test="mailCharges != null">
+                mail_charges ,
+            </if>
+            <if test="trainingExpense != null">
+                training_expense,
+            </if>
+            <if test="meetingAffairExpense != null">
+                meeting_affair_expense ,
+            </if>
+            <if test="consultingExpense != null">
+                consulting_expense,
+            </if>
+            <if test="advertisingExpense != null">
+                advertising_expense ,
+            </if>
+            <if test="recruitingExpense != null">
+                recruiting_expense,
+            </if>
+            <if test="intangibleAmortization !=  null">
+                intangible_amortization,
+            </if>
+            <if test="otherTaxExpense != null">
+                other_tax_expense,
+            </if>
+            <if test="testExpense != null">
+                test_expense,
+            </if>
+            <if test="financialExpense != null">
+                financial_expense,
+            </if>
+            <if test="operatingProftProject != null">
+                operating_profit_project,
+            </if>
+            <if test="unitInternalSettlementIncome != null">
+                unit_internal_settlement_income,
+            </if>
+            <if test="unitInternalSettlementPlusCharge != null">
+                unit_internal_settlement_plus_charge,
+            </if>
+            <if test="preTaxProfits != null">
+                pre_tax_profits,
+            </if>
+            <if test="inPeopleMonth != null">
+                in_people_month,
+            </if>
+            <if test="perCapitaCost != null">
+                per_capita_cost,
+            </if>
+            <if test="profitRate != null">
+                profit_rate,
+            </if>
+            <if test="otherExpense !=null">
+                other_expense,
+            </if>
+            <if test=" projectApportionmentCostDeadline !=null">
+                project_apportionment_cost_deadline,
+            </if>
+            <if test="projectApportionmentCost1 !=null">
+                project_apportionment_cost_1,
+            </if>
+            <if test="projectApportionmentCost2 !=null">
+                project_apportionment_cost_2,
+            </if>
+            <if test="projectApportionmentCost3 !=null">
+                project_apportionment_cost_3,
+            </if>
+            <if test="projectApportionmentCost4 !=null">
+                project_apportionment_cost_4,
+            </if>
+            <if test="projectApportionmentCost5 !=null">
+                project_apportionment_cost_5,
+            </if>
+            <if test="projectApportionmentCost6 !=null">
+                project_apportionment_cost_6,
+            </if>
+            <if test="projectApportionmentCost7 !=null">
+                project_apportionment_cost_7,
+            </if>
+            <if test="projectApportionmentCost8 !=null">
+                project_apportionment_cost_8,
+            </if>
+            <if test="projectApportionmentCost9 !=null">
+                project_apportionment_cost_9,
+            </if>
+            <if test="projectApportionmentCost10 !=null">
+                project_apportionment_cost_10,
+            </if>
+            <if test="projectApportionmentCost11 !=null">
+                project_apportionment_cost_11,
+            </if>
+            <if test="projectApportionmentCost12 !=null">
+                project_apportionment_cost_12,
+            </if>
+            <if test="projectApportionmentCost13 !=null">
+                project_apportionment_cost_13,
+            </if>
+            <if test="projectApportionmentCost14 !=null">
+                project_apportionment_cost_14,
+            </if>
+            <if test="projectApportionmentCost15 !=null">
+                project_apportionment_cost_15,
+            </if>
+            <if test="projectApportionmentCost16 !=null">
+                project_apportionment_cost_16,
+            </if>
+            <if test="projectApportionmentCost17 !=null">
+                project_apportionment_cost_17,
+            </if>
+            <if test="projectApportionmentCostTimeSlot !=null">
+                project_apportionment_cost_time_slot,
+            </if>
+            <if test="addUpApportionmentMoney != null">
+                add_up_apportionment_money,
+            </if>
+            <if test="projectActualBouns15 !=null">
+                project_actual_bouns_15,
+            </if>
+            <if test="projectActualBouns16 !=null">
+                project_actual_bouns_16,
+            </if>
+            <if test="projectActualBouns17 != null ">
+                project_actual_bouns_17,
+            </if>
+
+            <if test="projectActualBouns18 != null ">
+                project_actual_bouns_18,
+            </if>
+
+
+
+            <if test="projectProvisionBouns15 !=null">
+                project_provision_bouns_15,
+            </if>
+            <if test="projectProvisionBouns16 !=null">
+                project_provision_bouns_16,
+            </if>
+            <if test="projectProvisionBouns17 !=null">
+                project_provision_bouns_17,
+            </if>
+
+            <if test="projectProvisionBouns18 !=null">
+                project_provision_bouns_18,
+            </if>
+
+
+            <if test="createTime!= null">
+                create_time,
+            </if>
+        </trim>
+        <trim  prefix="values (" suffix=")" suffixOverrides="," >
+            #{businessLine},
+            #{projectName},
+            <if test="projectNum != null">
+                #{projectNum},
+            </if>
+            <if test="productType != null">
+                #{productType},
+            </if>
+            <if test="date != null">
+                #{date},
+            </if>
+            <if test="accountIncome != null">
+                #{accountIncome},
+            </if>
+            <if test="cost != null">
+                #{cost},
+            </if>
+            <if test="mainBusinessCost != null">
+                #{mainBusinessCost},
+            </if>
+            <if test="taxAddition != null">
+                #{taxAddition},
+            </if>
+            <if test="operatingExpense != null">
+                #{operatingExpense},
+            </if>
+            <if test="salaryAddition != null">
+                #{salaryAddition},
+            </if>
+            <if test="performanceBonus != null">
+                #{performanceBonus},
+            </if>
+            <if test="socialInsurance != null">
+                #{socialInsurance},
+            </if>
+            <if test="outSourcingDevelopmentFee != null">
+                #{outSourcingDevelopmentFee},
+            </if>
+            <if test="depreciationCost != null">
+                #{depreciationCost},
+            </if>
+            <if test="rentalExpense != null">
+                #{rentalExpense},
+            </if>
+            <if test="welfareExpense != null">
+                #{welfareExpense},
+            </if>
+            <if test="officeExpense != null">
+                #{officeExpense},
+            </if>
+            <if test="travelExpense != null">
+                #{travelExpense},
+            </if>
+            <if test="serveExpense != null">
+                #{serveExpense},
+            </if>
+            <if test="cityTransportationExpense != null">
+                #{cityTransportationExpense},
+            </if>
+            <if test="carExpense!= null">
+                #{carExpense},
+            </if>
+            <if test="lowValueConsumableAmortization != null">
+                #{lowValueConsumableAmortization},
+            </if>
+            <if test="mailCharges != null">
+                #{mailCharges},
+            </if>
+            <if test="trainingExpense != null">
+                #{trainingExpense},
+            </if>
+            <if test="meetingAffairExpense != null">
+                #{meetingAffairExpense},
+            </if>
+            <if test="consultingExpense != null">
+                #{consultingExpense},
+            </if>
+            <if test="advertisingExpense != null">
+                #{advertisingExpense},
+            </if>
+            <if test="recruitingExpense != null">
+                #{recruitingExpense},
+            </if>
+            <if test="intangibleAmortization !=  null">
+                #{intangibleAmortization},
+            </if>
+            <if test="otherTaxExpense != null">
+                #{otherTaxExpense},
+            </if>
+            <if test="testExpense!= null">
+                #{testExpense},
+            </if>
+            <if test="financialExpense!= null">
+                #{financialExpense},
+            </if>
+            <if test="operatingProftProject!= null">
+                #{operatingProftProject},
+            </if>
+            <if test="unitInternalSettlementIncome!= null">
+                #{unitInternalSettlementIncome},
+            </if>
+            <if test="unitInternalSettlementPlusCharge != null">
+                #{unitInternalSettlementPlusCharge},
+            </if>
+            <if test="preTaxProfits!= null">
+                #{preTaxProfits},
+            </if>
+            <if test="inPeopleMonth!= null">
+                #{inPeopleMonth},
+            </if>
+            <if test="perCapitaCost!= null">
+                #{perCapitaCost},
+            </if>
+            <if test="profitRate!= null">
+                #{profitRate},
+            </if>
+            <if test="otherExpense !=null">
+                #{otherExpense},
+            </if>
+            <if test=" projectApportionmentCostDeadline !=null">
+                #{projectApportionmentCostDeadline},
+            </if>
+            <if test="projectApportionmentCost1 !=null">
+                #{projectApportionmentCost1},
+            </if>
+            <if test="projectApportionmentCost2!=null">
+                #{projectApportionmentCost2},
+            </if>
+            <if test="projectApportionmentCost2 !=null">
+                #{projectApportionmentCost3},
+            </if>
+            <if test="projectApportionmentCost4 !=null">
+                #{projectApportionmentCost4},
+            </if>
+            <if test="projectApportionmentCost5 !=null">
+                #{projectApportionmentCost5},
+            </if>
+            <if test="projectApportionmentCost6 !=null">
+                #{projectApportionmentCost6},
+            </if>
+            <if test="projectApportionmentCost7 !=null">
+                #{projectApportionmentCost7},
+            </if>
+            <if test="projectApportionmentCost8 !=null">
+                #{projectApportionmentCost8},
+            </if>
+            <if test="projectApportionmentCost9 !=null">
+                #{projectApportionmentCost9},
+            </if>
+            <if test="projectApportionmentCost10 !=null">
+                #{projectApportionmentCost10},
+            </if>
+            <if test="projectApportionmentCost11 !=null">
+                #{projectApportionmentCost11},
+            </if>
+            <if test="projectApportionmentCost12!=null">
+                #{projectApportionmentCost12},
+            </if>
+            <if test="projectApportionmentCost13 !=null">
+                #{projectApportionmentCost13},
+            </if>
+            <if test="projectApportionmentCost14 !=null">
+                #{projectApportionmentCost14},
+            </if>
+            <if test="projectApportionmentCost15 !=null">
+                #{projectApportionmentCost15},
+            </if>
+            <if test="projectApportionmentCost16 !=null">
+                #{projectApportionmentCost16},
+            </if>
+            <if test="projectApportionmentCost17 !=null">
+                #{projectApportionmentCost17},
+            </if>
+            <if test="projectApportionmentCostTimeSlot !=null">
+                #{projectApportionmentCostTimeSlot},
+            </if>
+            <if test="addUpApportionmentMoney != null">
+                #{addUpApportionmentMoney},
+            </if>
+            <if test="projectActualBouns15 !=null">
+                #{projectActualBouns15},
+            </if>
+            <if test="projectActualBouns16 !=null">
+                #{projectActualBouns16},
+            </if>
+            <if test="projectActualBouns17 !=null">
+                #{projectActualBouns17},
+            </if>
+
+
+            <if test="projectActualBouns18 !=null">
+                #{projectActualBouns18},
+            </if>
+
+
+            <if test="projectProvisionBouns15 !=null">
+                #{projectProvisionBouns15},
+            </if>
+            <if test="projectProvisionBouns16 !=null">
+                #{projectProvisionBouns16},
+            </if>
+            <if test="projectProvisionBouns17 !=null">
+                #{projectProvisionBouns17},
+            </if>
+
+            <if test="projectProvisionBouns18 !=null">
+                #{projectProvisionBouns18},
+            </if>
+
+            <if test="createTime!= null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByTotal" parameterType="TotalGainsLoss">
+        update project_gains_loss_total
+        <set>
+            <if test="projectNum != null">
+                project_num =#{projectNum},
+            </if>
+            <if test="productType != null">
+                product_type=#{productType},
+            </if>
+            <if test="date != null">
+                date=#{date},
+            </if>
+            <if test="accountIncome != null">
+                accounting_income=#{accountIncome} ,
+            </if>
+            <if test="cost != null">
+                cost=#{cost} ,
+            </if>
+            <if test="mainBusinessCost != null">
+                main_business_cost =#{mainBusinessCost},
+            </if>
+            <if test="taxAddition != null">
+                tax_addition=#{taxAddition} ,
+            </if>
+            <if test="operatingExpense != null">
+                operating_expense =#{operatingExpense},
+            </if>
+            <if test="salaryAddition != null">
+                salary_addition=#{salaryAddition},
+            </if>
+            <if test="performanceBonus != null">
+                performance_bonus=#{performanceBonus},
+            </if>
+            <if test="socialInsurance != null">
+                social_insurance=#{socialInsurance},
+            </if>
+            <if test="outSourcingDevelopmentFee != null">
+                outSourcing_development_fee =#{outSourcingDevelopmentFee},
+            </if>
+            <if test="depreciationCost != null">
+                depreciation_cost=#{depreciationCost},
+            </if>
+            <if test="rentalExpense != null">
+                rental_expense=#{rentalExpense},
+            </if>
+            <if test="welfareExpense != null">
+                welfare_expense =#{welfareExpense},
+            </if>
+            <if test="officeExpense != null">
+                office_expense=#{officeExpense},
+            </if>
+            <if test="travelExpense != null">
+                travel_Expense=#{travelExpense} ,
+            </if>
+            <if test="serveExpense != null">
+                serve_expense =#{serveExpense},
+            </if>
+            <if test="cityTransportationExpense != null">
+                city_transportation_expense=#{cityTransportationExpense} ,
+            </if>
+            <if test="carExpense!= null">
+                car_expense =#{carExpense},
+            </if>
+            <if test="lowValueConsumableAmortization != null">
+                low_value_consumables_amortization=#{lowValueConsumableAmortization},
+            </if>
+            <if test="mailCharges != null">
+                mail_charges =#{mailCharges},
+            </if>
+            <if test="trainingExpense != null">
+                training_expense=#{trainingExpense},
+            </if>
+            <if test="meetingAffairExpense != null">
+                meeting_affair_expense =#{meetingAffairExpense},
+            </if>
+            <if test="consultingExpense != null">
+                consulting_expense=#{consultingExpense},
+            </if>
+            <if test="advertisingExpense != null">
+                advertising_expense =#{advertisingExpense},
+            </if>
+            <if test="recruitingExpense != null">
+                recruiting_expense=#{recruitingExpense},
+            </if>
+            <if test="intangibleAmortization !=  null">
+                intangible_amortization=#{intangibleAmortization},
+            </if>
+            <if test="otherTaxExpense != null">
+                other_tax_expense=#{otherTaxExpense},
+            </if>
+            <if test="testExpense!= null">
+                test_expense=#{testExpense},
+            </if>
+            <if test="financialExpense != null">
+                financial_expense=#{financialExpense},
+            </if>
+            <if test="operatingProftProject != null">
+                operating_profit_project=#{operatingProftProject},
+            </if>
+            <if test="unitInternalSettlementIncome != null">
+                unit_internal_settlement_income=#{unitInternalSettlementIncome},
+            </if>
+            <if test="unitInternalSettlementPlusCharge != null">
+                unit_internal_settlement_plus_charge=#{unitInternalSettlementPlusCharge},
+            </if>
+            <if test="preTaxProfits!= null">
+                pre_tax_profits=#{preTaxProfits},
+            </if>
+            <if test="inPeopleMonth!= null">
+                in_people_month=#{inPeopleMonth},
+            </if>
+            <if test="perCapitaCost!= null">
+                per_capita_cost=#{perCapitaCost},
+            </if>
+            <if test="profitRate!= null">
+                profit_rate=#{profitRate},
+            </if>
+            <if test="otherExpense !=null">
+                other_expense=#{otherExpense},
+            </if>
+            <if test=" projectApportionmentCostDeadline !=null">
+                project_apportionment_cost_deadline=#{projectApportionmentCostDeadline},
+            </if>
+            <if test="projectApportionmentCost1 !=null">
+                project_apportionment_cost_1 = #{projectApportionmentCost1},
+            </if>
+            <if test="projectApportionmentCost2 !=null">
+                project_apportionment_cost_2=#{projectApportionmentCost2},
+            </if>
+            <if test="projectApportionmentCost3 !=null">
+                project_apportionment_cost_3=#{projectApportionmentCost3},
+            </if>
+            <if test="projectApportionmentCost4 !=null">
+                project_apportionment_cost_4=#{projectApportionmentCost4},
+            </if>
+            <if test="projectApportionmentCost5 !=null">
+                project_apportionment_cost_5=#{projectApportionmentCost5},
+            </if>
+            <if test="projectApportionmentCost6 !=null">
+                project_apportionment_cost_6=#{projectApportionmentCost6},
+            </if>
+            <if test="projectApportionmentCost7 !=null">
+                project_apportionment_cost_7=#{projectApportionmentCost7},
+            </if>
+            <if test="projectApportionmentCost8 !=null">
+                project_apportionment_cost_8=#{projectApportionmentCost8},
+            </if>
+            <if test="projectApportionmentCost9 !=null">
+                project_apportionment_cost_9=#{projectApportionmentCost9},
+            </if>
+            <if test="projectApportionmentCost10 !=null">
+                project_apportionment_cost_10=#{projectApportionmentCost10},
+            </if>
+            <if test="projectApportionmentCost11 !=null">
+                project_apportionment_cost_11=#{projectApportionmentCost11},
+            </if>
+            <if test="projectApportionmentCost12 !=null">
+                project_apportionment_cost_12=#{projectApportionmentCost12},
+            </if>
+            <if test="projectApportionmentCost13 !=null">
+                project_apportionment_cost_13=#{projectApportionmentCost13},
+            </if>
+            <if test="projectApportionmentCost14 !=null">
+                project_apportionment_cost_14=#{projectApportionmentCost14},
+            </if>
+            <if test="projectApportionmentCost15 !=null">
+                project_apportionment_cost_15=#{projectApportionmentCost15},
+            </if>
+            <if test="projectApportionmentCost16 !=null">
+                project_apportionment_cost_16=#{projectApportionmentCost16},
+            </if>
+            <if test="projectApportionmentCost17 !=null">
+                project_apportionment_cost_17=#{projectApportionmentCost17},
+            </if>
+
+            <if test="projectApportionmentCostTimeSlot !=null">
+                project_apportionment_cost_time_slot=#{projectApportionmentCostTimeSlot},
+            </if>
+            <if test="addUpApportionmentMoney != null">
+                add_up_apportionment_money=#{addUpApportionmentMoney},
+            </if>
+            <if test="projectActualBouns15 !=null">
+                project_actual_bouns_15=#{projectActualBouns15},
+            </if>
+            <if test="projectActualBouns16 !=null">
+                project_actual_bouns_16=#{projectActualBouns16},
+            </if>
+            <if test="projectActualBouns17 !=null">
+                project_actual_bouns_17=#{projectActualBouns17},
+            </if>
+
+            <if test="projectProvisionBouns15 !=null">
+                project_provision_bouns_15=#{projectProvisionBouns15},
+            </if>
+            <if test="projectProvisionBouns16 !=null">
+                project_provision_bouns_16=#{projectProvisionBouns16},
+            </if>
+            <if test="projectProvisionBouns17 !=null">
+                project_provision_bouns_17=#{projectProvisionBouns17},
+            </if>
+
+            <if test="createTime!= null">
+                create_time=#{createTime},
+            </if>
+        </set>
+        where business_line =  #{businessLine}
+        and project_name = #{projectName}
+        and date = #{date};
+    </update>
+
+    <select id="getList" parameterType="TotalGainsLoss" resultMap="totalGainsLossMap">
+        select * from project_gains_loss_total where 1=1
+        <if test="businessLine != null and businessLine !=''">
+            and business_line = #{businessLine}
+        </if>
+        <if test="projectName != null">
+            and project_name = #{projectName}
+        </if>
+        <if test="date != null">
+            and date = #{date}
+        </if>
+    </select>
+
+    <select id="selectBySum" parameterType="java.lang.String" resultMap="totalGainsLossMap">
+
+        select project_num,sum(main_business_cost) as main_business_cost,sum(salary_addition) as salary_addition,
+        sum(performance_bonus) as performance_bonus, sum(social_insurance) as social_insurance,
+        sum(outsourcing_development_fee) as outsourcing_development_fee, sum(welfare_expense) as welfare_expense ,
+        sum(office_expense) as office_expense,sum(travel_expense) as travel_expense ,
+        sum(serve_expense) as serve_expense, sum(city_transportation_expense) as city_transportation_expense,
+        sum(car_expense) as car_expense,sum(low_value_consumables_amortization) as low_value_consumables_amortization,
+        sum(mail_charges)as mail_charges,sum(training_expense) as training_expense,
+        sum(meeting_affair_expense) as meeting_affair_expense, sum(consulting_expense) as consulting_expense,
+        sum(advertising_expense) as advertising_expense, sum(recruiting_expense) as recruiting_expense,
+        sum(intangible_amortization) as intangible_amortization,sum(other_tax_expense) as other_tax_expense,
+        sum(test_expense) as test_expense, sum(other_expense) as other_expense ,
+        sum(project_actual_bouns_15) as project_actual_bouns_15,sum(project_actual_bouns_16) as project_actual_bouns_16,
+        sum(project_actual_bouns_17) as project_actual_bouns_17, sum(project_provision_bouns_15) as project_provision_bouns_15,
+        sum(project_provision_bouns_17) as project_provision_bouns_17,sum(project_provision_bouns_16)  as project_provision_bouns_16,
+        sum(add_up_apportionment_money) as add_up_apportionment_money ,sum(depreciation_cost) as depreciation_cost,
+        sum(rental_expense) as rental_expense
+        from project_gains_loss_total where project_num=#{projectNum} and date=#{date}
+
+    </select>
+
+    <delete id="deleteByTotal" parameterType="TotalGainsLoss">
+        delete from project_gains_loss_total where 1=1
+        <if test="businessLine != null and businessLine !=''">
+            and business_line = #{businessLine}
+        </if>
+        <if test="projectName != null">
+            and project_name = #{projectName}
+        </if>
+        <if test="date != null">
+            and date = #{date}
+        </if>
+    </delete>
+
+    <select id="getMonthList" resultType="java.lang.String" parameterType="java.lang.String">
+        select DISTINCT right(date,2) as month from project_gains_loss_total where left(date,4)=#{year} order by month asc
+    </select>
+
+    <select id="getMaxDate" resultType="java.lang.String" >
+        select max(date) from project_gains_loss_total
+    </select>
+
+    <select id="getYearList" resultType="java.lang.String">
+        select DISTINCT left(date,4) as year from project_gains_loss_total order by year desc
+    </select>
+
+    <select id="selectPerCapitaCost" parameterType="java.lang.String" resultType="Double">
+        select IFNULL(sum(per_capita_cost),0) from project_gains_loss_total where project_num = #{projectNum} and date = #{date}
+    </select>
+
+
+    <!-- 查询最大年月份的 累积到当前的成本 -->
+    <select id="getProjectApportionmentCostTimeSlot" parameterType="String" resultType="Double">
+        SELECT project_apportionment_cost_time_slot FROM project_gains_loss_total WHERE project_num = #{projectNum}
+        AND date=(
+        SELECT MAX(date) FROM project_gains_loss_total WHERE project_num = #{projectNum}
+        )
+    </select>
+
+
+
+</mapper>

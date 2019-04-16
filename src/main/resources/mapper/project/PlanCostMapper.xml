@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.ProjectMapper.PlanCostMapper" >
+    <resultMap id="BaseResultMap" type="PlanCost" >
+        <id column="p_id" property="pId" />
+        <result column="project_num" property="projectNum" />
+        <result column="sort" property="sort" />
+        <result column="state_name" property="stateName" />
+        <result column="plan_time" property="planTime"  />
+        <result column="plan_cost" property="planCost"  />
+        <result column="invoice_time" property="invoiceTime"  />
+        <result column="actual_time" property="actualTime" />
+        <result column="actual_cost" property="actualCost"  />
+        <result column="settlement_rate" property="settlementRate" />
+        <result column="create_time" property="createTime" />
+        <result column="dept" property="dept" />
+        <result column="plantime_afterupd" property="plantimeAfterupd"/>
+    </resultMap>
+    <sql id="Base_Column_List" >
+        p_id, project_num, sort, state_name, plan_time, plan_cost, invoice_time, actual_time,
+        actual_cost, settlement_rate, create_time, dept,plantime_afterupd
+    </sql>
+
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from plan_cost
+        where project_num = #{projectNum}
+        order by plan_time
+    </select>
+
+    <select id="selectByProjectNumAndSort" resultMap="BaseResultMap" parameterType="PlanCost">
+        SELECT * FROM `plan_cost` where project_num=#{projectNum} and sort=#{sort}
+    </select>
+
+    <select id="selectByPrimaryKeyAndPlanTime" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from plan_cost
+        where project_num = #{projectNum} and plan_time like "${planTime}%"
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from plan_cost
+        where project_num = #{projectNum}
+    </delete>
+
+    <insert id="insertSelective" parameterType="PlanCost" >
+        insert into plan_cost
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="projectNum != null" >
+                project_num,
+            </if>
+            <if test="sort != null" >
+                sort,
+            </if>
+            <if test="stateName != null" >
+                state_name,
+            </if>
+            <if test="planTime != null" >
+                plan_time,
+            </if>
+            <if test="planCost != null" >
+                plan_cost,
+            </if>
+            <if test="invoiceTime != null" >
+                invoice_time,
+            </if>
+            <if test="actualTime != null" >
+                actual_time,
+            </if>
+            <if test="actualCost != null" >
+                actual_cost,
+            </if>
+            <if test="settlementRate != null" >
+                settlement_rate,
+            </if>
+            <if test="dept != null" >
+                dept,
+            </if>
+            <if test="plantimeAfterupd != null">
+                plantime_afterupd,
+            </if>
+            create_time
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="projectNum != null" >
+                #{projectNum},
+            </if>
+            <if test="sort != null" >
+                #{sort},
+            </if>
+            <if test="stateName != null" >
+                #{stateName},
+            </if>
+            <if test="planTime != null" >
+                #{planTime},
+            </if>
+            <if test="planCost != null" >
+                #{planCost},
+            </if>
+            <if test="invoiceTime != null" >
+                #{invoiceTime},
+            </if>
+            <if test="actualTime != null" >
+                #{actualTime},
+            </if>
+            <if test="actualCost != null" >
+                #{actualCost},
+            </if>
+            <if test="settlementRate != null" >
+                #{settlementRate},
+            </if>
+            <if test="dept != null" >
+                #{dept},
+            </if>
+            <if test="plantimeAfterupd != null">
+                #{plantimeAfterupd},
+            </if>
+            now()
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="PlanCost" >
+        update plan_cost
+        <set >
+            <if test="stateName != null" >
+                state_name = #{stateName},
+            </if>
+            <if test="planTime != null" >
+                plan_time = #{planTime},
+            </if>
+            <if test="planCost != null" >
+                plan_cost = #{planCost},
+            </if>
+            <if test="invoiceTime != null" >
+                invoice_time = #{invoiceTime},
+            </if>
+            <if test="actualTime != null" >
+                actual_time = #{actualTime},
+            </if>
+            <if test="actualCost != null" >
+                actual_cost = #{actualCost},
+            </if>
+            <if test="settlementRate != null" >
+                settlement_rate = #{settlementRate},
+            </if>
+            <if test="dept != null" >
+                dept = #{dept},
+            </if>
+            <if test="plantimeAfterupd != null">
+                plantime_afterupd=#{plantimeAfterupd},
+            </if>
+            create_time = now()
+        </set>
+        where project_num = #{projectNum}
+        and sort = #{sort}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="PlanCost">
+        update plan_cost set
+        state_name = #{stateName},
+        plan_time = #{planTime},
+        plan_cost = #{planCost},
+        invoice_time = #{invoiceTime},
+        actual_time = #{actualTime},
+        actual_cost = #{actualCost},
+        settlement_rate = #{settlementRate},
+        dept = #{dept},
+        <if test="plantimeAfterupd != null">
+            plantime_afterupd=#{plantimeAfterupd},
+        </if>
+        create_time = now()
+        where project_num = #{projectNum}
+        and sort = #{sort}
+    </update>
+
+</mapper>

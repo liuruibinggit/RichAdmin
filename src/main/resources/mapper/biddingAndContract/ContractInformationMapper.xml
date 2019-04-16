@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.BiddingAndContract.ContractInformationMapper">
+    <resultMap id="BaseResultMap" type="cn.richinfo.richadmin.Entity.BiddingAndContract.ContractInformation">
+        <id column="contact_id" property="contactId" />
+        <id column="project_num" property="projectNum" />
+        <result column="project_name" property="projectName" />
+        <result column="contract_num" property="contractNum"  />
+        <result column="contract_name" property="contractName"/>
+        <result column="customer_name" property="customerName"/>
+        <result column="product" property="product" />
+        <result column="industry" property="industry" />
+        <result column="is_frame" property="isFrame" />
+        <result column="contract_amount" property="contractAmount"/>
+        <result column="no_contract_amount" property="noContractAmount"/>
+        <result column="pay_type" property="payType" />
+        <result column="maintenance_period" property="maintenancePeriod" />
+        <result column="contract_legal_entity" property="contractLegalEntity"/>
+        <result column="is_signing" property="isSigning"  />
+        <result column="contract_signing_time" property="contractSigningTime"/>
+        <result column="contract_start_time" property="contractStartTime"/>
+        <result column="contract_end_time" property="contractEndTime"/>
+        <result column="contract_end_day" property="contractEndDay"/>
+        <result column="filing_time" property="filingTime" />
+        <result column="filing_state" property="filingState"  />
+        <result column="dept" property="dept" />
+        <result column="salesDept" property="sales_dept" />
+        <result column="salesman" property="salesman"  />
+        <result column="remark" property="remark"  />
+        <result column="create_time" property="createTime" />
+        <result column="modifiy_time" property="modifiyTime" />
+        <result column="signing_amont" property="signingAmont" />
+        <result column="net_business_income" property="netBusinessIncome"/>
+        <result column="contract_cycle" property="contractCycle" />
+        <result column="estimate_contract_amount" property="estimateContractAmount" />
+        <!-- 商务接口人 -->
+        <result column="business_interface_person" property="businessInterfacePerson" />
+    </resultMap>
+
+    <!--查询一个时间段内签署的合同列表-->
+    <select id="selectSiging" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT * FROM contract_information
+        WHERE dept ='企业业务单元'
+        AND project_num !=''
+        AND contract_signing_time > #{startTime}
+        <![CDATA[and contract_signing_time<#{stopTime} ]]>
+    </select>
+
+    <!--根据项目编号获取合同信息-->
+    <select id="getContarctByProjectNum" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select * from contract_information
+        where project_num = #{projectNum}
+    </select>
+
+    <!--根据项目名称获取合同信息-->
+    <select id="getContractFormSingning" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from contract_information
+        where project_num != ''
+        <if test="_parameter != null ">
+            and project_name =#{_parameter}
+        </if>
+    </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.richinfo.richadmin.Entity.BiddingAndContract.ContractInformation">
+        update contract_information
+        <set>
+            <if test="projectName != null">
+                project_name = #{projectName},
+            </if>
+            <if test="contractNum != null">
+                contract_num = #{contractNum},
+            </if>
+            <if test="contractName != null">
+                contract_name = #{contractName},
+            </if>
+            <if test="customerName != null">
+                customer_name = #{customerName},
+            </if>
+            <if test="product != null">
+                product = #{product},
+            </if>
+            <if test="industry != null">
+                industry = #{industry},
+            </if>
+            <if test="isFrame != null">
+                is_frame = #{isFrame},
+            </if>
+            <if test="contractAmount != null">
+                contract_amount = #{contractAmount},
+            </if>
+            <if test="noContractAmount != null">
+                no_contract_amount =
+                #{noContractAmount},
+            </if>
+            <if test="payType != null">
+                pay_type = #{payType},
+            </if>
+            <if test="maintenancePeriod != null">
+                maintenance_period =
+                #{maintenancePeriod},
+            </if>
+            <if test="contractLegalEntity != null">
+                contract_legal_entity =
+                #{contractLegalEntity},
+            </if>
+            <if test="isSigning != null">
+                is_signing = #{isSigning},
+            </if>
+            <if test="contractSigningTime != null">
+                contract_signing_time =
+                #{contractSigningTime},
+            </if>
+            <if test="contractStartTime != null">
+                contract_start_time =
+                #{contractStartTime},
+            </if>
+            <if test="contractEndTime != null">
+                contract_end_time = #{contractEndTime},
+            </if>
+            <if test="contractEndDay != null">
+                contract_end_day = #{contractEndDay},
+            </if>
+            <if test="filingTime != null">
+                filing_time = #{filingTime},
+            </if>
+            <if test="filingState != null">
+                filing_state = #{filingState},
+            </if>
+            <if test="dept != null">
+                dept = #{dept},
+            </if>
+            <if test="salesDept != null">
+                sales_dept = #{salesDept},
+            </if>
+            <if test="salesman != null">
+                salesman = #{salesman},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="signingAmont != null">
+                signing_amont = #{signingAmont},
+            </if>
+            <if test="netBusinessIncome != null">
+                net_business_income = #{netBusinessIncome},
+            </if>
+            <if test="contractCycle != null">
+                contract_cycle = #{contractCycle},
+            </if>
+            <if test="estimateContractAmount != null">
+                estimate_contract_amount = #{estimateContractAmount},
+            </if>
+            modifiy_time = now()
+        </set>
+        where contact_id = #{contactId}
+    </update>
+
+    <select id="selectExcessGrossProfit2" parameterType="String" resultMap="BaseResultMap">
+        select contract_start_time as contractStartTime,contract_end_time as contractEndTime from contract_information
+        where project_name=#{projectName}
+    </select>
+
+
+
+</mapper>

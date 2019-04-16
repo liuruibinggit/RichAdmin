@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.Finance.BusinessCostBudgetMapper" >
+    <resultMap id="BaseResultMap" type="cn.richinfo.richadmin.Entity.finance.BusinessCostBudget" >
+        <id column="business_cost_id" property="businessCostId" jdbcType="INTEGER" />
+        <result column="signing_subject" property="signingSubject" jdbcType="VARCHAR" />
+        <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+        <result column="cost_type" property="costType" jdbcType="VARCHAR" />
+        <result column="cost_item" property="costItem" jdbcType="VARCHAR" />
+        <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+        <result column="product_type" property="productType" jdbcType="VARCHAR" />
+        <result column="expect_project_cycle" property="expectProjectCycle" jdbcType="VARCHAR" />
+        <result column="signing_business_unit" property="signingBusinessUnit" jdbcType="VARCHAR" />
+        <result column="cost_financial_income" property="costFinancialIncome" jdbcType="VARCHAR" />
+        <result column="team" property="team" jdbcType="VARCHAR" />
+        <result column="business_cost_total" property="businessCostTotal" jdbcType="DOUBLE" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="obligate" property="obligate" jdbcType="VARCHAR" />
+        <result column="obligate2" property="obligate2" jdbcType="VARCHAR" />
+        <result column="date" property="date" jdbcType="VARCHAR"/>
+        <result column="budget_name" property="budgetName"/>
+    </resultMap>
+    <sql id="Base_Column_List" >
+        business_cost_id, signing_subject, supplier_name, cost_type, cost_item, project_name,
+        product_type, expect_project_cycle, signing_business_unit, cost_financial_income,
+        team, business_cost_total, remark, obligate, obligate2,date
+    </sql>
+
+    <insert id="insertSelective" keyProperty="businessCostId" useGeneratedKeys="true"
+            parameterType="cn.richinfo.richadmin.Entity.finance.BusinessCostBudget" >
+        insert into business_cost_budget
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="signingSubject != null" >
+                signing_subject,
+            </if>
+            <if test="supplierName != null" >
+                supplier_name,
+            </if>
+            <if test="costType != null" >
+                cost_type,
+            </if>
+            <if test="costItem != null" >
+                cost_item,
+            </if>
+            <if test="projectName != null" >
+                project_name,
+            </if>
+            <if test="productType != null" >
+                product_type,
+            </if>
+            <if test="expectProjectCycle != null" >
+                expect_project_cycle,
+            </if>
+            <if test="signingBusinessUnit != null" >
+                signing_business_unit,
+            </if>
+            <if test="costFinancialIncome != null" >
+                cost_financial_income,
+            </if>
+            <if test="team != null" >
+                team,
+            </if>
+            <if test="businessCostTotal != null" >
+                business_cost_total,
+            </if>
+            <if test="remark != null" >
+                remark,
+            </if>
+            <if test="obligate != null" >
+                obligate,
+            </if>
+            <if test="obligate2 != null" >
+                obligate2,
+            </if>
+            <if test="date != null">
+                date,
+            </if>
+            <if test="budgetName != null and budgetName != ''">
+                budget_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="signingSubject != null" >
+                #{signingSubject,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierName != null" >
+                #{supplierName,jdbcType=VARCHAR},
+            </if>
+            <if test="costType != null" >
+                #{costType,jdbcType=VARCHAR},
+            </if>
+            <if test="costItem != null" >
+                #{costItem,jdbcType=VARCHAR},
+            </if>
+            <if test="projectName != null" >
+                #{projectName,jdbcType=VARCHAR},
+            </if>
+            <if test="productType != null" >
+                #{productType,jdbcType=VARCHAR},
+            </if>
+            <if test="expectProjectCycle != null" >
+                #{expectProjectCycle,jdbcType=VARCHAR},
+            </if>
+            <if test="signingBusinessUnit != null" >
+                #{signingBusinessUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="costFinancialIncome != null" >
+                #{costFinancialIncome,jdbcType=VARCHAR},
+            </if>
+            <if test="team != null" >
+                #{team,jdbcType=VARCHAR},
+            </if>
+            <if test="businessCostTotal != null" >
+                #{businessCostTotal,jdbcType=DOUBLE},
+            </if>
+            <if test="remark != null" >
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="obligate != null" >
+                #{obligate,jdbcType=VARCHAR},
+            </if>
+            <if test="obligate2 != null" >
+                #{obligate2,jdbcType=VARCHAR},
+            </if>
+            <if test="date !=  null">
+                #{date},
+            </if>
+            <if test="budgetName != null and budgetName !=''">
+                #{budgetName}
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectBusinessCostBudget" parameterType="cn.richinfo.richadmin.common.model.finance.BusinessIncomeModel" resultMap="BaseResultMap">
+        select
+        DISTINCT(a.business_cost_id) as business_cost_id,
+        a.project_name as project_name,
+        a.signing_subject as signing_subject,
+        a.supplier_name as supplier_name,
+        a.cost_type as cost_type,
+        a.cost_item as cost_item,
+        a.product_type as product_type,
+        a.expect_project_cycle as expect_project_cycle,
+        a.signing_business_unit as signing_business_unit,
+        a.cost_financial_income as cost_financial_income,
+        a.team as team,
+        a.business_cost_total as business_cost_total,
+        a.remark as remark,
+        a.obligate as obligate,
+        a.date as date,
+        a.obligate2 as obligate2
+        from business_cost_budget a,business_cost_budget_value b
+        where a.business_cost_id = b.business_cost_id
+        <if test="projectName != null and projectName !=''">
+            and a.project_name =#{projectName}
+        </if>
+        <if test="signingSubject != null and signingSubject !=''">
+            and a.signing_subject =#{signingSubject}
+        </if>
+        <if test="supplierName != null and supplierName !=''">
+            and a.supplier_name =#{supplierName}
+        </if>
+        <if test="costType != null and costType !=''" >
+            and a.cost_type =#{costType}
+        </if>
+        <if test="costItem != null and costItem !=''">
+            and a.cost_item =#{costItem}
+        </if>
+        <if test="productType != null and productType !=''">
+            and a.product_type =#{productType}
+        </if>
+        <if test="costFinancialIncome != null and costFinancialIncome !=''">
+            and a.cost_financial_income =#{costFinancialIncome}
+        </if>
+        <if test="team != null and team !=''">
+            and a.team =#{team}
+        </if>
+        <if test="isExports != null and isExports !=''">
+            and b.month_value !=0
+        </if>
+        <if test="signingBusinessUnit != null and signingBusinessUnit !=''">
+            and a.signing_business_unit=#{signingBusinessUnit}
+        </if>
+        <if test="date != null and date != ''">
+            and b.date = #{date}
+        </if>
+        <if test="startMonth != null and startMonth !=''">
+            and b.month &gt;= #{startMonth}
+        </if>
+        <if test="endMonth != null and endMonth !=''">
+            and b.month &lt;= #{endMonth}
+        </if>
+        <if test="month != null and month !=''">
+            and b.month = #{month}
+        </if>
+    </select>
+
+    <delete id="deleteBusinessCostBudget" parameterType="cn.richinfo.richadmin.common.model.finance.BusinessIncomeModel">
+        delete from business_cost_budget where 1=2
+        <if test="date !=null and date !=''">
+            or date = #{date}
+        </if>
+    </delete>
+
+    <select id="getYearList" resultType="java.lang.String" parameterType="java.lang.String">
+        select DISTINCT left(date,4) as month from business_cost_budget
+        where length(date)=6
+    </select>
+
+    <select id="getMonthList" resultType="java.lang.String" parameterType="java.lang.String">
+        select DISTINCT right(date,2) as month from business_cost_budget
+        where left(date,4)=#{year} order by month asc
+    </select>
+
+    <select id="maxDate" resultType="java.lang.String" >
+        select max(date) from business_cost_budget where length(date)=6
+    </select>
+
+    <select id="getCurMonth" parameterType="cn.richinfo.richadmin.common.dto.BusinessIncomeMarginDto"
+            resultType="java.lang.Double">
+        select sum(b.month_value) from business_cost_budget a,business_cost_budget_value b
+        where a.business_cost_id=b.business_cost_id
+        <if test="projectName != null and projectName !=''">
+            and a.budget_name=#{projectName}
+        </if>
+        <if test="month != null and month !=''">
+            and b.month =#{month}
+        </if>
+        <if test="date != null and date !=''">
+            and b.date=#{date}
+        </if>
+        <if test="year != null and year !=''">
+            and b.year=#{year}
+        </if>
+    </select>
+
+    <select id="sum"  parameterType="cn.richinfo.richadmin.common.dto.BusinessIncomeMarginDto"
+            resultType="java.lang.Double">
+        select IFNULL(sum(b.month_value),0) as monthValue
+        from business_cost_budget a, business_cost_budget_value b
+        where a.business_cost_id = b.business_cost_id
+        <if test="projectName != null and projectName !=''">
+            and a.budget_name=#{projectName}
+        </if>
+        <if test="date != null and date !=''">
+            and b.date=#{date}
+        </if>
+        <if test="year != null and year !=''">
+            and b.year=#{year}
+        </if>
+        <if test="signingBusinessUnit != null and signingBusinessUnit!=''">
+            and a.signing_business_unit=#{signingBusinessUnit}
+        </if>
+        <if test="startMonth != null and startMonth!=''">
+            and b.month &gt;=#{startMonth}
+        </if>
+        <if test="endMonth != null and endMonth !=''">
+            and b.month &lt;=#{endMonth}
+        </if>
+        <if test="month != null and month !=''">
+            and b.month = #{month}
+        </if>
+    </select>
+
+    <select id="selectByProjectName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from business_cost_budget where 1=1
+        <if test="projectName != null and projectName !=''">
+            and project_name = #{projectName}
+        </if>
+        <if test="date != null and date !=''">
+            and date =#{date}
+        </if>
+    </select>
+
+    <update id="updateBudgetName" parameterType="BusinessIncomeBudget">
+        update business_cost_budget set budget_name = #{budgetName}
+        where project_name = #{projectName}
+        <if test="date != null and date !=''">
+            and date =#{date}
+        </if>
+    </update>
+
+    <select id="getSum" parameterType="cn.richinfo.richadmin.common.model.finance.BusinessIncomeModel"
+            resultType="java.lang.Double">
+        select IFNULL(sum(month_value),0) from business_cost_budget a ,business_cost_budget_value b
+        where a.business_cost_id= b.business_cost_id
+        <if test="projectName != null and projectName !=''">
+            and a.project_name =#{projectName}
+        </if>
+        <if test="signingSubject != null and signingSubject !=''">
+            and a.signing_subject =#{signingSubject}
+        </if>
+        <if test="supplierName != null and supplierName !=''">
+            and a.supplier_name =#{supplierName}
+        </if>
+        <if test="costType != null and costType !=''" >
+            and a.cost_type =#{costType}
+        </if>
+        <if test="costItem != null and costItem !=''">
+            and a.cost_item =#{costItem}
+        </if>
+        <if test="productType != null and productType !=''">
+            and a.product_type =#{productType}
+        </if>
+        <if test="costFinancialIncome != null and costFinancialIncome !=''">
+            and a.cost_financial_income =#{costFinancialIncome}
+        </if>
+        <if test="team != null and team !=''">
+            and a.team =#{team}
+        </if>
+        <if test="date != null and date !='' ">
+            and b.date =#{date}
+        </if>
+        <if test="month != null and month !='' ">
+            and b.month = #{month}
+        </if>
+        <if test="signingBusinessUnit != null and signingBusinessUnit != ''">
+            and a.signing_business_unit=#{signingBusinessUnit}
+        </if>
+        <if test="year != null and year !=''">
+            and b.year = #{year}
+        </if>
+        <if test="startMonth != null and startMonth != ''">
+            and b.month &gt;= #{startMonth}
+        </if>
+        <if test="endMonth != null and endMonth !=''">
+            and b.month &lt;= #{endMonth}
+        </if>
+    </select>
+
+    <select id="getMonthByProject" parameterType="cn.richinfo.richadmin.common.dto.BusinessIncomeMarginDto"
+            resultType="java.lang.String">
+        select b.month from business_cost_budget a , business_cost_budget_value b
+        where a.business_cost_id=b.business_cost_id and month_value !=0.00
+        <if test="projectName != null and projectName !=''">
+            and a.project_name = #{projectName}
+        </if>
+        <if test="date != null and date !=''">
+            and b.date = #{date}
+        </if>
+    </select>
+</mapper>

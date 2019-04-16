@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.admin.mapper.ManagerCheckMapper" >
+    <resultMap id="BaseResultMap" type="cn.richinfo.richadmin.Entity.check.ManagerCheck" >
+        <id column="manager_check_id" property="managerCheckId" jdbcType="INTEGER" />
+        <result column="project_manager" property="projectManager" jdbcType="VARCHAR" />
+        <result column="business_line" property="businessLine" jdbcType="VARCHAR" />
+        <result column="dept" property="dept" jdbcType="VARCHAR" />
+        <result column="manager_num" property="managerNum" jdbcType="VARCHAR" />
+        <result column="position" property="position" jdbcType="VARCHAR" />
+        <result column="manager_check_score" property="managerCheckScore" jdbcType="DOUBLE" />
+        <result column="rank" property="rank" jdbcType="DOUBLE" />
+        <result column="rank_level" property="rankLevel" jdbcType="VARCHAR" />
+        <result column="basic_bonus" property="basicBonus" jdbcType="DOUBLE" />
+        <result column="bonus_times" property="bonusTimes" jdbcType="DOUBLE" />
+        <result column="salary" property="salary" jdbcType="DOUBLE" />
+        <result column="manager_hours" property="managerHours" jdbcType="DOUBLE" />
+        <result column="actual_manager_hours" property="actualManagerHours" jdbcType="DOUBLE" />
+        <result column="december_bonus" property="decemberBonus" jdbcType="DOUBLE" />
+        <result column="year" property="year" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        manager_check_id, project_manager, business_line, dept, manager_num, position, manager_check_score,
+        rank, rank_level, basic_bonus, bonus_times, salary, manager_hours, actual_manager_hours,
+        december_bonus, year
+    </sql>
+    <select id="selectByPrimaryKeyAndYear" resultMap="BaseResultMap" parameterType="java.util.Map" >
+        select
+        <include refid="Base_Column_List" />
+        from manager_check
+        where project_manager = #{projectManager} and year=#{year}
+    </select>
+
+    <select id="getManagerCheckList" parameterType="cn.richinfo.richadmin.common.model.check.ManagerCheckModel" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from manager_check
+        where 1=1
+        <if test="year != null and year !=''">
+            and  year=#{year}
+        </if>
+        <if test="businessLine != null and businessLine !=''" >
+            and business_line=#{businessLine}
+        </if>
+        order by manager_check_score desc
+    </select>
+    <delete id="deleteByProjectManagerAndYear" parameterType="java.util.Map" >
+        delete from manager_check
+        where project_manager = #{projectManager} and year=#{year}
+    </delete>
+    <insert id="insert" parameterType="cn.richinfo.richadmin.Entity.check.ManagerCheck" >
+        insert into manager_check (manager_check_id, project_manager, business_line,
+        dept, manager_num, position,
+        manager_check_score, rank, rank_level,
+        basic_bonus, bonus_times, salary,
+        manager_hours, actual_manager_hours, december_bonus,
+        year)
+        values (#{managerCheckId,jdbcType=INTEGER}, #{projectManager,jdbcType=VARCHAR}, #{businessLine,jdbcType=VARCHAR},
+        #{dept,jdbcType=VARCHAR}, #{managerNum,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR},
+        #{managerCheckScore,jdbcType=DOUBLE}, #{rank,jdbcType=DOUBLE}, #{rankLevel,jdbcType=VARCHAR},
+        #{basicBonus,jdbcType=DOUBLE}, #{bonusTimes,jdbcType=DOUBLE}, #{salary,jdbcType=DOUBLE},
+        #{managerHours,jdbcType=DOUBLE}, #{actualManagerHours,jdbcType=DOUBLE}, #{decemberBonus,jdbcType=DOUBLE},
+        #{year,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.richinfo.richadmin.Entity.check.ManagerCheck" >
+        insert into manager_check
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="managerCheckId != null" >
+                manager_check_id,
+            </if>
+            <if test="projectManager != null" >
+                project_manager,
+            </if>
+            <if test="businessLine != null" >
+                business_line,
+            </if>
+            <if test="dept != null" >
+                dept,
+            </if>
+            <if test="managerNum != null" >
+                manager_num,
+            </if>
+            <if test="position != null" >
+                position,
+            </if>
+            <if test="managerCheckScore != null" >
+                manager_check_score,
+            </if>
+            <if test="rank != null" >
+                rank,
+            </if>
+            <if test="rankLevel != null" >
+                rank_level,
+            </if>
+            <if test="basicBonus != null" >
+                basic_bonus,
+            </if>
+            <if test="bonusTimes != null" >
+                bonus_times,
+            </if>
+            <if test="salary != null" >
+                salary,
+            </if>
+            <if test="managerHours != null" >
+                manager_hours,
+            </if>
+            <if test="actualManagerHours != null" >
+                actual_manager_hours,
+            </if>
+            <if test="decemberBonus != null" >
+                december_bonus,
+            </if>
+            <if test="year != null" >
+                year,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="managerCheckId != null" >
+                #{managerCheckId,jdbcType=INTEGER},
+            </if>
+            <if test="projectManager != null" >
+                #{projectManager,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLine != null" >
+                #{businessLine,jdbcType=VARCHAR},
+            </if>
+            <if test="dept != null" >
+                #{dept,jdbcType=VARCHAR},
+            </if>
+            <if test="managerNum != null" >
+                #{managerNum,jdbcType=VARCHAR},
+            </if>
+            <if test="position != null" >
+                #{position,jdbcType=VARCHAR},
+            </if>
+            <if test="managerCheckScore != null" >
+                #{managerCheckScore,jdbcType=DOUBLE},
+            </if>
+            <if test="rank != null" >
+                #{rank,jdbcType=DOUBLE},
+            </if>
+            <if test="rankLevel != null" >
+                #{rankLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="basicBonus != null" >
+                #{basicBonus,jdbcType=DOUBLE},
+            </if>
+            <if test="bonusTimes != null" >
+                #{bonusTimes,jdbcType=DOUBLE},
+            </if>
+            <if test="salary != null" >
+                #{salary,jdbcType=DOUBLE},
+            </if>
+            <if test="managerHours != null" >
+                #{managerHours,jdbcType=DOUBLE},
+            </if>
+            <if test="actualManagerHours != null" >
+                #{actualManagerHours,jdbcType=DOUBLE},
+            </if>
+            <if test="decemberBonus != null" >
+                #{decemberBonus,jdbcType=DOUBLE},
+            </if>
+            <if test="year != null" >
+                #{year,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.richinfo.richadmin.common.model.check.ManagerCheckModel" >
+        update manager_check
+        <set >
+            <if test="projectManager != null" >
+                project_manager = #{projectManager,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLine != null" >
+                business_line = #{businessLine,jdbcType=VARCHAR},
+            </if>
+            <if test="dept != null" >
+                dept = #{dept,jdbcType=VARCHAR},
+            </if>
+            <if test="managerNum != null" >
+                manager_num = #{managerNum,jdbcType=VARCHAR},
+            </if>
+            <if test="position != null" >
+                position = #{position,jdbcType=VARCHAR},
+            </if>
+            <if test="managerCheckScore != null" >
+                manager_check_score = #{managerCheckScore,jdbcType=DOUBLE},
+            </if>
+            <if test="rank != null" >
+                rank = #{rank,jdbcType=DOUBLE},
+            </if>
+            <if test="rankLevel != null" >
+                rank_level = #{rankLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="basicBonus != null" >
+                basic_bonus = #{basicBonus,jdbcType=DOUBLE},
+            </if>
+            <if test="bonusTimes != null" >
+                bonus_times = #{bonusTimes,jdbcType=DOUBLE},
+            </if>
+            <if test="salary != null" >
+                salary = #{salary,jdbcType=DOUBLE},
+            </if>
+            <if test="managerHours != null" >
+                manager_hours = #{managerHours,jdbcType=DOUBLE},
+            </if>
+            <if test="actualManagerHours != null" >
+                actual_manager_hours = #{actualManagerHours,jdbcType=DOUBLE},
+            </if>
+            <if test="decemberBonus != null" >
+                december_bonus = #{decemberBonus,jdbcType=DOUBLE},
+            </if>
+            <if test="year != null" >
+                year = #{year,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where project_manager = #{projectManager} and year=#{year}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.richinfo.richadmin.Entity.check.ManagerCheck" >
+        update manager_check
+        set project_manager = #{projectManager,jdbcType=VARCHAR},
+        business_line = #{businessLine,jdbcType=VARCHAR},
+        dept = #{dept,jdbcType=VARCHAR},
+        manager_num = #{managerNum,jdbcType=VARCHAR},
+        position = #{position,jdbcType=VARCHAR},
+        manager_check_score = #{managerCheckScore,jdbcType=DOUBLE},
+        rank = #{rank,jdbcType=DOUBLE},
+        rank_level = #{rankLevel,jdbcType=VARCHAR},
+        basic_bonus = #{basicBonus,jdbcType=DOUBLE},
+        bonus_times = #{bonusTimes,jdbcType=DOUBLE},
+        salary = #{salary,jdbcType=DOUBLE},
+        manager_hours = #{managerHours,jdbcType=DOUBLE},
+        actual_manager_hours = #{actualManagerHours,jdbcType=DOUBLE},
+        december_bonus = #{decemberBonus,jdbcType=DOUBLE},
+        year = #{year,jdbcType=VARCHAR}
+        where manager_check_id = #{managerCheckId,jdbcType=INTEGER}
+    </update>
+</mapper>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.BiddingAndContract.BiddingInformationMapper">
+    <resultMap id="BaseResultMap" type="cn.richinfo.richadmin.Entity.BiddingAndContract.BiddingInformation">
+        <id column="bid_id" property="bidId" />
+        <result column="dept" property="dept" />
+        <result column="customer_num" property="customerNum" />
+        <result column="project_name" property="projectName" />
+        <result column="customer_name" property="customerName" />
+        <result column="final_offer" property="finalOffer" />
+        <result column="tax_rate" property="taxRate" />
+        <result column="average_prive" property="averagePrive" />
+        <result column="function_unit_price" property="functionUnitPrice" />
+        <result column="budgeted_cost" property="budgetedCost" />
+        <result column="budgeted_total_hours" property="budgetedTotalHours" />
+        <result column="unit_pool_coefficient" property="unitPoolCoefficient" />
+        <result column="ex_balance" property="exBalance" />
+        <result column="bf_balance" property="bfBalance" />
+        <result column="tender_time" property="tenderTime" />
+        <result column="is_bid" property="isBid" />
+        <result column="salesman_dept" property="salesmanDept" />
+        <result column="salesman" property="salesman" />
+        <result column="business_interface_people" property="businessInterfacePeople" />
+        <result column="outsourcing_cost" property="outsourcingCost" />
+        <result column="purchase_cost" property="purchaseCost" />
+        <result column="other_cost" property="otherCost" />
+        <result column="remark" property="remark" />
+        <result column="add_or_extend" property="addOrExtend" />
+        <result column="is_outsourcing" property="isOutsourcing" />
+        <result column="bid_time" property="bidTime" />
+        <result column="project_term" property="projectTerm" />
+        <result column="create_time" property="createTime" />
+        <result column="modify_time" property="modifyTime" />
+        <result column="signing_amont" property="signingAmont" />
+        <result column="net_business_income" property="netBusinessIncome" />
+        <result column="project_num" property="projectNum" />
+        <result column="achievement_time" property="achievementTime" />
+        <result column="purchase_type" property="purchaseType" />
+        <result column="business_num" property="businessNum" />
+        <result column="is_search_bid" property="isSearchBid" />
+        <result column="is_fail" property="isFail" />
+    </resultMap>
+
+    <select id="selectSiging" resultMap="BaseResultMap" >
+        SELECT *
+        FROM   bidding_information
+        WHERE  (dept="业务一单元" AND project_name != '' )
+        OR (dept="业务二单元" AND  project_name != '')
+        OR (dept="南方市场中心" AND  project_name != '')
+        OR (dept="北方市场中心" AND  project_name != '')
+        OR (dept="家庭娱乐项目组" AND  project_name != '')
+    </select>
+
+    <!--更新投标信息-->
+    <update id="updateByPrimaryKeySelective" parameterType="cn.richinfo.richadmin.Entity.BiddingAndContract.BiddingInformation">
+        update bidding_information
+        <set>
+            <if test="dept != null">
+                dept = #{dept},
+            </if>
+            <if test="customerNum != null">
+                customer_num = #{customerNum},
+            </if>
+            <if test="projectName != null">
+                project_name = #{projectName},
+            </if>
+            <if test="customerName != null">
+                customer_name = #{customerName},
+            </if>
+            <if test="finalOffer != null">
+                final_offer = #{finalOffer},
+            </if>
+            <if test="taxRate != null">
+                tax_rate = #{taxRate},
+            </if>
+            <if test="averagePrive != null">
+                average_prive = #{averagePrive},
+            </if>
+            <if test="functionUnitPrice != null">
+                function_unit_price =
+                #{functionUnitPrice},
+            </if>
+            <if test="budgetedCost != null">
+                budgeted_cost = #{budgetedCost},
+            </if>
+            <if test="budgetedTotalHours != null">
+                budgeted_total_hours =
+                #{budgetedTotalHours},
+            </if>
+            <if test="unitPoolCoefficient != null">
+                unit_pool_coefficient =
+                #{unitPoolCoefficient},
+            </if>
+            <if test="exBalance != null">
+                ex_balance = #{exBalance},
+            </if>
+            <if test="bfBalance != null">
+                bf_balance = #{bfBalance},
+            </if>
+            <if test="tenderTime != null">
+                tender_time = #{tenderTime},
+            </if>
+            <if test="isBid != null">
+                is_bid = #{isBid},
+            </if>
+            <if test="salesmanDept != null">
+                salesman_dept = #{salesmanDept},
+            </if>
+            <if test="salesman != null">
+                salesman = #{salesman},
+            </if>
+            <if test="businessInterfacePeople != null">
+                business_interface_people =
+                #{businessInterfacePeople},
+            </if>
+            <if test="outsourcingCost != null">
+                outsourcing_cost = #{outsourcingCost},
+            </if>
+            <if test="purchaseCost != null">
+                purchase_cost = #{purchaseCost},
+            </if>
+            <if test="otherCost != null">
+                other_cost = #{otherCost},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="addOrExtend != null">
+                add_or_extend = #{addOrExtend},
+            </if>
+            <if test="isOutsourcing != null">
+                is_outsourcing = #{isOutsourcing},
+            </if>
+            <if test="bidTime != null">
+                bid_time = #{bidTime},
+            </if>
+            <if test="projectTerm != null">
+                project_term = #{projectTerm},
+            </if>
+            <if test="netBusinessIncome != null">
+                net_business_income =
+                #{netBusinessIncome},
+            </if>
+            <if test="signingAmont != null">
+                signing_amont = #{signingAmont},
+            </if>
+            <if test="projectNum != null">
+                project_num = #{projectNum},
+            </if>
+            <if test="purchaseType != null">
+                purchase_type = #{purchaseType},
+            </if>
+            <if test="businessNum != null">
+                business_num = #{businessNum},
+            </if>
+            <if test="isSearchBid != null">
+                is_search_bid = #{isSearchBid},
+            </if>
+            <if test="isFail != null">
+                is_fail = #{isFail},
+            </if>
+            modify_time = now()
+        </set>
+        where bid_id = #{bidId}
+    </update>
+
+    <!--根据项目名称获取投标信息-->
+    <select id='getSigningByName' resultMap="BaseResultMap" parameterType="java.lang.String">
+        select * from bidding_information
+        where project_name=#{projectName}
+        and project_num != ''
+    </select>
+
+
+
+</mapper>

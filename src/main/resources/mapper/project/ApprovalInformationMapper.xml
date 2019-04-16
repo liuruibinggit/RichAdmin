@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.ProjectMapper.ApprovalInformationMapper">
+    <resultMap id="BaseResultMap" type="ApprovalInformation">
+        <id column="project_id" property="projectId" />
+        <id column="project_num" property="projectNum" />
+        <result column="applicant" property="applicant" />
+        <result column="applicant_date" property="applicantDate"/>
+        <result column="project_category" property="projectCategory"/>
+        <result column="project_level" property="projectLevel"/>
+        <result column="project_name" property="projectName" />
+        <result column="project_type" property="projectType" />
+        <result column="project_manager" property="projectManager" />
+        <result column="pmo_dept" property="pmoDept" />
+        <result column="financial_income" property="financialIncome" />
+        <result column="sales_manager" property="salesManager"/>
+        <result column="sales_dept" property="salesDept"  />
+        <result column="sales_income" property="salesIncome"  />
+        <result column="start_time" property="startTime"  />
+        <result column="stop_time" property="stopTime" />
+        <result column="project_products" property="projectProducts"/>
+        <result column="winning_date" property="winningDate" />
+        <result column="signing_date" property="signingDate" />
+        <result column="expect_cost" property="expectCost" />
+        <result column="initial_cost_hours" property="initialCostHours"/>
+        <result column="project_estimated_cost" property="projectEstimatedCost"/>
+        <result column="balance" property="balance"/>
+        <result column="balance_rate" property="balanceRate" />
+        <result column="contract_amount" property="contractAmount" />
+        <result column="tax_rate" property="taxRate" />
+        <result column="unit_pool_coefficient" property="unitPoolCoefficient"/>
+        <result column="cost_hours" property="costHours" />
+        <result column="purchasing_cost" property="purchasingCost" />
+        <result column="outsourcing_cost" property="outsourcingCost"/>
+        <result column="estimated_cost" property="estimatedCost"/>
+        <result column="target_profit" property="targetProfit"/>
+        <result column="target_profit_margin" property="targetProfitMargin"/>
+        <result column="create_time" property="createTime"  />
+        <result column="modifiy_time" property="modifiyTime"  />
+        <result column="is_project" property="isProject"  />
+        <result column="investment_month" property="investmentMonth"/>
+        <result column="pestimated_cost" property="pestimatedCost"/>
+        <result column="budget_share" property="budgetShare"  />
+        <result column="project_state" property="projectState"  />
+        <result column="is_over" property="isOver"  />
+        <result column="is_dept" property="isDept" />
+        <result column="room" property="room" />
+        <result column="success_rate" property="successRate" />
+        <result column="roll_cost_hours" property="rollCostHours" />
+        <result column="is_dept" property="isDept" />
+        <result column="room" property="room" />
+        <result column="dept" property="dept" />
+        <result column="business_num" property="businessNum" />
+        <result column="state" property="state" />
+        <result column="latest_estimated_income" property="latestEstimatedIncome" />
+        <result column="sum_cost" property="sumCost"/>
+        <result column="sum_work" property="sumWork"/>
+        <result column="bonus_balance" property="bonusBalance"/>
+        <result column="is_hand_trans" property="isHandTrans"/>
+        <result column="third_party_cost" property="thirdPartyCost"/>
+    </resultMap>
+
+
+    <resultMap type="cn.richinfo.richadmin.Entity.BiddingAndContract.ExcessGrossProfit"
+               id="ExcessGrossProfitResultMap">
+        <result column="project_name" property="projectName" />
+        <result column="contract_all_time" property="contractAllTime" />
+        <result column="contract_amount" property="contractAmount" />
+        <result column="actual_contract_amount" property="actualContractAmount" />
+        <result column="target_profit" property="targetProfit"  />
+        <result column="target_profit_margin" property="targetProfitMargin"/>
+        <result column="over_target" property="overTarget"/>
+        <result column="over_target_margin" property="overTargetMargin"/>
+        <result column="excess_gross_profit" property="excessGrossProfit"/>
+        <result column="reward" property="reward" />
+        <result column="people_num" property="peopleNum" />
+        <result column="average_reward" property="averageReward" />
+    </resultMap>
+
+    <sql id="app_Column_List">
+        project_id, project_num, applicant, applicant_date, project_category,room,dept,
+        project_level,is_hand_trans,
+        project_name, project_type, project_manager, pmo_dept, financial_income,
+        sales_manager,
+        sales_dept, sales_income, start_time, stop_time, project_products, winning_date,
+        signing_date, expect_cost, initial_cost_hours, project_estimated_cost,
+        balance, balance_rate,
+        contract_amount, tax_rate, unit_pool_coefficient, cost_hours, purchasing_cost,
+        outsourcing_cost,
+        estimated_cost, target_profit, target_profit_margin,is_project,create_time,
+        modifiy_time,is_dept,room,roll_cost_hours,is_over,state,latest_estimated_income,is_project
+    </sql>
+
+
+    <select id="getApprovalByNum" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+        select * from approval_information where project_num = #{projectNum}
+    </select>
+
+    <select id="selectApp" resultMap="BaseResultMap">
+        select
+        <include refid="app_Column_List"/>
+        from approval_information where 1=1 and is_project=0 and is_over=0
+    </select>
+
+    <select id="selectAllProjectNum" resultMap="BaseResultMap">
+        select distinct project_num,start_time,stop_time,cost_hours
+        from approval_information
+    </select>
+
+    <update id="updateCostHours" parameterType="ApprovalInformation">
+        update approval_information set cost_hours = #{costHours}, modifiy_time = now() where project_num = #{projectNum}
+    </update>
+
+    <select id="selectApproval" resultMap="BaseResultMap">
+        SELECT
+           <include refid="app_Column_List" />
+        FROM  approval_information
+        WHERE is_project=0
+    </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="ApprovalInformation">
+        update approval_information
+        <set>
+            <if test="room != null and room != '' ">
+                room=#{room},
+            </if>
+            <if test="isDept != null and isDept != '' " >
+                is_dept=#{isDept},
+            </if>
+
+            <if test="thirdPartyCost != null">
+                third_party_cost = #{thirdPartyCost},
+            </if>
+            <if test="applicant != null">
+                applicant = #{applicant},
+            </if>
+            <if test="applicantDate != null">
+                applicant_date = #{applicantDate},
+            </if>
+            <if test="projectCategory != null">
+                project_category = #{projectCategory},
+            </if>
+            <if test="projectLevel != null">
+                project_level = #{projectLevel},
+            </if>
+            <if test="projectName != null">
+                project_name = #{projectName},
+            </if>
+            <if test="projectType != null">
+                project_type = #{projectType},
+            </if>
+            <if test="projectManager != null">
+                project_manager = #{projectManager},
+            </if>
+            <if test="pmoDept != null">
+                pmo_dept = #{pmoDept},
+            </if>
+            <if test="financialIncome != null">
+                financial_income = #{financialIncome},
+            </if>
+            <if test="salesManager != null">
+                sales_manager = #{salesManager},
+            </if>
+            <if test="salesDept != null">
+                sales_dept = #{salesDept},
+            </if>
+            <if test="salesIncome != null">
+                sales_income = #{salesIncome},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime},
+            </if>
+            <if test="stopTime != null">
+                stop_time = #{stopTime},
+            </if>
+            <if test="projectProducts != null">
+                project_products = #{projectProducts},
+            </if>
+            <if test="winningDate != null">
+                winning_date = #{winningDate},
+            </if>
+            <if test="signingDate != null">
+                signing_date = #{signingDate},
+            </if>
+            <if test="expectCost != null">
+                expect_cost = #{expectCost},
+            </if>
+            <if test="initialCostHours != null">
+                initial_cost_hours = #{initialCostHours},
+            </if>
+            <if test="projectEstimatedCost != null">
+                project_estimated_cost = #{projectEstimatedCost},
+            </if>
+            <if test="balance != null">
+                balance = #{balance},
+            </if>
+            <if test="balanceRate != null">
+                balance_rate = #{balanceRate},
+            </if>
+            <if test="contractAmount != null">
+                contract_amount = #{contractAmount},
+            </if>
+            <if test="taxRate != null">
+                tax_rate = #{taxRate},
+            </if>
+            <if test="unitPoolCoefficient != null">
+                unit_pool_coefficient = #{unitPoolCoefficient},
+            </if>
+            <if test="costHours != null">
+                cost_hours = #{costHours},
+            </if>
+            <if test="purchasingCost != null">
+                purchasing_cost = #{purchasingCost},
+            </if>
+            <if test="outsourcingCost != null">
+                outsourcing_cost = #{outsourcingCost},
+            </if>
+            <if test="estimatedCost != null">
+                estimated_cost = #{estimatedCost},
+            </if>
+            <if test="targetProfit != null">
+                target_profit = #{targetProfit},
+            </if>
+            <if test="targetProfitMargin != null">
+                target_profit_margin = #{targetProfitMargin},
+            </if>
+            <if test="isProject != null">
+                is_project = #{isProject},
+            </if>
+            <if test="investmentMonth != null">
+                investment_month = #{investmentMonth},
+            </if>
+            <if test="pestimatedCost != null">
+                pestimated_cost = #{pestimatedCost},
+            </if>
+            <if test="budgetShare != null">
+                budget_share = #{budgetShare},
+            </if>
+            <if test="projectState != null">
+                project_state = #{projectState},
+            </if>
+            <if test="isOver != null">
+                is_over = #{isOver},
+            </if>
+            <if test="successRate != null">
+                success_rate = #{successRate},
+            </if>
+            <if test="rollCostHours != null">
+                roll_cost_hours = #{rollCostHours},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+            <if test="latestEstimatedIncome != null">
+                latest_estimated_income = #{latestEstimatedIncome},
+            </if>
+
+            <if test="sumCost != null ">
+                sum_cost=#{sumCost},
+            </if>
+            <if test="sumWork != null ">
+                sum_work=#{sumWork},
+            </if>
+            <if test="bonusBalance != null">
+                bonus_balance = #{bonusBalance},
+            </if>
+            modifiy_time = now()
+        </set>
+        where project_num = #{projectNum}
+    </update>
+
+    <!--查询（或按照项目名称）获取实施项目-->
+    <select id="selectImplementProject" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from approval_information
+        where is_project = 0
+        <if test="projectNum != null and projectNum !=''" >
+            and project_num = #{projectNum}
+        </if>
+    </select>
+
+    <!--根据项目名称获取项目信息-->
+    <select id="selectByProjectName" parameterType="String"
+            resultMap="BaseResultMap">
+        select
+        <include refid="app_Column_List" />
+        from approval_information
+        <where>
+            1= 2
+            <if test="_parameter != null">
+                or project_name =#{projectName}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectExcessGrossProfit1" parameterType="cn.richinfo.richadmin.Entity.BiddingAndContract.ExcessGrossProfit"
+            resultMap="ExcessGrossProfitResultMap">
+        select project_name,contract_amount,target_profit,target_profit_margin FROM approval_information
+        WHERE is_over='2'
+    </select>
+
+    <select id="selectProjectNumByProjectName" resultType="String" parameterType="String">
+        select project_num from approval_information
+        where project_name = #{projectName}
+    </select>
+
+    <select id="selectExcessGrossProfitOne" parameterType="String"
+            resultMap="ExcessGrossProfitResultMap" >
+        select * from excess_gross_profit where project_name=#{projectName}
+    </select>
+
+    <insert id="insertExcessGrossProfit" parameterType="cn.richinfo.richadmin.Entity.BiddingAndContract.ExcessGrossProfit">
+        insert into excess_gross_profit
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="projectName != null">
+                project_name,
+            </if>
+            <if test="contractAllTime != null">
+                contract_all_time,
+            </if>
+            <if test="contractAmount != null">
+                contract_amount,
+            </if>
+            <if test="actualContractAmount != null">
+                actual_contract_amount,
+            </if>
+            <if test="targetProfit != null">
+                target_profit,
+            </if>
+            <if test="targetProfitMargin != null">
+                target_profit_margin,
+            </if>
+            <if test="overTarget != null">
+                over_target,
+            </if>
+            <if test="overTargetMargin != null">
+                over_target_margin,
+            </if>
+            <if test="excessGrossProfit != null">
+                excess_gross_profit,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="projectName != null">
+                #{projectName},
+            </if>
+            <if test="contractAllTime != null">
+                #{contractAllTime},
+            </if>
+            <if test="contractAmount != null">
+                #{contractAmount},
+            </if>
+            <if test="actualContractAmount != null">
+                #{actualContractAmount},
+            </if>
+            <if test="targetProfit != null">
+                #{targetProfit},
+            </if>
+            <if test="targetProfitMargin != null">
+                #{targetProfitMargin},
+            </if>
+            <if test="overTarget != null">
+                #{overTarget},
+            </if>
+            <if test="overTargetMargin != null">
+                #{overTargetMargin},
+            </if>
+            <if test="excessGrossProfit != null">
+                #{excessGrossProfit},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>

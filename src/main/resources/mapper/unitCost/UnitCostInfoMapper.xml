@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.richinfo.richadmin.Mapper.UnitCost.UnitCostInfoMapper">
+
+    <resultMap type="cn.richinfo.richadmin.Entity.unitcost.UnitCostInfo" id="unitCostInfoMap">
+        <id property="id" column="id" />
+        <result property="userId" column="user_id" />
+        <result property="userName" column="user_name" />
+        <result property="deptId" column="dept_id" />
+        <result property="deptName" column="dept_name" />
+        <result property="positionType" column="position_type" />
+        <result property="businessType" column="business_type" />
+        <result property="addr" column="addr" />
+        <result property="businessLine" column="business_line" />
+        <result property="businessLineId" column="business_line_id" />
+        <result property="directCosts" column="direct_costs" />
+        <result property="manpowerCost" column="manpower_cost" />
+        <result property="manpowerDirectCost" column="manpower_direct_cost" />
+        <result property="orderNo" column="order_no" />
+        <result property="editTime" column="edit_time" />
+        <result property="month" column="month" />
+    </resultMap>
+
+    <!-- 添加单元销售信息及费用 -->
+    <insert id="addCostInfo" parameterType="cn.richinfo.richadmin.Entity.unitcost.UnitCostInfo">
+        insert into
+        unit_cost_info(
+        user_id,
+        user_name,
+        position_type,
+        dept,
+        dept_id,
+        addr,
+        business_line,
+        business_line_id,
+        order_no,
+        edit_time
+        )values(
+        #{userId},
+        #{userName},
+        #{positionType},
+        #{dept},
+        #{deptId},
+        #{addr},
+        #{businessLine},
+        #{businessLineId},
+        #{orderNo},
+        #{editTime}
+        )
+    </insert>
+
+    <!-- 获取orderNo的最大值 -->
+    <select id="getMaxOrderNo" resultType="Integer">
+        select
+        ifnull(max(order_no),0) maxNo
+        from unit_cost_info
+    </select>
+
+    <select id="queryByUserId" parameterType="cn.richinfo.richadmin.Entity.unitcost.UnitCostInfo"
+            resultMap="unitCostInfoMap">
+        select *
+        from unit_cost_info
+        where business_line_id = #{businessLineId} and user_id = #{userId}
+    </select>
+    <!-- 获取每个业务线的所有销售人员列表 -->
+    <select id="getCostInfoList" parameterType="String" resultMap="unitCostInfoMap">
+        select *
+        from unit_cost_info where 1=1
+        <if test="businessLineId != null and businessLineId != ''">
+            and	business_line_id= #{businessLineId}
+        </if>
+
+        <if test="month != null and month !='' ">
+            and month=#{month}
+        </if>
+
+        <if test="businessLine !=null and businessLine !='' ">
+            and business_line=#{businessLine}
+        </if>
+    </select>
+    <!-- 删除单元销售信息及费用 -->
+    <delete id="delCostInfo" parameterType="UnitCostInfo">
+        delete from unit_cost_info
+        where business_line_id = #{businessLineId} and user_id = #{userId}
+    </delete>
+
+
+    <!-- 更新单元销售信息及费用 -->
+    <update id="editCostInfo" parameterType="cn.richinfo.richadmin.Entity.unitcost.UnitCostInfo">
+        update unit_cost_info
+        set manpower_cost = #{manpowerCost},
+        direct_costs = #{directCosts},
+        edit_time = #{editTime},
+        manpower_direct_cost =#{manpowerDirectCost}
+        where business_line_id = #{businessLineId} and user_id = #{userId}
+    </update>
+
+
+    <!-- 新增单元销售信息及费用 -->
+    <insert id="insertSelective" parameterType="cn.richinfo.richadmin.Entity.unitcost.UnitCostInfo" >
+        insert into unit_cost_info
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="userId != null and userId != ''" >
+                user_id,
+            </if>
+            <if test="userName != null and userName != ''" >
+                user_name,
+            </if>
+            <if test="businessLineId != null and businessLineId != ''" >
+                business_line_id,
+            </if>
+            <if test="businessLine != null  and businessLine != ''" >
+                business_line,
+            </if>
+            <if test="dept != null and dept != ''" >
+                dept,
+            </if>
+            <if test="deptId != null and deptId != ''" >
+                dept_id,
+            </if>
+            <if test="positionType != null and positionType != ''" >
+                position_type,
+            </if>
+            <if test="addr != null and addr != ''" >
+                addr,
+            </if>
+            <if test="month != null and month != ''" >
+                month,
+            </if>
+            <if test="directCosts != null and directCosts > 0" >
+                direct_costs,
+            </if>
+            <if test="manpowerCost != null  and manpowerCost >0" >
+                manpower_cost,
+            </if>
+            <if test="manpowerDirectCost != null and manpowerDirectCost >0">
+                manpower_direct_cost,
+            </if>
+            edit_time
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="userId != null and userId != ''" >
+                #{userId},
+            </if>
+            <if test="userName != null and userName != ''" >
+                #{userName},
+            </if>
+            <if test="businessLineId != null and businessLineId != ''" >
+                #{businessLineId},
+            </if>
+            <if test="businessLine != null and businessLine != ''" >
+                #{businessLine},
+            </if>
+            <if test="dept != null and dept != ''" >
+                #{dept},
+            </if>
+            <if test="deptId != null and deptId != ''" >
+                #{deptId},
+            </if>
+            <if test="positionType != null and positionType != ''" >
+                #{positionType},
+            </if>
+            <if test="addr != null and addr != ''" >
+                #{addr},
+            </if>
+            <if test="month != '' and month != null" >
+                #{month},
+            </if>
+            <if test="directCosts != '' and directCosts > 0" >
+                #{directCosts},
+            </if>
+            <if test="manpowerCost != '' and manpowerCost > 0" >
+                #{manpowerCost},
+            </if>
+            <if test="manpowerDirectCost != null and manpowerDirectCost >0">
+                #{manpowerDirectCost},
+            </if>
+            now()
+        </trim>
+    </insert>
+
+    <select id="sum" parameterType="cn.richinfo.richadmin.common.model.unitCost.UnitCostInfoModel" resultType="UnitCostTotal">
+        select sum(manpower_cost) as manpowerCostTotal,sum(direct_costs) as directCostTotal
+        from unit_cost_info where 1=1
+        <if test="startMonth != null and startMonth !='' ">
+            and month &gt;= #{startMonth}
+        </if>
+        <if test="endMonth != null and endMonth != ''">
+            and month &lt;= #{endMonth}
+        </if>
+        <if test="businessLine != null and businessLine !=''">
+            and business_line=#{businessLine}
+        </if>
+    </select>
+
+    <select id="getPopleNum" parameterType="cn.richinfo.richadmin.common.model.unitCost.UnitCostInfoModel" resultType="java.lang.Integer">
+        select COUNT(DISTINCT user_id)  from unit_cost_info where 1=1
+        <if test="month != null and month !='' ">
+            and month = #{month}
+        </if>
+        <if test="businessLine != null and businessLine != ''">
+            and business_line=#{businessLine};
+        </if>
+    </select>
+
+    <!-- 根据业务单元 开始月份  终止月份 获取销售费用信息 -->
+    <select id="getUnitCostInfoByBusinessLineAndMonth" parameterType="Map" resultMap="unitCostInfoMap">
+        select * from unit_cost_info where 1=1
+        AND month &gt;=#{startMonth}
+        AND month &lt;=#{endMonth}
+        and business_line=#{businessLine}
+    </select>
+
+
+    <select id="queryByUserIdAndMonth" parameterType="String" resultMap="unitCostInfoMap">
+        SELECT * FROM unit_cost_info WHERE user_id=#{userId} AND month=#{month}
+    </select>
+
+    <update id="updateCostInfo" parameterType="UnitCostInfo">
+        update unit_cost_info unit_cost_info set
+        <if test="userName != null and userName != ''" >
+            user_name=#{userName},
+        </if>
+        <if test="businessLineId != null and businessLineId != ''" >
+            business_line_id=#{businessLineId},
+        </if>
+        <if test="businessLine != null  and businessLine != ''" >
+            business_line=#{businessLine},
+        </if>
+        <if test="dept != null and dept != ''" >
+            dept=#{dept},
+        </if>
+        <if test="deptId != null and deptId != ''" >
+            dept_id=#{deptId},
+        </if>
+        <if test="positionType != null and positionType != ''" >
+            position_type=#{positionType},
+        </if>
+        <if test="addr != null and addr != ''" >
+            addr=#{addr},
+        </if>
+        <if test="directCosts != null and directCosts > 0" >
+            direct_costs=#{directCosts},
+        </if>
+        <if test="manpowerCost != null  and manpowerCost >0" >
+            manpower_cost=#{manpowerCost},
+        </if>
+        <if test="manpowerDirectCost != null and manpowerDirectCost >0">
+            manpower_direct_cost=#{manpowerDirectCost},
+        </if>
+        edit_time=now()
+
+        where  user_id=#{userId} and month= #{month}
+
+    </update>
+
+</mapper>

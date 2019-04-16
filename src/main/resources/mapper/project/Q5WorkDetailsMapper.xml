@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.ProjectMapper.Q5WorkDetailsMapper">
+    <resultMap id="BaseResultMap" type="Q5WorkDetails">
+        <id column="p_id" property="pId" jdbcType="INTEGER" />
+        <result column="project_num" property="projectNum" jdbcType="VARCHAR" />
+        <result column="work_time" property="workTime" jdbcType="VARCHAR" />
+        <result column="work_name" property="workName" jdbcType="VARCHAR" />
+        <result column="work_hours" property="workHours" jdbcType="VARCHAR" />
+        <result column="work_dept" property="workDept" jdbcType="VARCHAR" />
+        <result column="employee_number" property="employeeNumber" />
+        <result column="work_month" property="workMonth" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+        <result column="dept" property="dept"/>
+        <result column="room" property="room" />
+        <result column="group_in" property="group_in" />
+        <result column="address" property="address"  />
+        <result column="emp_state" property="emp_state"  />
+        <result column="red_list" property="red_list" />
+        <result column="position" property="position"  />
+        <result column="project_name" property="project_name"  />
+        <result column="account_incomeuint" property="account_incomeuint"  />
+        <result column="need_attend" property="need_attend"  />
+        <result column="hired_date" property="hired_date"  />
+
+    </resultMap>
+    <sql id="Base_Column_List">
+        p_id, project_num, work_time, work_name, work_hours, work_dept, work_month,employee_number,
+        create_time,dept,room,group_in,address,emp_state,red_list,position,project_name,account_incomeuint,need_attend,hired_date
+    </sql>
+
+    <select id="selectQ5WorkDetailsByEmployeeNumber" parameterType="Q5WorkDetails" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from q5_work_details
+        where employee_number = #{employeeNumber}
+        <if test="workMonth!=null">
+            and work_month = #{workMonth}
+        </if>
+    </select>
+
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap"
+            parameterType="Q5WorkDetails">
+        select
+        <include refid="Base_Column_List" />
+        from q5_work_details
+        where project_num = #{projectNum}
+        and work_time = #{workTime}
+    </select>
+
+    <select id="selectByProjectManagerAndYear"  parameterType="java.util.Map"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from q5_work_details where work_name=#{projectManager} and work_month like "${year}%"
+    </select>
+
+    <select id="getHoursByYearAndWorkName" parameterType="cn.richinfo.richadmin.common.model.project.HoursModel" resultMap="BaseResultMap">
+        select sum(work_hours)as work_hours,work_month
+        from q5_work_details where 1=1
+        <if test="workName != null and workName != ''">
+            and work_name=#{workName}
+        </if>
+        <if test="employeeNumber != null and employeeNumber != ''">
+            and upper(employee_number)= upper(#{employeeNumber})
+        </if>
+        <if test="year != null and year != ''">
+            and work_month like "${year}%"
+        </if>
+        GROUP BY work_month
+    </select>
+
+    <select id="getHoursByYearAndWorkNameAndProject" parameterType="cn.richinfo.richadmin.common.model.project.HoursModel" resultMap="BaseResultMap">
+        select sum(work_hours)as work_hours,work_month
+        from q5_work_details where 1=1
+        <if test="workName != null and workName != ''">
+            and work_name=#{workName}
+        </if>
+        <if test="employeeNumber != null and employeeNumber != ''">
+            and employee_number=#{employeeNumber}
+        </if>
+        <if test="year != null and year != ''">
+            and work_month like "${year}%"
+        </if>
+        <if test="projectNum != null and projectNum != ''">
+            and project_num=#{projectNum}
+        </if>
+        GROUP BY work_month
+    </select>
+
+    <select id="selectHoursByProjectName" parameterType="cn.richinfo.richadmin.common.model.project.HoursModel" resultMap="BaseResultMap">
+        select project_num,sum(work_hours)as work_hours from q5_work_details
+        where 1=1
+        <if test="workName != null and workName != ''">
+            and work_name=#{workName}
+        </if>
+        <if test="year != null and year != ''">
+            and work_month like "${year}%"
+        </if>
+        <if test="employeeNumber != null and employeeNumber != ''">
+            and UPPER(employee_number) = UPPER(#{employeeNumber})
+        </if>
+        GROUP BY project_num
+    </select>
+
+    <select id="selectHoursByMonth" parameterType="cn.richinfo.richadmin.common.model.project.HoursModel" resultMap="BaseResultMap">
+        select work_hours,project_num from q5_work_details
+        where 1=1
+        <if test ="workName != null and workName != ''">
+            and work_name=#{workName}
+        </if>
+        <if test ="workMonth != null and workMonth != ''">
+            and work_month=#{workMonth}
+        </if>
+        <if test = "employeeNumber != null and employeeNumber != ''" >
+            and UPPER(employee_number) = UPPER(#{employeeNumber})
+        </if>
+    </select>
+
+    <select id="selectHoursByMonthAndProject" parameterType="cn.richinfo.richadmin.common.model.project.HoursModel" resultMap="BaseResultMap">
+        select work_month ,sum(work_hours)as work_hours from q5_work_details
+        where  work_month like "${year}%" and project_num=#{projectNum} GROUP BY work_month
+    </select>
+
+    <select id="selectByNumber" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from q5_work_details t where 1=1 and Upper(t.employee_number)=Upper(#{employeeNumber}) group by project_num
+    </select>
+
+    <select id="selectAllHours" parameterType="Q5WorkDetails" resultType="java.lang.Double">
+        select sum(work_hours) from q5_work_details t where 1=1
+        <if test="projectNum != null and projectNum != ''">
+            and t.project_num =#{projectNum}
+        </if>
+        <if test="employeeNumber != null and employeeNumber != ''">
+            and Upper(t.employee_number)=Upper(#{employeeNumber})
+        </if>
+    </select>
+    <select id="selectAllHours1" parameterType="Q5WorkDetails" resultType="double">
+        select IFNULL(sum(work_hours),0) from q5_work_details  where 1=1
+        <if test="projectNum != null and projectNum != ''">
+            and project_num =#{projectNum}
+        </if>
+        <if test="employeeNumber != null and employeeNumber != ''">
+            and employee_number=#{employeeNumber}
+        </if>
+        <if test="workName != null and workName != ''">
+            and work_name=#{workName}
+        </if>
+        <if test="year != null and year != ''">
+            and work_month like "${year}%"
+        </if>
+    </select>
+
+    <select id="selectAllHours2" parameterType="cn.richinfo.richadmin.common.model.project.HoursModel" resultType="double">
+        select IFNULL(sum(work_hours),0) from q5_work_details  where 1=1
+        <if test="projectNum != null and projectNum != ''">
+            and project_num =#{projectNum}
+        </if>
+        <if test="employeeNumber != null and employeeNumber != ''">
+            and employee_number=#{employeeNumber}
+        </if>
+        <if test="workName != null and workName != ''">
+            and work_name=#{workName}
+        </if>
+        <if test="year != null and year != ''">
+            and work_month like "${year}%"
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from q5_work_details
+        where p_id = #{pId,jdbcType=INTEGER}
+    </delete>
+
+
+
+    <delete id="deleteDetails" parameterType="Q5WorkDetails">
+        delete from q5_work_details
+        where  project_num = #{projectNum} and work_time = #{workTime}
+    </delete>
+
+    <insert id="insertSelective" parameterType="Q5WorkDetails">
+        insert into q5_work_details
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="projectNum != null">
+                project_num,
+            </if>
+            <if test="workTime != null">
+                work_time,
+            </if>
+            <if test="workName != null">
+                work_name,
+            </if>
+            <if test="workHours != null">
+                work_hours,
+            </if>
+            <if test="workDept != null">
+                work_dept,
+            </if>
+            <if test="employeeNumber != null">
+                employee_number,
+            </if>
+            <if test="dept != null">
+                dept,
+            </if>
+            <if test="group_in != null">
+                group_in,
+            </if>
+            <if test="room != null">
+                room,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="emp_state != null">
+                emp_state,
+            </if>
+            <if test="red_list != null">
+                red_list,
+            </if>
+            <if test="position != null">
+                position,
+            </if>
+            <if test="project_name != null">
+                project_name,
+            </if>
+            <if test="account_incomeuint != null">
+                account_incomeuint,
+            </if>
+            <if test="need_attend != null">
+                need_attend,
+            </if>
+            <if test="hired_date != null">
+                hired_date,
+            </if>
+            <if test="workMonth != null">
+                work_month,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="projectNum != null">
+                #{projectNum,jdbcType=VARCHAR},
+            </if>
+            <if test="workTime != null">
+                #{workTime,jdbcType=VARCHAR},
+            </if>
+            <if test="workName != null">
+                #{workName,jdbcType=VARCHAR},
+            </if>
+            <if test="workHours != null">
+                #{workHours,jdbcType=VARCHAR},
+            </if>
+            <if test="workDept != null">
+                #{workDept,jdbcType=VARCHAR},
+            </if>
+            <if test="employeeNumber != null">
+                #{employeeNumber,jdbcType=VARCHAR},
+            </if>
+
+            <if test="dept != null">
+                #{dept},
+            </if>
+            <if test="group_in != null">
+                #{group_in},
+            </if>
+            <if test="room != null">
+                #{room},
+            </if>
+            <if test="address != null">
+                #{address},
+            </if>
+            <if test="emp_state != null">
+                #{emp_state},
+            </if>
+            <if test="red_list != null">
+                #{red_list},
+            </if>
+            <if test="position != null">
+                #{position},
+            </if>
+            <if test="project_name != null">
+                #{project_name},
+            </if>
+            <if test="account_incomeuint != null">
+                #{account_incomeuint},
+            </if>
+            <if test="need_attend != null">
+                #{need_attend},
+            </if>
+            <if test="hired_date != null">
+                #{hired_date},
+            </if>
+            <!-- <if test="fired_date != null">
+                #{fired_date},
+            </if> -->
+
+
+            <if test="workMonth != null">
+                #{workMonth,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="Q5WorkDetails">
+        update q5_work_details
+        <set>
+            <if test="projectNum != null">
+                project_num = #{projectNum,jdbcType=VARCHAR},
+            </if>
+            <if test="workTime != null">
+                work_time = #{workTime,jdbcType=VARCHAR},
+            </if>
+            <if test="workName != null">
+                work_name = #{workName,jdbcType=VARCHAR},
+            </if>
+            <if test="workHours != null">
+                work_hours = #{workHours,jdbcType=VARCHAR},
+            </if>
+            <if test="workDept != null">
+                work_dept = #{workDept,jdbcType=VARCHAR},
+            </if>
+            <if test="workMonth != null">
+                work_month = #{workMonth,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where p_id = #{pId,jdbcType=INTEGER}
+    </update>
+
+    <!-- 根据员工编号集合 获取所有符合的 Q5WorkDetails  -->
+    <select id="selectQ5WorkDetailsByEmployeeNumberList" resultType="Map" parameterType="java.util.List" >
+        SELECT GROUP_CONCAT(DISTINCT work_name) as work_name,IFNULL(position,'') as position,IFNULL(emp_state,'') as emp_state
+        FROM q5_work_details
+        WHERE employee_number in
+        <foreach collection="workDetailsList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        GROUP BY  work_name
+
+    </select>
+
+</mapper>

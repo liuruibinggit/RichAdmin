@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.Check.CheckMapper">
+    <resultMap id="BaseResultMap" type="Check">
+        <id column="check_id" property="checkId" />
+        <result column="business_line" property="businessLine" />
+        <result column="project_name" property="projectName"/>
+        <result column="project_num" property="projectNum"/>
+        <result column="project_manager" property="projectManager"/>
+        <result column="project_type" property="projectType" />
+        <result column="project_status" property="projectStatus" />
+        <result column="contract_amount" property="contractAmount" />
+        <result column="target_profit_margin" property="targetProfitMargin" />
+        <result column="target_profit" property="targetProfit" />
+        <result column="over_target" property="overTarget"/>
+        <result column="over_target_score" property="overTargetScore"  />
+        <result column="plan_actual_score" property="planActualScore"  />
+        <result column="plan_cost_score" property="planCostScore"  />
+        <result column="customer_score" property="customerScore" />
+        <result column="top_score" property="topScore"/>
+        <result column="actual_score" property="actualScore" />
+        <result column="percent_score" property="percentScore" />
+        <result column="working_hours_all" property="workingHoursAll" />
+        <result column="working_hours_manager" property="workingHoursManager"/>
+    </resultMap>
+
+    <select id="selectCustomerScore"  parameterType="String" resultType="Double">
+        SELECT IFNULL(customer_score,0) FROM `check` where project_num=#{projectNum} LIMIT 1;
+    </select>
+
+    <insert id="insertSelective" parameterType="Check">
+        insert into `check`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="businessLine != null">
+                business_line,
+            </if>
+            <if test="projectName != null">
+                project_name,
+            </if>
+            <if test="projectNum != null">
+                project_num,
+            </if>
+            <if test="projectManager != null">
+                project_manager,
+            </if>
+            <if test="projectType != null">
+                project_type,
+            </if>
+            <if test="projectStatus != null">
+                project_status,
+            </if>
+            <if test="contractAmount != null">
+                contract_amount,
+            </if>
+            <if test="targetProfitMargin != null">
+                target_profit_margin,
+            </if>
+            <if test="targetProfit != null">
+                target_profit,
+            </if>
+            <if test="overTarget != null">
+                over_target,
+            </if>
+            <if test="overTargetScore != null">
+                over_target_score,
+            </if>
+            <if test="planActualScore != null">
+                plan_actual_score,
+            </if>
+            <if test="planCostScore != null">
+                plan_cost_score,
+            </if>
+            <if test="customerScore != null">
+                customer_score,
+            </if>
+            <if test="topScore != null">
+                top_score,
+            </if>
+            <if test="actualScore != null">
+                actual_score,
+            </if>
+            <if test="percentScore != null">
+                percent_score,
+            </if>
+            <if test="workingHoursAll != null">
+                working_hours_all,
+            </if>
+            <if test="workingHoursManager != null">
+                working_hours_manager
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="businessLine != null">
+                #{businessLine},
+            </if>
+            <if test="projectName != null">
+                #{projectName},
+            </if>
+            <if test="projectNum != null">
+                #{projectNum},
+            </if>
+            <if test="projectManager != null">
+                #{projectManager},
+            </if>
+            <if test="projectType != null">
+                #{projectType},
+            </if>
+            <if test="projectStatus != null">
+                #{projectStatus},
+            </if>
+            <if test="contractAmount != null">
+                #{contractAmount},
+            </if>
+            <if test="targetProfitMargin != null">
+                #{targetProfitMargin},
+            </if>
+            <if test="targetProfit != null">
+                #{targetProfit},
+            </if>
+            <if test="overTarget != null">
+                #{overTarget},
+            </if>
+            <if test="overTargetScore != null">
+                #{overTargetScore},
+            </if>
+            <if test="planActualScore != null">
+                #{planActualScore},
+            </if>
+            <if test="planCostScore != null">
+                #{planCostScore},
+            </if>
+            <if test="customerScore != null">
+                #{customerScore},
+            </if>
+            <if test="topScore != null">
+                #{topScore},
+            </if>
+            <if test="actualScore != null">
+                #{actualScore},
+            </if>
+            <if test="percentScore != null">
+                #{percentScore},
+            </if>
+            <if test="workingHoursAll != null">
+                #{workingHoursAll},
+            </if>
+            <if test="workingHoursManager != null">
+                #{workingHoursManager}
+            </if>
+        </trim>
+    </insert>
+
+    <select id="getCheckListCount" parameterType="cn.richinfo.richadmin.common.model.check.CheckModel" resultType="int">
+        select COUNT(*) FROM `check` where 1=1
+        <if test="businessLine !=null and businessLine != ''">
+            and business_line=#{businessLine}
+        </if>
+    </select>
+
+    <select id="getCheckList" parameterType="cn.richinfo.richadmin.common.model.check.CheckModel" resultMap="BaseResultMap" >
+        select business_line,project_name,project_num,project_manager,project_type,project_status,contract_amount,
+        target_profit_margin,target_profit,over_target ,over_target_score,plan_actual_score ,plan_cost_score ,customer_score,top_score ,
+        actual_score,percent_score,working_hours_all,working_hours_manager FROM `check`
+        where 1=1
+        <if test="businessLine !=null and businessLine != ''">
+            and business_line=#{businessLine}
+        </if>
+
+    </select>
+
+    <select id="selectByProjectNum" parameterType="String" resultMap="BaseResultMap" >
+        select DISTINCT business_line,project_name,project_num,project_manager,project_type,project_status,contract_amount,
+        target_profit_margin,target_profit,over_target ,over_target_score,plan_actual_score ,plan_cost_score ,customer_score,top_score ,
+        actual_score,percent_score,working_hours_all,working_hours_manager FROM `check`
+        where project_num=#{projectNum}
+
+    </select>
+
+    <delete id="deleteByProjectNum" parameterType="String">
+        delete from `check` where project_num=#{projectNum}
+    </delete>
+
+    <update id="updateCustomerScore" parameterType="cn.richinfo.richadmin.common.model.check.CheckModel">
+        UPDATE `check` set customer_score=#{customerScore} , actual_score=over_target_score+plan_actual_score+plan_cost_score+customer_score,
+        percent_score=actual_score/top_score
+        where project_num=#{projectNum}
+
+
+    </update>
+
+
+</mapper>

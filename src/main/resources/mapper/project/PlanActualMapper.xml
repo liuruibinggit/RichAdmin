@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.ProjectMapper.PlanActualMapper" >
+    <resultMap id="BaseResultMap" type="PlanActual" >
+        <id column="p_id" property="pId"  />
+        <result column="project_num" property="projectNum" />
+        <result column="sort" property="sort" />
+        <result column="state_name" property="stateName"/>
+        <result column="plan_time" property="planTime"  />
+        <result column="actual_time" property="actualTime" />
+        <result column="create_time" property="createTime" />
+        <result column="dept" property="dept" />
+        <result column="plantime_afterUptd" property="plantimeAfterUptd"/>
+    </resultMap>
+    <sql id="Base_Column_List" >
+        p_id, project_num, sort, state_name, plan_time, actual_time, create_time, dept, plantime_afterUptd
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from plan_actual
+        where project_num = #{projectNum}
+        order by plan_time
+    </select>
+
+    <select id="selectByPrimaryKeyAndPlanTime" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from plan_actual
+        where project_num = #{projectNum} and plan_time like "${planTime}%"
+    </select>
+
+    <select id="selectByProjectNumAndSort" resultMap="BaseResultMap" parameterType="PlanActual">
+        SELECT * FROM `plan_actual` where project_num=#{projectNum} and sort=#{sort}
+
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from plan_actual
+        where project_num = #{projectNum}
+    </delete>
+
+    <insert id="insertSelective" parameterType="PlanActual" >
+        insert into plan_actual
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="projectNum != null" >
+                project_num,
+            </if>
+            <if test="sort != null" >
+                sort,
+            </if>
+            <if test="stateName != null" >
+                state_name,
+            </if>
+            <if test="planTime != null" >
+                plan_time,
+            </if>
+            <if test="actualTime != null" >
+                actual_time,
+            </if>
+            <if test="dept != null" >
+                dept,
+            </if>
+            <if test="plantimeAfterUptd != null">
+                plantime_afterUptd,
+            </if>
+            create_time
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="projectNum != null" >
+                #{projectNum},
+            </if>
+            <if test="sort != null" >
+                #{sort},
+            </if>
+            <if test="stateName != null" >
+                #{stateName},
+            </if>
+            <if test="planTime != null" >
+                #{planTime},
+            </if>
+            <if test="actualTime != null" >
+                #{actualTime},
+            </if>
+            <if test="dept != null" >
+                #{dept},
+            </if>
+            <if test="plantimeAfterUptd != null">
+                #{plantimeAfterUptd},
+            </if>
+            now()
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="PlanActual" >
+        update plan_actual
+        <set >
+            <if test="stateName != null" >
+                state_name = #{stateName},
+            </if>
+            <if test="planTime != null" >
+                plan_time = #{planTime},
+            </if>
+            <if test="actualTime != null" >
+                actual_time = #{actualTime},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime},
+            </if>
+            <if test="dept != null" >
+                dept = #{dept},
+            </if>
+        </set>
+        where project_num = #{projectNum}
+        and sort = #{sort}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="PlanActual">
+        update plan_actual set
+        state_name = #{stateName},
+        plan_time = #{planTime},
+        actual_time = #{actualTime},
+        create_time = #{createTime},
+        dept = #{dept},
+        <if test="plantimeAfterUptd != null">
+            plantime_afterUptd=#{plantimeAfterUptd},
+        </if>
+        create_time = now()
+        where project_num = #{projectNum}
+        and sort = #{sort}
+    </update>
+
+    <select id="getMaxSort" parameterType="String" resultType="int">
+        SELECT IFNULL(MAX(sort),0) FROM plan_actual WHERE project_num=#{projectNum}
+    </select>
+
+</mapper>

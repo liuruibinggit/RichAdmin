@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.ProjectMapper.CorpAvgSecoreMapper" >
+    <resultMap id="BaseResultMap" type="cn.richinfo.richadmin.Entity.project.CropAvgSecore" >
+        <id column="id" property="id"  />
+        <result column="month" property="month"  />
+        <result column="corp_sercore" property="corpSercore"  />
+        <result column="yw1_sercore" property="yw1Sercore"  />
+        <result column="yw2_sercore" property="yw2Sercore" />
+        <result column="qy_sercore" property="qySercore" />
+        <result column="nf_sercore" property="nfSercore"  />
+        <result column="bf_sercore" property="bfSercore"  />
+        <result column="sz_sercore" property="szSercore" />
+        <result column="corp_speed_sercore" property="corpSpeedSercore"  />
+        <result column="qy_speed_sercore" property="qySpeedSercore"  />
+        <result column="nf_speed_sercore" property="nfSpeedSercore" />
+        <result column="bf_speed_sercore" property="bfSpeedSercore" />
+        <result column="sz_speed_sercore" property="szSpeedSercore" />
+        <result column="yw1_speed_sercore" property="yw1SpeedSercore" />
+        <result column="yw2_speed_sercore" property="yw2SpeedSercore" />
+        <result column="corp_maori_sercore" property="corpMaoriSercore" />
+        <result column="yw1_maori_sercore" property="yw1MaoriSercore" />
+        <result column="yw2_maori_sercore" property="yw2MaoriSercore" />
+        <result column="nf_maori_sercore" property="nfMaoriSercore" />
+        <result column="bf_maori_sercore" property="bfMaoriSercore" />
+        <result column="qy_maori_sercore" property="qyMaoriSercore" />
+        <result column="sz_maori_sercore" property="szMaoriSercore" />
+        <result column="corp_settlement_secore" property="corpSettlementSecore" />
+        <result column="yw1_settlement_secore" property="yw1SettlementSecore" />
+        <result column="yw2_settlement_secore" property="yw2SettlementSecore" />
+        <result column="nf_settlement_secore" property="nfSettlementSecore" />
+        <result column="bf_settlement_secore" property="bfSettlementSecore" />
+        <result column="qy_settlement_secore" property="qySettlementSecore" />
+        <result column="sz_settlement_secore" property="szSettlementSecore" />
+        <result column="corp_return_secore" property="corpReturnSecore" />
+        <result column="yw1_return_secore" property="yw1ReturnSecore" />
+        <result column="yw2_return_secore" property="yw2ReturnSecore" />
+        <result column="nf_return_secore" property="nfReturnSecore" />
+        <result column="bf_return_secore" property="bfReturnSecore" />
+        <result column="qy_return_secore" property="qyReturnSecore" />
+        <result column="sz_return_secore" property="szReturnSecore" />
+        <result column="create_time" property="createTime" />
+        <result column="modify_time" property="modifyTime" />
+    </resultMap>
+
+    <insert id="insert" parameterType="cn.richinfo.richadmin.Entity.businessLine.BusinessLine">
+        insert into corp_avg_secore(
+        month,
+        corp_sercore,
+        yw1_sercore,
+        yw2_sercore,
+        qy_sercore,
+        nf_sercore,
+        bf_sercore,
+        sz_sercore,
+
+        corp_speed_sercore,
+        qy_speed_sercore,
+        nf_speed_sercore,
+        bf_speed_sercore,
+        sz_speed_sercore,
+        yw1_speed_sercore,
+        yw2_speed_sercore,
+
+        corp_maori_sercore,
+        yw1_maori_sercore,
+        yw2_maori_sercore,
+        nf_maori_sercore,
+        bf_maori_sercore,
+        qy_maori_sercore,
+        sz_maori_sercore,
+
+        corp_settlement_secore,
+        yw1_settlement_secore,
+        yw2_settlement_secore,
+        nf_settlement_secore,
+        bf_settlement_secore,
+        qy_settlement_secore,
+        sz_settlement_secore,
+
+        corp_return_secore,
+        yw1_return_secore,
+        yw2_return_secore,
+        nf_return_secore,
+        bf_return_secore,
+        qy_return_secore,
+        sz_return_secore,
+        create_time,
+        modify_time
+        )values(
+        #{month},#{corpSercore},#{yw1Sercore},#{yw2Sercore},#{qySercore},#{nfSercore},#{bfSercore},#{szSercore},
+        #{corpSpeedSercore},#{qySpeedSercore},#{nfSpeedSercore},#{bfSpeedSercore},#{szSpeedSercore},#{yw1SpeedSercore},#{yw2SpeedSercore},
+        #{corpMaoriSercore},#{yw1MaoriSercore},#{yw2MaoriSercore},#{nfMaoriSercore},#{bfMaoriSercore},#{qyMaoriSercore},#{szMaoriSercore},
+        #{corpSettlementSecore},#{yw1SettlementSecore},#{yw2SettlementSecore},#{nfSettlementSecore},#{bfSettlementSecore},#{qySettlementSecore},#{szSettlementSecore},
+        #{corpReturnSecore},#{yw1ReturnSecore},#{yw2ReturnSecore},#{nfReturnSecore},#{bfReturnSecore},#{qyReturnSecore},#{szReturnSecore},now(),now()
+        )
+    </insert>
+
+    <select id="selectCorpAvgSecore" resultMap="BaseResultMap">
+        select * from corp_avg_secore order by id ASC
+    </select>
+
+
+</mapper>

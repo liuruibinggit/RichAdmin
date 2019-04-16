@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.Q5.Q5DidleMapper">
+
+    <resultMap type="Q5Didle" id="q5DidleMap">
+        <id property="q5Id" column="q5_id" />
+        <result property="date" column="date" />
+        <result property="dept" column="dept" />
+        <result property="employeeId" column="employee_id" />
+        <result property="employeeName" column="employee_name" />
+        <result property="month" column="month" />
+        <result property="createTime" column="create_time" />
+    </resultMap>
+
+    <select id="queryByDate" parameterType="Q5Didle" resultMap="q5DidleMap">
+        select *
+        from q5_didle
+        where dept = #{dept} and date = #{date}
+    </select>
+
+    <delete id="delDidleInfo" parameterType="Q5Didle">
+        delete from q5_didle
+        where dept = #{dept} and date = #{date}
+    </delete>
+
+    <insert id="addDidleInfo" parameterType="Q5Didle">
+        insert into
+        q5_didle
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="date != null">
+                date,
+            </if>
+            <if test=" dept != null">
+                dept,
+            </if>
+            <if test="employeeId != null">
+                employee_id,
+            </if>
+            <if test="employeeName != null">
+                employee_name,
+            </if>
+            <if test="month != null">
+                month,
+            </if>
+            <if test="createTime != null">
+                create_time
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="date != null">
+                #{date},
+            </if>
+            <if test="dept != null">
+                #{dept},
+            </if>
+            <if test="employeeId != null">
+                #{employeeId},
+            </if>
+            <if test="employeeName != null">
+                #{employeeName},
+            </if>
+            <if test="month != null">
+                #{month},
+            </if>
+            <if test="createTime != null">
+                #{createTime}
+            </if>
+        </trim>
+    </insert>
+</mapper>
