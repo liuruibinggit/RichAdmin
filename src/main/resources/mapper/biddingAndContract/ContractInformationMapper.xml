@@ -160,6 +160,11 @@
         where project_name=#{projectName}
     </select>
 
+    <select id="getContarctByProjectName" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+        select * from contract_information
+        where project_name = #{projectName}
+    </select>
 
 
 </mapper>

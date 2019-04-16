@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.ProjectValue.ProjectMonthOutPutMapper">
+    <resultMap id="BaseResultMap" type="cn.richinfo.richadmin.Entity.project.ProjectMonthOutPut">
+        <id column="pid" property="pid" />
+        <result column="p_id" property="pId"  />
+        <result column="sort" property="sort" />
+        <result column="month" property="month" />
+        <result column="month_out_put" property="monthOutPut"  />
+    </resultMap>
+    <sql id="Base_Column_List">
+        pid, p_id, sort, month, month_out_put
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap"
+            parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List" />
+        from project_month_out_put
+        where p_id = #{pId}
+    </select>
+
+    <select id="selectAllMonth" resultType="String">
+        select distinct month from project_month_out_put
+    </select>
+
+    <select id="selectMonthOutPut" parameterType="cn.richinfo.richadmin.Entity.project.ProjectMonthOutPut"
+            resultType="java.lang.Double">
+        select month_out_put
+        from project_month_out_put
+        where p_id = #{pId} and month = #{month}
+    </select>
+
+    <select id="selectMonnt" parameterType="String" resultMap="BaseResultMap">
+        select * from project_month_out_put where month= #{month}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from project_month_out_put
+        where p_id = #{pId}
+    </delete>
+
+    <insert id="insert" parameterType="cn.richinfo.richadmin.Entity.project.ProjectMonthOutPut">
+        insert into project_month_out_put (pid, p_id, sort,
+        month, month_out_put)
+        values (#{pid}, #{pId},
+        #{sort},
+        #{month,jdbcType=VARCHAR}, #{monthOutPut})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.richinfo.richadmin.Entity.project.ProjectMonthOutPut">
+        insert into project_month_out_put
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pid != null">
+                pid,
+            </if>
+            <if test="pId != null">
+                p_id,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="month != null">
+                month,
+            </if>
+            <if test="monthOutPut != null">
+                month_out_put,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pid != null">
+                #{pid},
+            </if>
+            <if test="pId != null">
+                #{pId},
+            </if>
+            <if test="sort != null">
+                #{sort},
+            </if>
+            <if test="month != null">
+                #{month},
+            </if>
+            <if test="monthOutPut != null">
+                #{monthOutPut},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.richinfo.richadmin.Entity.project.ProjectMonthOutPut">
+        update project_month_out_put
+        <set>
+            <if test="pId != null">
+                p_id = #{pId},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="month != null">
+                month = #{month},
+            </if>
+            <if test="monthOutPut != null">
+                month_out_put = #{monthOutPut},
+            </if>
+        </set>
+        where pid = #{pid}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.richinfo.richadmin.Entity.project.ProjectMonthOutPut">
+        update project_month_out_put
+        set p_id = #{pId},
+        sort = #{sort},
+        month = #{month},
+        month_out_put = #{monthOutPut}
+        where pid = #{pid}
+    </update>
+</mapper>

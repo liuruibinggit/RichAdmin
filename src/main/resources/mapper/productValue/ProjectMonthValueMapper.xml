@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.ProjectValue.ProjectMonthValueMapper">
+    <resultMap id="BaseResultMap" type="cn.richinfo.richadmin.Entity.projectValue.ProjectMonthValue">
+        <result column="project_num" property="projectNum" />
+        <result column="project_name" property="projectName" />
+        <result column="work_time" property="workTime" />
+        <result column="dept" property="dept"/>
+        <result column="value" property="value" />
+    </resultMap>
+
+    <insert id="insert" parameterType="cn.richinfo.richadmin.Entity.projectValue.ProjectMonthValue">
+        insert into project_month_value(project_num,project_name,work_time,dept,value)
+        values (#{projectNum},#{projectName},#{workTime},#{dept},#{value})
+    </insert>
+</mapper>

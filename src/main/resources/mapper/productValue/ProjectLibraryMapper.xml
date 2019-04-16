@@ -262,4 +262,8 @@
         AND bif.is_outsourcing='过路单'
     </select>
 
+    <select id="selectProjectById" parameterType="int" resultMap="BaseResultMap">
+        select * from project_library where p_id= #{pId}
+    </select>
+
 </mapper>

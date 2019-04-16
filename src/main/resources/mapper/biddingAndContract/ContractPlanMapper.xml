@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.BiddingAndContract.ContractPlanMapper" >
+    <resultMap id="BaseResultMap" type="cn.richinfo.richadmin.Entity.BiddingAndContract.ContractPlan" >
+        <id column="cp_id" property="cpId" />
+        <result column="contract_id" property="contractId" />
+        <result column="plan_income" property="planIncome" />
+        <result column="start_time" property="startTime"  />
+        <result column="stop_time" property="stopTime"/>
+        <result column="cycle" property="cycle"  />
+        <result column="actual" property="actual" />
+        <result column="create_time" property="createTime"/>
+        <result column="sort" property="sort" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        cp_id, contract_id, plan_income, start_time, stop_time, cycle, actual, create_time,
+        sort
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from contract_plan
+        where contract_id = #{contactId}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from contract_plan
+        where contract_id = #{contractId}
+    </delete>
+
+    <insert id="insert" parameterType="cn.richinfo.richadmin.Entity.BiddingAndContract.ContractPlan" >
+        insert into contract_plan (cp_id, contract_id, plan_income,
+        start_time, stop_time, cycle,
+        actual, create_time, sort
+        )
+        values (#{cpId}, #{contractId}, #{planIncome},
+        #{startTime}, #{stopTime}, #{cycle},
+        #{actual}, #{createTime}, #{sort}
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="cn.richinfo.richadmin.Entity.BiddingAndContract.ContractPlan" >
+        insert into contract_plan
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="contractId != null" >
+                contract_id,
+            </if>
+            <if test="planIncome != null" >
+                plan_income,
+            </if>
+            <if test="startTime != null" >
+                start_time,
+            </if>
+            <if test="stopTime != null" >
+                stop_time,
+            </if>
+            <if test="cycle != null" >
+                cycle,
+            </if>
+            <if test="actual != null" >
+                actual,
+            </if>
+            <if test="sort != null" >
+                sort,
+            </if>
+            create_time
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="contractId != null" >
+                #{contractId},
+            </if>
+            <if test="planIncome != null" >
+                #{planIncome},
+            </if>
+            <if test="startTime != null" >
+                #{startTime},
+            </if>
+            <if test="stopTime != null" >
+                #{stopTime},
+            </if>
+            <if test="cycle != null" >
+                #{cycle},
+            </if>
+            <if test="actual != null" >
+                #{actual},
+            </if>
+            <if test="sort != null" >
+                #{sort},
+            </if>
+            now()
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.richinfo.richadmin.Entity.BiddingAndContract.ContractPlan" >
+        update contract_plan
+        <set >
+            <if test="contractId != null" >
+                contract_id = #{contractId},
+            </if>
+            <if test="planIncome != null" >
+                plan_income = #{planIncome},
+            </if>
+            <if test="startTime != null" >
+                start_time = #{startTime},
+            </if>
+            <if test="stopTime != null" >
+                stop_time = #{stopTime},
+            </if>
+            <if test="cycle != null" >
+                cycle = #{cycle},
+            </if>
+            <if test="actual != null" >
+                actual = #{actual},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime},
+            </if>
+            <if test="sort != null" >
+                sort = #{sort},
+            </if>
+        </set>
+        where cp_id = #{cpId}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="cn.richinfo.richadmin.Entity.BiddingAndContract.ContractPlan" >
+        update contract_plan
+        set contract_id = #{contractId},
+        plan_income = #{planIncome},
+        start_time = #{startTime},
+        stop_time = #{stopTime},
+        cycle = #{cycle},
+        actual = #{actual},
+        create_time = #{createTime},
+        sort = #{sort}
+        where cp_id = #{cpId}
+    </update>
+
+</mapper>

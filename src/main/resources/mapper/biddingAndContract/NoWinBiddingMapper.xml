@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.richinfo.richadmin.Mapper.BiddingAndContract.NoWinBiddingMapper" >
+    <resultMap id="BaseResultMap" type="cn.richinfo.richadmin.Entity.BiddingAndContract.NoWinBidding" >
+        <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+        <result column="project_manager" property="projectManager" jdbcType="VARCHAR" />
+        <result column="siging_amount" property="sigingAmount" jdbcType="DOUBLE" />
+        <result column="project_estimated_cost" property="projectEstimatedCost" jdbcType="DOUBLE" />
+        <result column="project_cost" property="projectCost" jdbcType="DOUBLE" />
+        <result column="budget_share" property="budgetShare" jdbcType="DOUBLE" />
+        <result column="cost_hours" property="costHours" jdbcType="DOUBLE" />
+        <result column="project_hours_count" property="projectHoursCount" jdbcType="DOUBLE" />
+        <result column="gross_profit" property="grossProfit" jdbcType="DOUBLE" />
+        <result column="bid_time" property="bidTime" jdbcType="DATE" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="signing_date" property="signingDate" jdbcType="VARCHAR" />
+        <result column="last_month" property="lastMonth" jdbcType="VARCHAR" />
+        <result column="this_month" property="thisMonth" jdbcType="VARCHAR" />
+        <result column="corrective_action" property="correctiveAction" jdbcType="VARCHAR" />
+    </resultMap>
+    <insert id="insert" parameterType="cn.richinfo.richadmin.Entity.BiddingAndContract.NoWinBidding" >
+        insert into no_win_bidding (project_name, project_manager, siging_amount,
+        project_estimated_cost, project_cost, budget_share,
+        cost_hours, project_hours_count, gross_profit,
+        bid_time, create_time)
+        values (#{projectName,jdbcType=VARCHAR}, #{projectManager,jdbcType=VARCHAR}, #{sigingAmount,jdbcType=DOUBLE},
+        #{projectEstimatedCost,jdbcType=DOUBLE}, #{projectCost,jdbcType=DOUBLE}, #{budgetShare,jdbcType=DOUBLE},
+        #{costHours,jdbcType=DOUBLE}, #{projectHoursCount,jdbcType=DOUBLE}, #{grossProfit,jdbcType=DOUBLE},
+        #{bidTime,jdbcType=DATE}, #{createTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.richinfo.richadmin.Entity.BiddingAndContract.NoWinBidding" >
+        insert into no_win_bidding
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="projectName != null" >
+                project_name,
+            </if>
+            <if test="projectManager != null" >
+                project_manager,
+            </if>
+            <if test="sigingAmount != null" >
+                siging_amount,
+            </if>
+            <if test="projectEstimatedCost != null" >
+                project_estimated_cost,
+            </if>
+            <if test="projectCost != null" >
+                project_cost,
+            </if>
+            <if test="budgetShare != null" >
+                budget_share,
+            </if>
+            <if test="costHours != null" >
+                cost_hours,
+            </if>
+            <if test="projectHoursCount != null" >
+                project_hours_count,
+            </if>
+            <if test="grossProfit != null" >
+                gross_profit,
+            </if>
+            <if test="bidTime != null" >
+                bid_time,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="projectName != null" >
+                #{projectName,jdbcType=VARCHAR},
+            </if>
+            <if test="projectManager != null" >
+                #{projectManager,jdbcType=VARCHAR},
+            </if>
+            <if test="sigingAmount != null" >
+                #{sigingAmount,jdbcType=DOUBLE},
+            </if>
+            <if test="projectEstimatedCost != null" >
+                #{projectEstimatedCost,jdbcType=DOUBLE},
+            </if>
+            <if test="projectCost != null" >
+                #{projectCost,jdbcType=DOUBLE},
+            </if>
+            <if test="budgetShare != null" >
+                #{budgetShare,jdbcType=DOUBLE},
+            </if>
+            <if test="costHours != null" >
+                #{costHours,jdbcType=DOUBLE},
+            </if>
+            <if test="projectHoursCount != null" >
+                #{projectHoursCount,jdbcType=DOUBLE},
+            </if>
+            <if test="grossProfit != null" >
+                #{grossProfit,jdbcType=DOUBLE},
+            </if>
+            <if test="bidTime != null" >
+                #{bidTime,jdbcType=DATE},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteAll">
+        delete from no_win_bidding
+    </delete>
+
+    <select id="getNoWinBidding" parameterType="cn.richinfo.richadmin.Entity.BiddingAndContract.NoWinBidding" resultMap="BaseResultMap">
+        select * from no_win_bidding where project_name=#{projectName}
+    </select>
+
+    <select id="selectList" parameterType="cn.richinfo.richadmin.Entity.BiddingAndContract.NoWinBidding" resultMap="BaseResultMap">
+        select * from no_win_bidding where 1=1
+        <if test="projectName != null and projectName != ''">
+            and locate(#{projectName},project_name)>0
+        </if>
+        <if test="projectManager != null and projectManager != ''">
+            and locate(#{projectManager},project_manager)>0
+        </if>
+        <if test="minSigningAmount != null and minSigningAmount != ''">
+            and siging_amount > #{minSigningAmount}
+        </if>
+        <if test="maxSigningAmount != null and maxSigningAmount != ''">
+            <![CDATA[ and siging_amount < #{maxSigningAmount} ]]>
+        </if>
+        <if test="minBidTime != null and minBidTime != ''">
+            and bid_time > #{minBidTime}
+        </if>
+        <if test="maxBidTime != null and maxBidTime != ''">
+            <![CDATA[ and bid_time < #{maxBidTime} ]]>
+        </if>
+        <if test="minBudgetShare != null and minBudgetShare != ''">
+            and budget_share > #{minBudgetShare}
+        </if>
+        <if test="maxBudgetShare != null and maxBudgetShare != ''">
+            <![CDATA[ and budget_share < #{maxBudgetShare} ]]>
+        </if>
+        <if test="minCostHours != null and minCostHours != ''">
+            and cost_hours > #{minCostHours}
+        </if>
+        <if test="maxCostHours != null and maxCostHours != ''">
+            <![CDATA[ and cost_hours < #{maxCostHours} ]]>
+        </if>
+        <if test="minGrossProfit != null and minGrossProfit != ''">
+            and gross_profit > #{minGrossProfit}
+        </if>
+        <if test="maxGrossProfit != null and maxGrossProfit != ''">
+            <![CDATA[ and gross_profit < #{maxGrossProfit} ]]>
+        </if>
+
+    </select>
+
+    <select id="selectCount" parameterType="cn.richinfo.richadmin.Entity.BiddingAndContract.NoWinBidding" resultType="int">
+        select count(*) from no_win_bidding where 1=1
+        <if test="projectName != null and projectName != ''">
+            and locate(#{projectName},project_name)>0
+        </if>
+        <if test="projectManager != null and projectManager != ''">
+            and locate(#{projectManager},project_manager)>0
+        </if>
+        <if test="minSigningAmount != null and minSigningAmount != ''">
+            and siging_amount > #{minSigningAmount}
+        </if>
+        <if test="maxSigningAmount != null and maxSigningAmount != ''">
+            <![CDATA[ and siging_amount < #{maxSigningAmount} ]]>
+        </if>
+        <if test="minBidTime != null and minBidTime != ''">
+            and bid_time > #{minBidTime}
+        </if>
+        <if test="maxBidTime != null and maxBidTime != ''">
+            <![CDATA[ and bid_time < #{maxBidTime} ]]>
+        </if>
+        <if test="minBudgetShare != null and minBudgetShare != ''">
+            and budget_share > #{minBudgetShare}
+        </if>
+        <if test="maxBudgetShare != null and maxBudgetShare != ''">
+            <![CDATA[ and budget_share < #{maxBudgetShare} ]]>
+        </if>
+        <if test="minCostHours != null and minCostHours != ''">
+            and cost_hours > #{minCostHours}
+        </if>
+        <if test="maxCostHours != null and maxCostHours != ''">
+            <![CDATA[ and cost_hours < #{maxCostHours} ]]>
+        </if>
+        <if test="minGrossProfit != null and minGrossProfit != ''">
+            and gross_profit > #{minGrossProfit}
+        </if>
+        <if test="maxGrossProfit != null and maxGrossProfit != ''">
+            <![CDATA[ and gross_profit < #{maxGrossProfit} ]]>
+        </if>
+    </select>
+
+</mapper>

@@ -171,6 +171,18 @@
         and project_num != ''
     </select>
 
+    <select id="getBiddingByName" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+        select * from bidding_information
+        where project_name = #{projectName}
+    </select>
+
+    <select id="getWinBidding" resultMap="BaseResultMap"
+            parameterType="BiddingInformation">
+        select * from bidding_information
+        where is_bid='是' and is_fail = ''
+    </select>
+
 
 
 </mapper>
