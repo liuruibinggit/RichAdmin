@@ -40,4 +40,6 @@ public interface ProjectLibraryMapper {
      * 根据项目编号获取项目信息库信息
      */
     ProjectLibrary selectProjectLibraryByProjectNum(String projectNum);
+
+    ProjectLibrary selectProjectById(int pid);
 }
