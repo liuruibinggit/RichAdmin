@@ -27,7 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 public class LogAspect {
 
     private final static Logger logger = LoggerFactory.getLogger(LogAspect.class);
-
     //对Controller层的所有方法进行横切
     @Pointcut("execution(public * cn.richinfo.richadmin.Controller.*.*(..))")
     public void controllerImplAopMethod() {
